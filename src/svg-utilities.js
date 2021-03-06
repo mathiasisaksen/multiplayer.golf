@@ -21,4 +21,16 @@ function drawLine(svgElement, startPoint, endPoint, attributes) {
     
 }
 
-export { drawLine };
+function drawPolygon(svgElement, vertices, attributes) {
+    // Format expected by SVG polygon: x1,y1 x2,y2,...
+    const vertexString = vertices.map(vertex => `${vertex.x},${vertex.y}`).join(" ");
+    attributes.points = vertexString;
+
+    const polygonElement = document.createElementNS(XMLNS, 'polygon');
+    polygonElement.classList.add('course-boundary');
+    setAttributes(polygonElement, attributes);
+
+    svgElement.append(polygonElement);
+}
+
+export { drawLine, drawPolygon };

@@ -11,7 +11,7 @@ main {
 }
 
 #game-container {
-    width: 500px;
-    height: 500px;
+    width: 90vmin;
+    height: 90vmin;
     border: 1px solid black;
 }
