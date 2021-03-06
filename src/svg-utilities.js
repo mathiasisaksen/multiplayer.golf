@@ -2,41 +2,60 @@
 const XMLNS = 'http://www.w3.org/2000/svg';
 
 function setAttributes(element, attributes) {
+    if (!attributes) return;
     for (const name in attributes) {
         element.setAttribute(name, attributes[name]);
     }
 }
 
-function drawLine(svgElement, startPoint, endPoint, attributes, classArray) {
+function createGeneralElement(type, attributes, classArray) {
+    const element = document.createElementNS(XMLNS, type);
+    classArray?.forEach(className => element.classList.add(className));
+    setAttributes(element, attributes);
+    return(element);
+}
+
+function drawLine(parentSVGElement, startPoint, endPoint, attributes, classArray) {
     attributes.x1 = startPoint.x;
     attributes.y1 = startPoint.y;
     attributes.x2 = endPoint.x;
     attributes.y2 = endPoint.y;
 
-    const lineElement = document.createElementNS(XMLNS, 'line');
-    classArray?.forEach(className => lineElement.classList.add(className));
-    setAttributes(lineElement, attributes);
+    const lineElement = createGeneralElement('line', attributes, classArray);
 
-    svgElement.append(lineElement);
+    parentSVGElement.append(lineElement);
+    return(lineElement);
     
 }
 
-function drawPolygon(svgElement, vertices, attributes, classArray) {
+function drawPolygon(parentSVGElement, vertices, attributes, classArray) {
     // Format expected by SVG polygon: x1,y1 x2,y2,...
     const vertexString = vertices.map(vertex => `${vertex.x},${vertex.y}`).join(" ");
     attributes.points = vertexString;
 
-    const polygonElement = document.createElementNS(XMLNS, 'polygon');
-    classArray?.forEach(className => polygonElement.classList.add(className));
-    setAttributes(polygonElement, attributes);
+    const polygonElement = createGeneralElement('polygon', attributes, classArray);
 
-    svgElement.append(polygonElement);
+    parentSVGElement.append(polygonElement);
+    return(polygonElement);
+}
+
+function drawCircle(parentSVGElement, center, attributes, classArray) {
+    attributes.cx = center.x;
+    attributes.cy = center.y;
+
+    const circleElement = createGeneralElement('circle', attributes, classArray);
+
+    parentSVGElement.append(circleElement);
+    return(circleElement);
 }
 
 function createGroupElement(classArray) {
-    const groupElement = document.createElementNS(XMLNS, 'g');
-    classArray?.forEach(className => groupElement.classList.add(className));
+    const groupElement = createGeneralElement('g', null, classArray);
     return(groupElement);
 }
 
-export { drawLine, drawPolygon, createGroupElement };
+function setCirclePosition(circleElement, position) {
+    setAttributes(circleElement, {cx: position.x, cy: position.y});
+}
+
+export { drawLine, drawPolygon, drawCircle, createGroupElement, setCirclePosition };

@@ -1,7 +1,8 @@
 
 const svgConfig = {
     boundaryAttributes: {'stroke': 'black', 'stroke-width': 2, 'fill': 'none'},
-    obstacleAttributes: {'stroke': 'black', 'stroke-width': 2, 'fill': 'black'}
+    obstacleAttributes: {'stroke': 'black', 'stroke-width': 2, 'fill': 'black'},
+    golfBallAttributes: {'r': 2, 'fill': 'black'}
 }
 
 export { svgConfig };

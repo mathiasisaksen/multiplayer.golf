@@ -14,7 +14,7 @@ const Course = function(vertices, rootSVGElement) {
         console.log(vertices);
     }
 
-    function drawCourse() {
+    function draw() {
         svgUtilities.drawPolygon(courseElement, boundaryVertices, 
             svgConfig.boundaryAttributes, ["course-boundary"]);
         obstacles?.forEach(obstacleVertices => {
@@ -24,7 +24,7 @@ const Course = function(vertices, rootSVGElement) {
         )
     }
 
-    return({printVertices, drawCourse});
+    return({printVertices, draw});
 };
 
 export default Course;

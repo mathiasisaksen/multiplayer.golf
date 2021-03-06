@@ -1,4 +1,5 @@
 import Course from './course';
+import { GolfBall } from './golf-ball';
 
 const rootSVGElement = document.querySelector('#game-container');
 
@@ -15,4 +16,11 @@ const course = Course({
         {x: 30, y: 40}]]
     },
     rootSVGElement);
-course.drawCourse();
+course.draw();
+
+const golfBall = GolfBall({x: 20, y: 20}, 0, 0, rootSVGElement);
+golfBall.draw();
+/*setInterval(() => {golfBall.setPosition({
+    x: 100*Math.random(),
+    y: 100*Math.random()
+})}, 1000);*/
