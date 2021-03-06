@@ -1,0 +1,1 @@
+(()=>{"use strict";(function(t,n=!1){return n||t.push(t[0]),{printVertices:function(){console.log(t)}}})([{x:0,y:0},{x:1,y:0},{x:0,y:1}]).printVertices()})();
