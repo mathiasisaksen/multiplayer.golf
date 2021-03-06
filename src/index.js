@@ -1,6 +1,6 @@
 import Course from './course';
 
-const svgElement = document.querySelector('#game-container');
+const rootSVGElement = document.querySelector('#game-container');
 
 const course = Course({
     boundary: [
@@ -13,5 +13,6 @@ const course = Course({
         {x: 40, y: 30},
         {x: 40, y: 40},
         {x: 30, y: 40}]]
-});
-course.drawCourse(svgElement);
+    },
+    rootSVGElement);
+course.drawCourse();
