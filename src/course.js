@@ -1,6 +1,7 @@
-import * as svgUtilities from './svgUtilities';
+import * as svgUtilities from './svg-utilities';
+import { svgConfig } from './game-config';
 
-
+console.log(svgConfig)
 const Course = function(vertices, looped = false) {
     if (!looped) {
         vertices.push(vertices[0]);
@@ -14,7 +15,7 @@ const Course = function(vertices, looped = false) {
     function drawCourse(svgElement) {
         for (let i = 1; i < numberOfVertices; i++) {
             svgUtilities.drawLine(svgElement, vertices[i - 1], vertices[i],
-                {'stroke': 'black', 'stroke-width': 5})
+                svgConfig.lineAttributes)
         }
     }
 
