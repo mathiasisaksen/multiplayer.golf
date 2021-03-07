@@ -1,6 +1,17 @@
 
 const XMLNS = 'http://www.w3.org/2000/svg';
 
+function createSVGPositionComputer(rootSVGElement) {
+    const point = rootSVGElement.createSVGPoint();
+
+    function computeSVGPosition(event) {
+        point.x = event.clientX;
+        point.y = event.clientY;
+        return(point.matrixTransform(rootSVGElement.getScreenCTM().inverse()));
+    }
+    return(computeSVGPosition);
+}
+
 function setAttributes(element, attributes) {
     if (!attributes) return;
     for (const name in attributes) {
@@ -58,4 +69,4 @@ function setCirclePosition(circleElement, position) {
     setAttributes(circleElement, {cx: position.x, cy: position.y});
 }
 
-export { drawLine, drawPolygon, drawCircle, createGroupElement, setCirclePosition };
+export { drawLine, drawPolygon, drawCircle, createGroupElement, setCirclePosition, createSVGPositionComputer };
