@@ -32,7 +32,15 @@ const Course = function(vertices, rootSVGElement) {
         draw();
     }
 
-    return({ draw, initialize });
+    function getBoundaryVertices() {
+        return(boundaryVertices);
+    }
+
+    function getObstacles() {
+        return(obstacles);
+    }
+
+    return({ draw, initialize, getBoundaryVertices, getObstacles });
 };
 
 export default Course;
