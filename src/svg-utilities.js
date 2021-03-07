@@ -3,10 +3,9 @@ const XMLNS = 'http://www.w3.org/2000/svg';
 
 function createSVGPositionComputer(rootSVGElement) {
     const point = rootSVGElement.createSVGPoint();
-
-    function computeSVGPosition(event) {
-        point.x = event.clientX;
-        point.y = event.clientY;
+    function computeSVGPosition(clientPosition) {
+        point.x = clientPosition.x;
+        point.y = clientPosition.y;
         return(point.matrixTransform(rootSVGElement.getScreenCTM().inverse()));
     }
     return(computeSVGPosition);

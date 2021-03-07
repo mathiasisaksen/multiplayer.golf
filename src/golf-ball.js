@@ -16,10 +16,6 @@ const GolfBall = function(
     function draw() {
         golfBallElement = svgUtilities.drawCircle(rootSVGElement, position, 
             svgConfig.golfBallAttributes, ['golf-ball']);
-        golfBallElement.addEventListener('click', event => {
-            const position = computeSVGPosition(event);
-            setPosition(position);
-        });
     }
 
     function setPosition(newPosition) {
@@ -27,9 +23,38 @@ const GolfBall = function(
         svgUtilities.setCirclePosition(golfBallElement, position);
     }
 
+    function addEventListeners() {
+        function handleMouseMove(event) {
+            //const touch = event.changedTouches[0];
+            //const position = computeSVGPosition({x: touch.clientX, y: touch.clientY});
+            const position = computeSVGPosition({x: event.clientX, y: event.clientY});
+            setPosition(position);
+        }
+        function handleMovementStart() {
+            
+            rootSVGElement.addEventListener('mousemove', handleMouseMove);
+            rootSVGElement.addEventListener('mouseup', handleMovementEnd);
 
-    
-    return({ draw, setPosition })
+            //rootSVGElement.addEventListener('touchmove', handleMouseMove);
+            //rootSVGElement.addEventListener('touchend', handleMovementEnd);
+        }
+        function handleMovementEnd() {
+            rootSVGElement.removeEventListener('mousemove', handleMouseMove);
+            rootSVGElement.removeEventListener('mouseup', handleMovementEnd);
+
+            //rootSVGElement.removeEventListener('touchmove', handleMouseMove);
+            //rootSVGElement.removeEventListener('touchend', handleMovementEnd);
+        }
+        golfBallElement.addEventListener('mousedown', handleMovementStart);
+        //golfBallElement.addEventListener('touchstart', handleMovementStart);
+    }
+
+    function initialize() {
+        draw();
+        addEventListeners();
+    }
+
+    return({ draw, setPosition, initialize })
 
 }
 

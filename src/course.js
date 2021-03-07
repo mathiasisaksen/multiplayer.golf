@@ -16,15 +16,23 @@ const Course = function(vertices, rootSVGElement) {
 
     function draw() {
         svgUtilities.drawPolygon(courseElement, boundaryVertices, 
-            svgConfig.boundaryAttributes, ["course-boundary"]);
+            svgConfig.boundaryAttributesOuter, ['course-boundary', 'course-boundary-outer']);
+        svgUtilities.drawPolygon(courseElement, boundaryVertices, 
+            svgConfig.boundaryAttributesInner, ['course-boundary', 'course-boundary-inner']);
+        boundaryVertices.forEach(vertex => svgUtilities.drawCircle(courseElement, vertex, {'r': 0.5, fill: 'red', 'stroke-width': 0 }));
         obstacles?.forEach(obstacleVertices => {
             svgUtilities.drawPolygon(courseElement, obstacleVertices, 
-                svgConfig.obstacleAttributes, ["course-obstacle"]);
+                svgConfig.obstacleAttributes, ['course-obstacle']);
+            obstacleVertices.forEach(vertex => svgUtilities.drawCircle(courseElement, vertex, {'r': 0.5, fill: 'blue', 'stroke-width': 0 }));
             }
         )
     }
 
-    return({printVertices, draw});
+    function initialize() {
+        draw();
+    }
+
+    return({ draw, initialize });
 };
 
 export default Course;

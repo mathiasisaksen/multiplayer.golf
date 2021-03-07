@@ -10,16 +10,16 @@ const course = Course({
     {x: 90, y: 90}, 
     {x: 10, y: 40}],
     obstacles: [
-        [{x: 30, y: 30}, 
-        {x: 40, y: 30},
-        {x: 40, y: 40},
-        {x: 30, y: 40}]]
+        [{x: 10, y: 30}, 
+        {x: 20, y: 30},
+        {x: 20, y: 40},
+        {x: 10, y: 40}]]
     },
     rootSVGElement);
-course.draw();
+course.initialize();
 
 const golfBall = GolfBall({x: 20, y: 20}, 0, 0, rootSVGElement);
-golfBall.draw();
+golfBall.initialize();
 /*setInterval(() => {golfBall.setPosition({
     x: 100*Math.random(),
     y: 100*Math.random()
