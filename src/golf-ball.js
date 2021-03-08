@@ -1,5 +1,6 @@
 import { svgConfig } from './game-config';
 import * as svgUtilities from './svg-utilities';
+import * as mUtils from './math-utilities'
 
 const GolfBall = function(
         initialPosition, 
@@ -7,14 +8,14 @@ const GolfBall = function(
         initialDirection, 
         rootSVGElement) {
     
-    let position = initialPosition;
+    let position = mUtils.Vector(initialPosition);
     let speed = initialSpeed;
     let direction = initialDirection;
     let _golfBallElement;
     const _computeSVGPosition = svgUtilities.createSVGPositionComputer(rootSVGElement);
 
     function draw() {
-        _golfBallElement = svgUtilities.drawCircle(rootSVGElement, position, 
+        _golfBallElement = svgUtilities.drawCircle(rootSVGElement, position.getCoordinates(), 
             svgConfig.golfBallAttributes, ['golf-ball']);
     }
 
@@ -24,7 +25,7 @@ const GolfBall = function(
 
     function setPosition(newPosition) {
         position = newPosition;
-        svgUtilities.setCirclePosition(_golfBallElement, position);
+        svgUtilities.setCirclePosition(_golfBallElement, position.getCoordinates());
     }
 
     function getSpeed() {
@@ -48,7 +49,7 @@ const GolfBall = function(
             //const touch = event.changedTouches[0];
             //const position = computeSVGPosition({x: touch.clientX, y: touch.clientY});
             const position = _computeSVGPosition({x: event.clientX, y: event.clientY});
-            setPosition(position);
+            setPosition(mUtils.Vector(position));
         }
         function _handleMovementStart() {
             

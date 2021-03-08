@@ -5,27 +5,25 @@ const GameMechanics = function(course, golfBall) {
     const boundaryVertices = course.getBoundaryVertices();
     // Create loop to simplify computations
     boundaryVertices.push(boundaryVertices[0]);
-    let edges = [];
     
-    for (let i = 1; i < boundaryVertices.length; i++) {
-        const a = boundaryVertices[i-1];
-        const b = boundaryVertices[i];
-        edges.push(mUtils.Edge(mUtils.Vector(a.x, a.y), mUtils.Vector(b.x, b.y)));
-    }
-
-    const obstacles = course.getObstacles();
-    obstacles?.forEach(obstacleVertices => {
-        obstacleVertices.push(obstacleVertices[0]);
-        for (let i = 1; i < obstacleVertices.length; i++) {
-        const a = obstacleVertices[i-1];
-        const b = obstacleVertices[i];
-        edges.push(mUtils.Edge(mUtils.Vector(a.x, a.y), mUtils.Vector(b.x, b.y)));
-        }
-    })
-
+    // Create array of edges from both boundary and inner obstacles
+    let edges = course.getEdges();
+    
     console.log(edges);
 
-    function step() {
+    function computeCollision() {
+        const golfBallPosition = golfBall.getPosition();
+        const golfBallDirection = golfBall.getDirection();
+        const directionVector = mUtils.createUnitVector(golfBallDirection);
+        const golfBallPath = mUtils.Path(golfBallPosition, directionVector);
+
+        // Paths that outline the area covered by the motion of the golf ball
+        const outerPaths = mUtils.getParallelPaths(golfBallPath, gameConfig.golfBallRadius);
+        console.log(outerPaths.pathA.getString());
+        console.log(outerPaths.pathB.getString());
+    }
+    computeCollision();
+    function step(timeStep) {
         const oldPosition = golfBall.getPosition();
         const speed = golfBall.getSpeed();
         const direction = golfBall.getDirection();

@@ -1,6 +1,6 @@
 
 // Represents a general two-dimensional vector (or point)
-function Vector(x, y) {
+function Vector({x, y}) {
     let _x = x;
     let _y = y;
     let _length;
@@ -26,7 +26,7 @@ function Vector(x, y) {
     }
 
     function getPerpendicular() {
-        return(Vector(-_y, _x));
+        return(Vector({x: -_y, y: _x}));
     }
 
     function getLength() {
@@ -44,7 +44,7 @@ function Vector(x, y) {
     }
 
     function getNormalized() {
-        return(Vector(_x / getLength(), _y / getLength()));
+        return(Vector({x: _x / getLength(), y: _y / getLength()}));
     }
 
     function getString() {
@@ -61,23 +61,23 @@ function crossProduct2D(vector1, vector2) {
 function addVectors(vector1, vector2) {
     const sumX = vector1.getX() + vector2.getX();
     const sumY = vector1.getY() + vector2.getY();
-    return(Vector(sumX, sumY));
+    return(Vector({x: sumX, y: sumY}));
 }
 
 function subtractVectors(vector1, vector2) {
     const differenceX = vector1.getX() - vector2.getX();
     const differenceY = vector1.getY() - vector2.getY();
-    return(Vector(differenceX, differenceY));
+    return(Vector({x: differenceX, y: differenceY}));
 }
 
 function scaleVector(vector, scalar) {
     const scaledX = scalar*vector.getX();
     const scaledY = scalar*vector.getY();
-    return(Vector(scaledX, scaledY));
+    return(Vector({x: scaledX, y: scaledY}));
 }
 
 function createUnitVector(direction) {
-    return(Vector(Math.cos(direction), Math.sin(direction)));
+    return(Vector({x: Math.cos(direction), y: Math.sin(direction)}));
 }
 
 // Represents an edge in a polygon

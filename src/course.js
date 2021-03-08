@@ -1,5 +1,6 @@
 import * as svgUtilities from './svg-utilities';
 import { svgConfig } from './game-config';
+import * as mUtils from './math-utilities'
 
 // vertices is an object containing two arrays: boundary and obstacles
 // boundary contains the vertices of the polygonal boundary, while
@@ -10,6 +11,30 @@ const Course = function(vertices, rootSVGElement) {
     const courseElement = svgUtilities.createGroupElement(['course-container']);
     rootSVGElement.append(courseElement);
 
+    let edges = [];
+
+    function computeEdges() {
+        const boundaryVerticesLooped = [...boundaryVertices];
+        boundaryVerticesLooped.push(boundaryVerticesLooped[0]);
+    
+        // Create array of edges from both boundary and inner obstacles
+        for (let i = 1; i < boundaryVerticesLooped.length; i++) {
+            const a = boundaryVerticesLooped[i-1];
+            const b = boundaryVerticesLooped[i];
+            edges.push(mUtils.Edge(mUtils.Vector(a.x, a.y), mUtils.Vector(b.x, b.y)));
+        }
+        obstacles?.forEach(obstacleVertices => {
+            const obstacleVerticesLooped = [...obstacleVertices];
+            obstacleVerticesLooped.push(obstacleVerticesLooped[0]);
+            for (let i = 1; i < obstacleVerticesLooped.length; i++) {
+                const a = obstacleVerticesLooped[i-1];
+                const b = obstacleVerticesLooped[i];
+            edges.push(mUtils.Edge(mUtils.Vector(a.x, a.y), mUtils.Vector(b.x, b.y)));
+            }
+        })
+    
+    }
+    
     function printVertices() {
         console.log(vertices);
     }
@@ -29,6 +54,7 @@ const Course = function(vertices, rootSVGElement) {
     }
 
     function initialize() {
+        computeEdges();
         draw();
     }
 
@@ -40,7 +66,11 @@ const Course = function(vertices, rootSVGElement) {
         return(obstacles);
     }
 
-    return({ draw, initialize, getBoundaryVertices, getObstacles });
+    function getEdges() {
+        return(edges);
+    }
+
+    return({ draw, initialize, getBoundaryVertices, getObstacles, getEdges });
 };
 
 export default Course;
