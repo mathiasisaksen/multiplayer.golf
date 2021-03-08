@@ -20,6 +20,10 @@ function Vector(x, y) {
         _y = newY;
     }
 
+    function getCoordinates() {
+        return({x: _x, y: _y})
+    }
+
     function getPerpendicular() {
         return(Vector(-_y, _x));
     }
@@ -38,7 +42,15 @@ function Vector(x, y) {
         _y /= length;
     }
 
-    return({ getX, setX, getY, setY, getPerpendicular, getLength, normalize })
+    function getNormalized() {
+        return(Vector(_x / getLength(), _y / getLength()));
+    }
+
+    function getString() {
+        return(`[x: ${_x}, y: ${y}]`)
+    }
+    return({ getX, setX, getY, setY, getPerpendicular, getLength, normalize,
+            getCoordinates, getNormalized, getString })
 }
 
 function crossProduct2D(vector1, vector2) {
@@ -88,6 +100,10 @@ function Edge(startVertex, endVertex) {
         return(_diffVector);
     }
 
+    function getString() {
+        return(`Start: ${_startVertex.getString()}, end: ${_endVertex.getString()}`)
+    }
+    
     return({ getLength, getStartVertex, getEndVertex, getDifferenceVector });
 }
 
@@ -107,7 +123,11 @@ function Path(initialPoint, directionVector) {
         return(addVectors(_initialPoint, scaleVector(_directionVector, time)));
     }
 
-    return({ getInitialPoint, getDirectionVector, getPositionAtTime });
+    function getString() {
+        return(`Initial point: ${_initialPoint.getString()}, direction: ${_directionVector.getString()}`)
+    }
+
+    return({ getInitialPoint, getDirectionVector, getPositionAtTime, getString });
 }
 
 // Useful reference: Intersection of two line segments
@@ -130,6 +150,18 @@ function computePathEdgeIntersection(path, edge) {
     return({ intersectionPoint, pathParameter: t, edgeParameter: u});
 }
 
+// Given a circle and a path, returns the two paths that are parallel to the 
+// original path and tangetial to the circle. These will go in the same 
+// direction, but start in different points
+function getParallelPaths(path, radius) {
+    const directionVector = path.getDirectionVector();
+    const unitPerpVector = directionVector.getNormalized().getPerpendicular();
+
+    const initialPointA = addVectors(path.getInitialPoint(), scaleVector(unitPerpVector, radius));
+    const initialPointB = subtractVectors(path.getInitialPoint(), scaleVector(unitPerpVector, radius));
+    return({pathA: Path(initialPointA, directionVector), pathB: Path(initialPointB, directionVector)})
+}
+
 export { Vector, crossProduct2D, addVectors, 
     subtractVectors, createUnitVector, Edge, Path,
-    computePathEdgeIntersection };
+    computePathEdgeIntersection, getParallelPaths };
