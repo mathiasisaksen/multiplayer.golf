@@ -32,7 +32,7 @@ const GameMechanics = function(course, golfBall) {
         const newPosition = mathUtilities.addVectors(oldPosition, change);
         golfBall.setPosition(newPosition);
     }
-    setInterval(step, 100);
+    //setInterval(step, 100);
 }
 
 export default GameMechanics;
