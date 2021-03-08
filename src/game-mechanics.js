@@ -24,7 +24,7 @@ const GameMechanics = function(course, golfBall) {
         const direction = golfBall.getDirection();
         console.log("speed", speed)
         console.log("direction", direction);
-        let dt = 0.01;
+        let dt = 0.001;
         let change = {}
         change.x = speed*Math.cos(direction);
         change.y = speed*Math.sin(direction);
@@ -32,7 +32,7 @@ const GameMechanics = function(course, golfBall) {
         const newPosition = mathUtilities.addVectors(oldPosition, change);
         golfBall.setPosition(newPosition);
     }
-    setInterval(step, 1000);
+    setInterval(step, 100);
 }
 
 export default GameMechanics;
