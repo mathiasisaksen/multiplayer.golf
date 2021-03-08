@@ -1,4 +1,5 @@
 
+// Represents a general two-dimensional vector (or point)
 function Vector(x, y) {
     let _x = x;
     let _y = y;
@@ -79,6 +80,7 @@ function createUnitVector(direction) {
     return(Vector(Math.cos(direction), Math.sin(direction)));
 }
 
+// Represents an edge in a polygon
 function Edge(startVertex, endVertex) {
     let _startVertex = startVertex;
     let _endVertex = endVertex;
@@ -107,6 +109,7 @@ function Edge(startVertex, endVertex) {
     return({ getLength, getStartVertex, getEndVertex, getDifferenceVector });
 }
 
+// A path describes the motion of the ball
 function Path(initialPoint, directionVector) {
     let _initialPoint = initialPoint;
     let _directionVector = directionVector;

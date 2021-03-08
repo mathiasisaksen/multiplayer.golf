@@ -1,21 +1,28 @@
-import * as mathUtilities from './math-utilities';
+import * as mUtils from './math-utilities';
+import { gameConfig } from './game-config';
 
 const GameMechanics = function(course, golfBall) {
     const boundaryVertices = course.getBoundaryVertices();
     // Create loop to simplify computations
     boundaryVertices.push(boundaryVertices[0]);
     let edges = [];
+    
     for (let i = 1; i < boundaryVertices.length; i++) {
-        edges.push({start: boundaryVertices[i-1], end: boundaryVertices[i]});
+        const a = boundaryVertices[i-1];
+        const b = boundaryVertices[i];
+        edges.push(mUtils.Edge(mUtils.Vector(a.x, a.y), mUtils.Vector(b.x, b.y)));
     }
 
     const obstacles = course.getObstacles();
     obstacles?.forEach(obstacleVertices => {
         obstacleVertices.push(obstacleVertices[0]);
         for (let i = 1; i < obstacleVertices.length; i++) {
-            edges.push({start: obstacleVertices[i-1], end: obstacleVertices[i]});
+        const a = obstacleVertices[i-1];
+        const b = obstacleVertices[i];
+        edges.push(mUtils.Edge(mUtils.Vector(a.x, a.y), mUtils.Vector(b.x, b.y)));
         }
     })
+
     console.log(edges);
 
     function step() {
@@ -29,7 +36,7 @@ const GameMechanics = function(course, golfBall) {
         change.x = speed*Math.cos(direction);
         change.y = speed*Math.sin(direction);
         //console.table(change);
-        const newPosition = mathUtilities.addVectors(oldPosition, change);
+        const newPosition = mUtils.addVectors(oldPosition, change);
         golfBall.setPosition(newPosition);
     }
     //setInterval(step, 100);

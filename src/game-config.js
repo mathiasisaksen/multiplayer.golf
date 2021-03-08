@@ -1,5 +1,6 @@
 const gameConfig = {
-    golfBallRadius: 2
+    golfBallRadius: 2,
+    speedThreshold: 0.001
 };
 
 const svgConfig = {
