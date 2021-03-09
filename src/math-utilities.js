@@ -106,11 +106,20 @@ function Edge(startVertex, endVertex) {
         return(_diffVector);
     }
 
+    // Takes in a position on the edge and computes the proportion,
+    // so that a value between 0 (startVertex) and 1 (endVertex) is returned
+    // when the position is on the vertex
+    function computePositionProportion(position) {
+        return((position.getX() - startVertex.getX()) / 
+               (endVertex.getX() - startVertex.getX()));
+    }
+
     function getString() {
         return(`Start: ${_startVertex.getString()}, end: ${_endVertex.getString()}`)
     }
     
-    return({ getLength, getStartVertex, getEndVertex, getDifferenceVector, getString });
+    return({ getLength, getStartVertex, getEndVertex, getDifferenceVector, getString,
+            computePositionProportion });
 }
 
 // A path describes the motion of the ball
@@ -191,18 +200,32 @@ function computeMovingCircleEdgeIntersection(path, radius, edge) {
         dotProduct(pathStart.getPerpendicular(), edgeVector) +
         dotProduct(edgeStart, edgeEnd.getPerpendicular())) / 
         dotProduct(pathVector, edgeVector.getPerpendicular())
-    const circleCenterCollision = path.getPositionAtTime(time);
+    const collisionCenter = path.getPositionAtTime(time);
 
-    const edgeStartCentered = subtractVectors(edgeStart, circleCenterCollision);
-    const edgeEndCentered = subtractVectors(edgeEnd, circleCenterCollision);
+    const edgeStartCentered = subtractVectors(edgeStart, collisionCenter);
+    const edgeEndCentered = subtractVectors(edgeEnd, collisionCenter);
     const crossProd = crossProduct2D(edgeStartCentered, edgeEndCentered);
 
-    const collisionX = circleCenterCollision.getX() + 
+    const collisionPointX = collisionCenter.getX() + 
         crossProd * edgeVector.getY() / edgeVector.getLength()**2;
-    const collisionY = circleCenterCollision.getX() - 
+    const collisionPointY = collisionCenter.getY() - 
         crossProd * edgeVector.getX() / edgeVector.getLength()**2;
-    const collisionPoint = Vector({x: collisionX, y: collisionY});
-    return({circleCenter, collisionPoint});
+    let collisionPoint = Vector({x: collisionPointX, y: collisionPointY});
+
+    const collisionEdgeProportion = edge.computePositionProportion(collisionPoint);
+    // If this value is between 0 and 1, the collision occurs on the "flat" 
+    // part of the edge, not on a corner
+    if (isInRange(collisionEdgeProportion, 0, 1)) {
+        return({collisionCenter, collisionPoint});
+    } else if (isInRange(collisionEdgeProportion, -Infinity, 0)) {
+        // If computed collision happens before start of edge,
+        // the circle will collide with the start vertex
+        collisionPoint = edgeStart;
+    } else {
+        // Otherwise, it will collide with the end vertex
+        collisionPoint = edgeEnd;
+    }
+    
 }
 
 export { Vector, dotProduct, crossProduct2D, addVectors, 

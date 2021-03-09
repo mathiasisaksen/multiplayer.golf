@@ -40,7 +40,9 @@ function drawLine(parentSVGElement, startPoint, endPoint, attributes, classArray
 
 function drawPolygon(parentSVGElement, vertices, attributes, classArray) {
     // Format expected by SVG polygon: x1,y1 x2,y2,...
-    const vertexString = vertices.map(vertex => `${vertex.x},${vertex.y}`).join(" ");
+    const vertexString = vertices
+        .map(vertex => `${vertex.x || vertex.getX() },${vertex.y || vertex.getY()}`)
+        .join(" ");
     attributes.points = vertexString;
 
     const polygonElement = createGeneralElement('polygon', attributes, classArray);
@@ -50,8 +52,8 @@ function drawPolygon(parentSVGElement, vertices, attributes, classArray) {
 }
 
 function drawCircle(parentSVGElement, center, attributes, classArray) {
-    attributes.cx = center.x;
-    attributes.cy = center.y;
+    attributes.cx = center.x || center.getX();
+    attributes.cy = center.y || center.getY();
 
     const circleElement = createGeneralElement('circle', attributes, classArray);
 

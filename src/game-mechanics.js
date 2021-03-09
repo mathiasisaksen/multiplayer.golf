@@ -18,7 +18,7 @@ const GameMechanics = function(course, golfBall) {
         const directionVector = mUtils.createUnitVector(golfBallDirection);
         const golfBallPath = mUtils.Path(golfBallPosition, directionVector);
 
-        // Paths that outline the area covered by the motion of the golf ball
+        // Paths that outline the extent covered by the motion of the golf ball
         const outerPaths = mUtils.getParallelPaths(golfBallPath, gameConfig.golfBallRadius);
         console.log(outerPaths.pathA.getString());
         console.log(outerPaths.pathB.getString());
@@ -33,13 +33,25 @@ const GameMechanics = function(course, golfBall) {
             console.log(interSectionA);
             let color;
             if (interSectionA && interSectionB) {
-                color = (mUtils.isInRange(interSectionA.edgeParameter, 0, 1) && mUtils.isInRange(interSectionA.pathParameter, 0, Infinity)) ||
-                    (mUtils.isInRange(interSectionB.edgeParameter, 0, 1) && mUtils.isInRange(interSectionB.pathParameter, 0, Infinity)) ? "green" : "red";
-            } else {
-                color = "red";
-            }
-            svgUtilities.drawLine(rootSVGElement, start, end, {'stroke': color, 'stroke-width': 1});
-
+                const canCollide = 
+                    (mUtils.isInRange(interSectionA.edgeParameter, 0, 1) && 
+                     mUtils.isInRange(interSectionA.pathParameter, 0, Infinity)) ||
+                    (mUtils.isInRange(interSectionB.edgeParameter, 0, 1) && 
+                     mUtils.isInRange(interSectionB.pathParameter, 0, Infinity))
+                color = canCollide ? "green" : "red";
+                //svgUtilities.drawLine(rootSVGElement, start, end, {'stroke': color, 'stroke-width': 1});
+                if (canCollide) {
+                    // Compute hypothetical collision
+                    const collisionData = mUtils.computeMovingCircleEdgeIntersection(
+                        golfBallPath, gameConfig.golfBallRadius, edge);
+                    
+                    if (edge.computePositionProportion(collisionData.collisionPoint));
+                    console.log(`Collision point: ${collisionData.collisionPoint.getString()}, golf ball center: ${collisionData.collisionCenter.getString()}`);
+                    svgUtilities.drawCircle(rootSVGElement, collisionData.collisionCenter, {'r': 1, 'fill': 'green'});
+                    svgUtilities.drawCircle(rootSVGElement, collisionData.collisionPoint, {'r': 1, 'fill': 'orange'});
+                }
+                
+            } 
         }
 
     }
