@@ -178,10 +178,34 @@ function isInRange(value, lower, upper) {
 // Computes the intersection point between a circle moving along a straight
 // path and an edge
 function computeMovingCircleEdgeIntersection(path, radius, edge) {
-    
+    // Path is on the form pathStart + pathVector*t, where t >= 0
+    const pathStart = path.getInitialPoint();
+    const pathVector = path.getDirectionVector();
+
+    // Edge is on form edgeStart + edgeVector*u, where 0 <= s <= 1
+    const edgeStart = edge.getStartVertex();
+    const edgeEnd = edge.getEndVertex();
+    const edgeVector = edge.getDifferenceVector();
+
+    const time = (radius*edgeVector.getLength() + 
+        dotProduct(pathStart.getPerpendicular(), edgeVector) +
+        dotProduct(edgeStart, edgeEnd.getPerpendicular())) / 
+        dotProduct(pathVector, edgeVector.getPerpendicular())
+    const circleCenterCollision = path.getPositionAtTime(time);
+
+    const edgeStartCentered = subtractVectors(edgeStart, circleCenterCollision);
+    const edgeEndCentered = subtractVectors(edgeEnd, circleCenterCollision);
+    const crossProd = crossProduct2D(edgeStartCentered, edgeEndCentered);
+
+    const collisionX = circleCenterCollision.getX() + 
+        crossProd * edgeVector.getY() / edgeVector.getLength()**2;
+    const collisionY = circleCenterCollision.getX() - 
+        crossProd * edgeVector.getX() / edgeVector.getLength()**2;
+    const collisionPoint = Vector({x: collisionX, y: collisionY});
+    return({circleCenter, collisionPoint});
 }
 
 export { Vector, dotProduct, crossProduct2D, addVectors, 
     subtractVectors, createUnitVector, Edge, Path,
     computePathEdgeIntersection, getParallelPaths,
-    isInRange };
+    isInRange, computeMovingCircleEdgeIntersection };
