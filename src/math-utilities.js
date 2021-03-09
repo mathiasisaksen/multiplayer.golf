@@ -54,6 +54,10 @@ function Vector({x, y}) {
             getCoordinates, getNormalized, getString })
 }
 
+function dotProduct(vector1, vector2) {
+    return(vector1.getX()*vector2.getX() + vector1.getY()*vector2.getY());
+}
+
 function crossProduct2D(vector1, vector2) {
     return(vector1.getX()*vector2.getY() - vector2.getX()*vector1.getY());
 }
@@ -106,7 +110,7 @@ function Edge(startVertex, endVertex) {
         return(`Start: ${_startVertex.getString()}, end: ${_endVertex.getString()}`)
     }
     
-    return({ getLength, getStartVertex, getEndVertex, getDifferenceVector });
+    return({ getLength, getStartVertex, getEndVertex, getDifferenceVector, getString });
 }
 
 // A path describes the motion of the ball
@@ -147,6 +151,8 @@ function computePathEdgeIntersection(path, edge) {
     //                or u = (edgeStart - pathStart) × pathVector / (pathVector × edgeVector)
     const startDiff = subtractVectors(edgeStart, pathStart);
     const denominator = crossProduct2D(pathVector, edgeVector);
+    if (denominator === 0) return;
+
     const t = crossProduct2D(startDiff, edgeVector) / denominator;
     const u = crossProduct2D(startDiff, pathVector) / denominator;
     const intersectionPoint = path.getPositionAtTime(t);
@@ -165,6 +171,17 @@ function getParallelPaths(path, radius) {
     return({pathA: Path(initialPointA, directionVector), pathB: Path(initialPointB, directionVector)})
 }
 
-export { Vector, crossProduct2D, addVectors, 
+function isInRange(value, lower, upper) {
+    return(value >= lower && value <= upper);
+}
+
+// Computes the intersection point between a circle moving along a straight
+// path and an edge
+function computeMovingCircleEdgeIntersection(path, radius, edge) {
+    
+}
+
+export { Vector, dotProduct, crossProduct2D, addVectors, 
     subtractVectors, createUnitVector, Edge, Path,
-    computePathEdgeIntersection, getParallelPaths };
+    computePathEdgeIntersection, getParallelPaths,
+    isInRange };
