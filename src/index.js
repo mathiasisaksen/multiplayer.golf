@@ -28,7 +28,7 @@ const course = Course({
     rootSVGElement);
 course.initialize();
 
-const golfBall = GolfBall({x: 20, y: 20}, 2, 1, rootSVGElement);
+const golfBall = GolfBall({x: 50, y: 50}, 2, Math.PI / 6, rootSVGElement);
 golfBall.initialize();
 
 const gameMechanics = GameMechanics(course, golfBall);

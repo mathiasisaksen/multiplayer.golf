@@ -1,16 +1,17 @@
 import * as mUtils from './math-utilities';
 import { gameConfig } from './game-config';
+import * as svgUtilities from './svg-utilities';
 
 const GameMechanics = function(course, golfBall) {
-    const boundaryVertices = course.getBoundaryVertices();
-    // Create loop to simplify computations
-    boundaryVertices.push(boundaryVertices[0]);
     
     // Create array of edges from both boundary and inner obstacles
-    let edges = course.getEdges();
+    const edges = course.getEdges();
     
     console.log(edges);
 
+    function classifyCollision() {
+
+    }
     function computeCollision() {
         const golfBallPosition = golfBall.getPosition();
         const golfBallDirection = golfBall.getDirection();
@@ -21,6 +22,26 @@ const GameMechanics = function(course, golfBall) {
         const outerPaths = mUtils.getParallelPaths(golfBallPath, gameConfig.golfBallRadius);
         console.log(outerPaths.pathA.getString());
         console.log(outerPaths.pathB.getString());
+        
+        const rootSVGElement = document.querySelector("#game-container");
+        for (const edge of edges) {
+            const start = edge.getStartVertex();
+            const end = edge.getEndVertex();
+            
+            const interSectionA = mUtils.computePathEdgeIntersection(outerPaths.pathA, edge);
+            const interSectionB = mUtils.computePathEdgeIntersection(outerPaths.pathB, edge);
+            console.log(interSectionA);
+            let color;
+            if (interSectionA && interSectionB) {
+                color = (mUtils.isInRange(interSectionA.edgeParameter, 0, 1) && mUtils.isInRange(interSectionA.pathParameter, 0, Infinity)) ||
+                    (mUtils.isInRange(interSectionB.edgeParameter, 0, 1) && mUtils.isInRange(interSectionB.pathParameter, 0, Infinity)) ? "green" : "red";
+            } else {
+                color = "red";
+            }
+            svgUtilities.drawLine(rootSVGElement, start, end, {'stroke': color, 'stroke-width': 1});
+
+        }
+
     }
     computeCollision();
     function step(timeStep) {

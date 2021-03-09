@@ -21,7 +21,7 @@ const Course = function(vertices, rootSVGElement) {
         for (let i = 1; i < boundaryVerticesLooped.length; i++) {
             const a = boundaryVerticesLooped[i-1];
             const b = boundaryVerticesLooped[i];
-            edges.push(mUtils.Edge(mUtils.Vector(a.x, a.y), mUtils.Vector(b.x, b.y)));
+            edges.push(mUtils.Edge(mUtils.Vector({x: a.x, y: a.y}), mUtils.Vector({x: b.x, y: b.y})));
         }
         obstacles?.forEach(obstacleVertices => {
             const obstacleVerticesLooped = [...obstacleVertices];
@@ -29,7 +29,7 @@ const Course = function(vertices, rootSVGElement) {
             for (let i = 1; i < obstacleVerticesLooped.length; i++) {
                 const a = obstacleVerticesLooped[i-1];
                 const b = obstacleVerticesLooped[i];
-            edges.push(mUtils.Edge(mUtils.Vector(a.x, a.y), mUtils.Vector(b.x, b.y)));
+            edges.push(mUtils.Edge(mUtils.Vector({x: a.x, y: a.y}), mUtils.Vector({x: b.x, y: b.y})));
             }
         })
     
@@ -55,6 +55,7 @@ const Course = function(vertices, rootSVGElement) {
 
     function initialize() {
         computeEdges();
+        console.log(edges.map(edge => edge.getString()));
         draw();
     }
 

@@ -17,6 +17,8 @@ const GolfBall = function(
     function draw() {
         _golfBallElement = svgUtilities.drawCircle(rootSVGElement, position.getCoordinates(), 
             svgConfig.golfBallAttributes, ['golf-ball']);
+        svgUtilities.drawLine(rootSVGElement, position, {x: position.getX() + 30*Math.cos(direction), y: position.getY() + 30*Math.sin(direction)},
+            {'stroke': 'blue', 'stroke-width': 1});
     }
 
     function getPosition() {

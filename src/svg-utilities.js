@@ -26,10 +26,10 @@ function createGeneralElement(type, attributes, classArray) {
 }
 
 function drawLine(parentSVGElement, startPoint, endPoint, attributes, classArray) {
-    attributes.x1 = startPoint.x;
-    attributes.y1 = startPoint.y;
-    attributes.x2 = endPoint.x;
-    attributes.y2 = endPoint.y;
+    attributes.x1 = startPoint.x || startPoint.getX();
+    attributes.y1 = startPoint.y || startPoint.getY();
+    attributes.x2 = endPoint.x || endPoint.getX();
+    attributes.y2 = endPoint.y || endPoint.getY();
 
     const lineElement = createGeneralElement('line', attributes, classArray);
 
