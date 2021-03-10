@@ -84,6 +84,20 @@ function createUnitVector(direction) {
     return(Vector({x: Math.cos(direction), y: Math.sin(direction)}));
 }
 
+// Computes the projection of vectorA onto vectorB
+function vectorProjection(vectorA, vectorB) {
+    const scalarProjection = dotProduct(vectorA, vectorB) / vectorB.getLength()**2;
+    return(scaleVector(vectorB, scalarProjection));
+}
+
+// Reflects the vectorA by vectorB. This is done by first computing the vector
+// rejection of vectorA on vectorB (vectorA - the projection of vectorA on vectorB).
+// Then, the reflection is given by vectorA - 2*(rejection of vectorA on vectorB)
+function vectorReflection(vectorA, vectorB) {
+    const rejection = subtractVectors(vectorA, vectorProjection(vectorA, vectorB));
+    return(subtractVectors(vectorA, scaleVector(rejection, 2)));
+}
+
 // Represents an edge in a polygon
 function Edge(startVertex, endVertex) {
     let _startVertex = startVertex;
@@ -240,6 +254,6 @@ function computeMovingCircleEdgeIntersection(path, radius, edge) {
 }
 
 export { Vector, dotProduct, crossProduct2D, addVectors, 
-    subtractVectors, createUnitVector, Edge, Path,
-    computePathEdgeIntersection, getParallelPaths,
-    isInRange, computeMovingCircleEdgeIntersection };
+    subtractVectors, scaleVector, createUnitVector, vectorProjection,
+    vectorReflection, Edge, Path, computePathEdgeIntersection, 
+    getParallelPaths, isInRange, computeMovingCircleEdgeIntersection };

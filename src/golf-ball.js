@@ -46,6 +46,14 @@ const GolfBall = function(
         direction = newDirection;
     }
 
+    function step(timeStep) {
+        const stepSize = speed*timeStep;
+        const newPosition = position;
+        newPosition.setX() += stepSize*Math.cos(direction);
+        newPosition.setY() += stepSize*Math.sin(direction);
+        setPosition(newPosition);
+    }
+
     function _addEventListeners() {
         function _handleMouseMove(event) {
             //const touch = event.changedTouches[0];

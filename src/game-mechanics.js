@@ -9,10 +9,7 @@ const GameMechanics = function(course, golfBall) {
     
     console.log(edges);
 
-    function classifyCollision() {
-
-    }
-    function computeCollision() {
+    function computeNextCollision() {
         const golfBallPosition = golfBall.getPosition();
         const golfBallDirection = golfBall.getDirection();
         const directionVector = mUtils.createUnitVector(golfBallDirection);
@@ -24,37 +21,43 @@ const GameMechanics = function(course, golfBall) {
         //console.log(outerPaths.pathB.getString());
         
         const rootSVGElement = document.querySelector("#game-container");
+        // collisionData contains three properties: "Time" of collision (based
+        // on unit vector, not actual time), location of collision, and center of
+        // golf ball at collision
+        let earliestCollisionData = {time: Infinity};
         for (const edge of edges) {
             const start = edge.getStartVertex();
             const end = edge.getEndVertex();
             
             const interSectionA = mUtils.computePathEdgeIntersection(outerPaths.pathA, edge);
             const interSectionB = mUtils.computePathEdgeIntersection(outerPaths.pathB, edge);
-            let color;
+            let color; //
             if (interSectionA && interSectionB) {
                 const canCollide = 
                     (mUtils.isInRange(interSectionA.edgeParameter, 0, 1) && 
-                     mUtils.isInRange(interSectionA.pathParameter, 0, Infinity)) ||
+                    mUtils.isInRange(interSectionA.pathParameter, 0, Infinity)) ||
                     (mUtils.isInRange(interSectionB.edgeParameter, 0, 1) && 
-                     mUtils.isInRange(interSectionB.pathParameter, 0, Infinity))
-                color = canCollide ? "green" : "red";
-                svgUtilities.drawLine(rootSVGElement, start, end, {'stroke': color, 'stroke-width': 1});
+                    mUtils.isInRange(interSectionB.pathParameter, 0, Infinity))
+                color = canCollide ? "green" : "red"; //
+                svgUtilities.drawLine(rootSVGElement, start, end, {'stroke': color, 'stroke-width': 1}); //
                 if (canCollide) {
                     // Compute collision
                     const collisionData = mUtils.computeMovingCircleEdgeIntersection(
                         golfBallPath, gameConfig.golfBallRadius, edge);
-                    
-                    if (edge.computePositionProportion(collisionData.collisionPoint));
+                    if (collisionData.time < earliestCollisionData.time) {
+                        earliestCollisionData = collisionData;
+                    }
                     //console.log(`Collision point: ${collisionData.collisionPoint.getString()}, golf ball center: ${collisionData.collisionCenter.getString()}`);
-                    svgUtilities.drawCircle(rootSVGElement, collisionData.collisionCenter, {'r': 1, 'fill': 'green'});
-                    svgUtilities.drawCircle(rootSVGElement, collisionData.collisionPoint, {'r': 1, 'fill': 'orange'});
+                    svgUtilities.drawCircle(rootSVGElement, collisionData.collisionCenter, {'r': 1, 'fill': 'green'}); //
+                    svgUtilities.drawCircle(rootSVGElement, collisionData.collisionPoint, {'r': 1, 'fill': 'orange'}); //
                 }
-                
             } 
         }
+        console.log(earliestCollisionData.collisionCenter.getString());
+        return(earliestCollisionData);
 
     }
-    computeCollision();
+    computeNextCollision();
     function step(timeStep) {
         const oldPosition = golfBall.getPosition();
         const speed = golfBall.getSpeed();
