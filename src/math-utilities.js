@@ -110,8 +110,13 @@ function Edge(startVertex, endVertex) {
     // so that a value between 0 (startVertex) and 1 (endVertex) is returned
     // when the position is on the vertex
     function computePositionProportion(position) {
-        return((position.getX() - startVertex.getX()) / 
-               (endVertex.getX() - startVertex.getX()));
+        const startPositionDistance = subtractVectors(startVertex, position).getLength();
+        const endPositionDistance = subtractVectors(endVertex, position).getLength();
+        const proportion = startPositionDistance / getLength();
+        if (endPositionDistance > getLength()) {
+            return(-proportion);
+        }
+        return(proportion);
     }
 
     function getString() {
@@ -196,11 +201,11 @@ function computeMovingCircleEdgeIntersection(path, radius, edge) {
     const edgeEnd = edge.getEndVertex();
     const edgeVector = edge.getDifferenceVector();
 
-    const time = (radius*edgeVector.getLength() + 
+    let time = (radius*edgeVector.getLength() + 
         dotProduct(pathStart.getPerpendicular(), edgeVector) +
         dotProduct(edgeStart, edgeEnd.getPerpendicular())) / 
         dotProduct(pathVector, edgeVector.getPerpendicular())
-    const collisionCenter = path.getPositionAtTime(time);
+    let collisionCenter = path.getPositionAtTime(time);
 
     const edgeStartCentered = subtractVectors(edgeStart, collisionCenter);
     const edgeEndCentered = subtractVectors(edgeEnd, collisionCenter);
@@ -216,7 +221,7 @@ function computeMovingCircleEdgeIntersection(path, radius, edge) {
     // If this value is between 0 and 1, the collision occurs on the "flat" 
     // part of the edge, not on a corner
     if (isInRange(collisionEdgeProportion, 0, 1)) {
-        return({collisionCenter, collisionPoint});
+        return({time, collisionCenter, collisionPoint});
     } else if (isInRange(collisionEdgeProportion, -Infinity, 0)) {
         // If computed collision happens before start of edge,
         // the circle will collide with the start vertex
@@ -225,7 +230,13 @@ function computeMovingCircleEdgeIntersection(path, radius, edge) {
         // Otherwise, it will collide with the end vertex
         collisionPoint = edgeEnd;
     }
-    
+
+    const startColDiff = subtractVectors(pathStart, collisionPoint);
+    time = - (Math.sqrt((dotProduct(startColDiff, pathVector))**2 -
+        pathVector.getLength()**2*(startColDiff.getLength()**2 - radius**2)) +
+        dotProduct(startColDiff, pathVector))/(pathVector.getLength()**2);
+    collisionCenter = path.getPositionAtTime(time);
+    return({time, collisionCenter, collisionPoint});
 }
 
 export { Vector, dotProduct, crossProduct2D, addVectors, 
