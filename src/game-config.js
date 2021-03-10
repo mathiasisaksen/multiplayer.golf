@@ -4,7 +4,7 @@ const gameConfig = {
 };
 
 const svgConfig = {
-    golfBallAttributes: {'r': gameConfig.golfBallRadius, 'fill': 'black', opacity: 0.5},
+    golfBallAttributes: {'r': gameConfig.golfBallRadius, 'fill': 'black'},
     // The boundary is divided into two components.
     // The outer draws the boundary, while the inner ensures that the inner area is white
     // for the golf ball

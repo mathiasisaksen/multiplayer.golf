@@ -98,6 +98,10 @@ function vectorReflection(vectorA, vectorB) {
     return(subtractVectors(vectorA, scaleVector(rejection, 2)));
 }
 
+function VectorDistance(vector1, vector2) {
+    return(subtractVectors(vector2, vector1).getLength());
+}
+
 // Represents an edge in a polygon
 function Edge(startVertex, endVertex) {
     let _startVertex = startVertex;
@@ -253,7 +257,7 @@ function computeMovingCircleEdgeIntersection(path, radius, edge) {
     return({time, collisionCenter, collisionPoint});
 }
 
-export { Vector, dotProduct, crossProduct2D, addVectors, 
+export { Vector, dotProduct, crossProduct2D, addVectors, VectorDistance,
     subtractVectors, scaleVector, createUnitVector, vectorProjection,
     vectorReflection, Edge, Path, computePathEdgeIntersection, 
     getParallelPaths, isInRange, computeMovingCircleEdgeIntersection };

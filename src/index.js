@@ -20,19 +20,18 @@ const course = Course({
     {x: 10, y: 60}],
     obstacles: [
         [
-            {x: 15, y: 45},
-            {x: 25, y: 45},
+            {x: 15, y: 55},
             {x: 25, y: 55},
-            {x: 15, y: 55}]]
+            {x: 25, y: 45},
+            {x: 15, y: 45}
+        ]
+    ]
     },
     rootSVGElement);
 course.initialize();
 
-const golfBall = GolfBall({x: 80, y: 50}, 2, Math.PI / 2 * 1.85, rootSVGElement);
+const golfBall = GolfBall({x: 80, y: 50}, 4, Math.PI / 2 * 1.75, rootSVGElement);
+//const golfBall = GolfBall({x: 17, y: 57}, 2, Math.PI*1.05, rootSVGElement);
 golfBall.initialize();
 
 const gameMechanics = GameMechanics(course, golfBall);
-/*setInterval(() => {golfBall.setPosition({
-    x: 100*Math.random(),
-    y: 100*Math.random()
-})}, 1000);*/

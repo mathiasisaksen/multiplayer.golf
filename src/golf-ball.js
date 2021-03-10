@@ -11,14 +11,13 @@ const GolfBall = function(
     let position = mUtils.Vector(initialPosition);
     let speed = initialSpeed;
     let direction = initialDirection;
+    let _unitDirectionVector = mUtils.createUnitVector(direction);
     let _golfBallElement;
     const _computeSVGPosition = svgUtilities.createSVGPositionComputer(rootSVGElement);
 
     function draw() {
         _golfBallElement = svgUtilities.drawCircle(rootSVGElement, position.getCoordinates(), 
             svgConfig.golfBallAttributes, ['golf-ball']);
-        svgUtilities.drawLine(rootSVGElement, position, {x: position.getX() + 100*Math.cos(direction), y: position.getY() + 100*Math.sin(direction)},
-            {'stroke': 'blue', 'stroke-width': 1});
     }
 
     function getPosition() {
@@ -44,13 +43,14 @@ const GolfBall = function(
 
     function setDirection(newDirection) {
         direction = newDirection;
+        _unitDirectionVector = mUtils.createUnitVector(direction)
     }
 
     function step(timeStep) {
         const stepSize = speed*timeStep;
-        const newPosition = position;
-        newPosition.setX() += stepSize*Math.cos(direction);
-        newPosition.setY() += stepSize*Math.sin(direction);
+        let newPosition = position;
+        newPosition.setX(newPosition.getX() + stepSize*_unitDirectionVector.getX());
+        newPosition.setY(newPosition.getY() + stepSize*_unitDirectionVector.getY());
         setPosition(newPosition);
     }
 
@@ -89,7 +89,8 @@ const GolfBall = function(
     return({ initialize, draw, 
         getPosition, setPosition, 
         getSpeed, setSpeed,
-        getDirection, setDirection })
+        getDirection, setDirection,
+    step })
 
 }
 
