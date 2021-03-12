@@ -5,11 +5,10 @@ import * as mUtils from './math-utilities'
 // vertices is an object containing two arrays: boundary and obstacles
 // boundary contains the vertices of the polygonal boundary, while
 // obstacles contains zero or more array of vertices for internal obstacles
-const Course = function(vertices, rootSVGElement) {
-    const boundaryVertices = vertices.boundary;
-    const obstacles = vertices.obstacles;
-    const courseElement = svgUtilities.createGroupElement(['course-container']);
-    rootSVGElement.append(courseElement);
+const Course = function(courseData, rootSVGElement) {
+    const boundaryVertices = courseData.boundary;
+    const obstacles = courseData.obstacles;
+    let courseElement;
 
     let edges = [];
 
@@ -36,7 +35,7 @@ const Course = function(vertices, rootSVGElement) {
     }
     
     function printVertices() {
-        console.log(vertices);
+        console.log(courseData);
     }
 
     function draw() {
@@ -53,7 +52,13 @@ const Course = function(vertices, rootSVGElement) {
         )
     }
 
+    function destroy() {
+        courseElement.remove();
+    }
+
     function initialize() {
+        courseElement = svgUtilities.createGroupElement(['course-container']);
+        rootSVGElement.append(courseElement);
         computeEdges();
         draw();
     }
@@ -70,7 +75,8 @@ const Course = function(vertices, rootSVGElement) {
         return(edges);
     }
 
-    return({ draw, initialize, getBoundaryVertices, getObstacles, getEdges });
+    return({ draw, initialize, getBoundaryVertices, getObstacles, getEdges,
+    destroy });
 };
 
 export default Course;

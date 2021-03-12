@@ -47,11 +47,15 @@ function Vector({x, y}) {
         return(Vector({x: _x / getLength(), y: _y / getLength()}));
     }
 
+    function getDirection() {
+        return(Math.atan2(_y, x));
+    }
+
     function getString() {
         return(`[x: ${_x}, y: ${y}]`)
     }
     return({ getX, setX, getY, setY, getPerpendicular, getLength, normalize,
-            getCoordinates, getNormalized, getString })
+            getCoordinates, getNormalized, getDirection, getString })
 }
 
 function dotProduct(vector1, vector2) {

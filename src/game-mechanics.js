@@ -8,6 +8,8 @@ const GameMechanics = function(course, golfBall) {
     const edges = course.getEdges();
     let collisionData;
     let initialSpeed = golfBall.getSpeed();
+    let isRunning = false;
+    let previousTimeStamp;
 
     function computeNextCollision() {
         const golfBallPosition = golfBall.getPosition();
@@ -18,10 +20,10 @@ const GameMechanics = function(course, golfBall) {
         // Paths that outline the extent covered by the motion of the golf ball
         const outerPaths = mUtils.getParallelPaths(golfBallPath, gameConfig.golfBallRadius);
         
-        const rootSVGElement = document.querySelector("#game-container");
-        // collisionData contains three properties: "Time" of collision (based
-        // on unit vector, not actual time), location of collision, and center of
-        // golf ball at collision
+        
+        // collisionData contains four properties: "Time" of collision (based
+        // on unit vector, not actual time), location of collision, center of
+        // golf ball at collision, and direction of golf ball after collision
         let earliestCollisionData = {time: Infinity};
         for (const edge of edges) {
             const start = edge.getStartVertex();
@@ -60,12 +62,6 @@ const GameMechanics = function(course, golfBall) {
     function step(timeStep) {
         if (!collisionData) {
             collisionData = computeNextCollision();
-            /*const parentSVGElement = document.querySelector("#game-container");
-            svgUtilities.drawCircle(parentSVGElement, collisionData.collisionCenter, {'r': 1, 'fill': "red"});
-            const directionVector = mUtils.scaleVector(mUtils.createUnitVector(collisionData.directionAfterCollision), 10);
-            svgUtilities.drawLine(parentSVGElement, 
-                collisionData.collisionCenter, 
-                mUtils.addVectors(collisionData.collisionCenter, directionVector), {'stroke': 'blue'});*/
         }
 
         const distanceToCollision = mUtils.VectorDistance(golfBall.getPosition(), 
@@ -91,20 +87,47 @@ const GameMechanics = function(course, golfBall) {
             const oldSpeed = golfBall.getSpeed();
             const newSpeed = (1 - gameConfig.frictionPerTime*timeStep)*oldSpeed;
             golfBall.setSpeed(newSpeed);
-            if (golfBall.getSpeed() < gameConfig.speedThreshold*initialSpeed) {
+            if (golfBall.getSpeed() < gameConfig.speedThreshold) {
                 golfBall.setSpeed(0);
-                console.log("fin");
+                collisionData = null;
+                isRunning = false;
+                previousTimeStamp = null;
             }
         }
     }
 
     function multipleSteps(timeStep, numberOfSteps) {
         for (let i = 0; i < numberOfSteps; i++) {
-            step(timeStep);
+            step(timeStep / numberOfSteps);
         }
     }
+
+    function stepLoop(timeStamp) {
+        if (!previousTimeStamp) {
+            previousTimeStamp = timeStamp;
+        }
+        let timeStep = (timeStamp - previousTimeStamp) / 1000;
+        if (timeStep > (1 / gameConfig.framesPerSecond) && checkIfRunning()) {
+            previousTimeStamp = timeStamp;
+            step(timeStep);
+        }
+
+        if (checkIfRunning()) {
+            window.requestAnimationFrame(stepLoop);
+        }
+    }
+
+    function enableRunning() {
+        isRunning = true;
+    }
+
+    function checkIfRunning() {
+        return(isRunning);
+    }
+
     //setInterval(() => multipleSteps(0.0167/10, 10), 1000/60);
-    setInterval(() => step(1/25), 1000/25);
+    /*setInterval(() => step(1/25), 1000/25);*/
+    return({ step, multipleSteps, stepLoop, enableRunning, checkIfRunning });
 }
 
 export default GameMechanics;
