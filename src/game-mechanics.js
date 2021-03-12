@@ -1,5 +1,5 @@
 import * as mUtils from './math-utilities';
-import { gameConfig } from './game-config';
+import { gameConfig } from './config';
 import * as svgUtilities from './svg-utilities';
 
 const GameMechanics = function(course, golfBall) {
@@ -7,6 +7,7 @@ const GameMechanics = function(course, golfBall) {
     // Create array of edges from both boundary and inner obstacles
     const edges = course.getEdges();
     let collisionData;
+    let initialSpeed = golfBall.getSpeed();
 
     function computeNextCollision() {
         const golfBallPosition = golfBall.getPosition();
@@ -59,12 +60,21 @@ const GameMechanics = function(course, golfBall) {
     function step(timeStep) {
         if (!collisionData) {
             collisionData = computeNextCollision();
+            /*const parentSVGElement = document.querySelector("#game-container");
+            svgUtilities.drawCircle(parentSVGElement, collisionData.collisionCenter, {'r': 1, 'fill': "red"});
+            const directionVector = mUtils.scaleVector(mUtils.createUnitVector(collisionData.directionAfterCollision), 10);
+            svgUtilities.drawLine(parentSVGElement, 
+                collisionData.collisionCenter, 
+                mUtils.addVectors(collisionData.collisionCenter, directionVector), {'stroke': 'blue'});*/
         }
 
         const distanceToCollision = mUtils.VectorDistance(golfBall.getPosition(), 
             collisionData.collisionCenter);
         const nextStepLength = golfBall.getSpeed()*timeStep;
 
+        // If the next step is longer than the distance to the collision,
+        // we'll split it into two steps: a partial step equal to the distance
+        // to the collision, and a post-collision step using the remaining time
         if (nextStepLength > distanceToCollision) {
             // Partial step
             const partialStepTime = distanceToCollision / golfBall.getSpeed();
@@ -73,11 +83,18 @@ const GameMechanics = function(course, golfBall) {
             // Change direction due to collision, and perform rest of step
             golfBall.setDirection(collisionData.directionAfterCollision);
             const remainingStepTime = timeStep - partialStepTime;
-            golfBall.step(remainingStepTime);
-
             collisionData = null;
+
+            step(remainingStepTime);
         } else {
             golfBall.step(timeStep);
+            const oldSpeed = golfBall.getSpeed();
+            const newSpeed = (1 - gameConfig.frictionPerTime*timeStep)*oldSpeed;
+            golfBall.setSpeed(newSpeed);
+            if (golfBall.getSpeed() < gameConfig.speedThreshold*initialSpeed) {
+                golfBall.setSpeed(0);
+                console.log("fin");
+            }
         }
     }
 
@@ -86,8 +103,8 @@ const GameMechanics = function(course, golfBall) {
             step(timeStep);
         }
     }
-    setInterval(() => multipleSteps(0.1/10, 10), 1000/60);
-    //setInterval(() => step(0.1), 1000/60);
+    //setInterval(() => multipleSteps(0.0167/10, 10), 1000/60);
+    setInterval(() => step(1/25), 1000/25);
 }
 
 export default GameMechanics;

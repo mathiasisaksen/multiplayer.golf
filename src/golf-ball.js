@@ -1,4 +1,4 @@
-import { svgConfig } from './game-config';
+import { svgConfig } from './config';
 import * as svgUtilities from './svg-utilities';
 import * as mUtils from './math-utilities'
 
@@ -13,6 +13,7 @@ const GolfBall = function(
     let direction = initialDirection;
     let _unitDirectionVector = mUtils.createUnitVector(direction);
     let _golfBallElement;
+    let directionLine;
     const _computeSVGPosition = svgUtilities.createSVGPositionComputer(rootSVGElement);
 
     function draw() {
@@ -59,10 +60,12 @@ const GolfBall = function(
             //const touch = event.changedTouches[0];
             //const position = computeSVGPosition({x: touch.clientX, y: touch.clientY});
             const position = _computeSVGPosition({x: event.clientX, y: event.clientY});
-            setPosition(mUtils.Vector(position));
+            //setPosition(mUtils.Vector(position));
+            svgUtilities.setLineEnd(directionLine, position);
         }
         function _handleMovementStart() {
-            
+            directionLine = svgUtilities.drawLine(rootSVGElement, position, position,
+                svgConfig.directionLineAttributes, ['direction-line']);
             rootSVGElement.addEventListener('mousemove', _handleMouseMove);
             rootSVGElement.addEventListener('mouseup', _handleMovementEnd);
 
@@ -70,6 +73,8 @@ const GolfBall = function(
             //rootSVGElement.addEventListener('touchend', handleMovementEnd);
         }
         function _handleMovementEnd() {
+            directionLine.remove();
+            directionLine = null;
             rootSVGElement.removeEventListener('mousemove', _handleMouseMove);
             rootSVGElement.removeEventListener('mouseup', _handleMovementEnd);
 

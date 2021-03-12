@@ -1,5 +1,5 @@
 import * as svgUtilities from './svg-utilities';
-import { svgConfig } from './game-config';
+import { svgConfig } from './config';
 import * as mUtils from './math-utilities'
 
 // vertices is an object containing two arrays: boundary and obstacles

@@ -17,20 +17,37 @@ const course = Course({
     {x: 65, y: 55},
     {x: 30, y: 55},
     {x: 30, y: 60},
-    {x: 10, y: 60}],
+    {x: 10, y: 60}
+    /*{x:10,y:60},
+{x:30,y:60},
+{x:30,y:55},
+{x:65,y:55},
+{x:65,y:60},
+{x:90,y:60},
+{x:90,y:40},
+{x:65,y:40},
+{x:65,y:45},
+{x:30,y:45},
+{x:30,y:40},
+{x:10,y:40}*/
+],
     obstacles: [
         [
             {x: 15, y: 55},
             {x: 25, y: 55},
             {x: 25, y: 45},
             {x: 15, y: 45}
+            /*{x: 15, y: 45},
+            {x: 25, y: 45},
+            {x: 25, y: 55},
+            {x: 15, y: 55} */
         ]
     ]
     },
     rootSVGElement);
 course.initialize();
 
-const golfBall = GolfBall({x: 80, y: 50}, 4, Math.PI / 2 * 1.75, rootSVGElement);
+const golfBall = GolfBall({x: 80, y: 50}, 0, Math.PI / 2 * 1.9, rootSVGElement);
 //const golfBall = GolfBall({x: 17, y: 57}, 2, Math.PI*1.05, rootSVGElement);
 golfBall.initialize();
 

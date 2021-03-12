@@ -70,4 +70,9 @@ function setCirclePosition(circleElement, position) {
     setAttributes(circleElement, {cx: position.x, cy: position.y});
 }
 
-export { drawLine, drawPolygon, drawCircle, createGroupElement, setCirclePosition, createSVGPositionComputer };
+function setLineEnd(lineElement, endPosition) {
+    setAttributes(lineElement, {'x2': endPosition.x || endPosition.getX(), 
+        'y2': endPosition.y || endPosition.getY()});
+}
+
+export { drawLine, drawPolygon, drawCircle, createGroupElement, setCirclePosition, setLineEnd, createSVGPositionComputer };
