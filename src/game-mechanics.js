@@ -7,7 +7,6 @@ const GameMechanics = function(course, golfBall) {
     // Create array of edges from both boundary and inner obstacles
     const edges = course.getEdges();
     let collisionData;
-    let initialSpeed = golfBall.getSpeed();
     let isRunning = false;
     let previousTimeStamp;
 
@@ -89,9 +88,7 @@ const GameMechanics = function(course, golfBall) {
             golfBall.setSpeed(newSpeed);
             if (golfBall.getSpeed() < gameConfig.speedThreshold) {
                 golfBall.setSpeed(0);
-                collisionData = null;
-                isRunning = false;
-                previousTimeStamp = null;
+                reset();
             }
         }
     }
@@ -110,6 +107,7 @@ const GameMechanics = function(course, golfBall) {
         if (timeStep > (1 / gameConfig.framesPerSecond) && checkIfRunning()) {
             previousTimeStamp = timeStamp;
             multipleSteps(timeStep, gameConfig.interpolationsPerStep);
+            golfBall.update();
         }
 
         if (checkIfRunning()) {
@@ -123,6 +121,12 @@ const GameMechanics = function(course, golfBall) {
 
     function checkIfRunning() {
         return(isRunning);
+    }
+
+    function reset() {
+        collisionData = null;
+        isRunning = false;
+        previousTimeStamp = null;
     }
 
     //setInterval(() => multipleSteps(0.0167/10, 10), 1000/60);

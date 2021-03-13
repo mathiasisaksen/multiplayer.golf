@@ -3,18 +3,16 @@ import * as svgUtilities from './svg-utilities';
 import * as mUtils from './math-utilities'
 
 const GolfBall = function(
-        initialPosition, 
+        courseData, 
         initialSpeed, 
         initialDirection, 
         rootSVGElement) {
     
-    let position = mUtils.Vector(initialPosition);
+    let position = mUtils.Vector(courseData.initialGolfBallPosition);
     let speed = initialSpeed;
     let direction = initialDirection;
     let _unitDirectionVector = mUtils.createUnitVector(direction);
     let _golfBallElement;
-    let directionLineElement;
-    let directionLineVector;
 
     function draw() {
         _golfBallElement = svgUtilities.drawCircle(rootSVGElement, position.getCoordinates(), 
@@ -27,7 +25,6 @@ const GolfBall = function(
 
     function setPosition(newPosition) {
         position = newPosition;
-        svgUtilities.setCirclePosition(_golfBallElement, position.getCoordinates());
     }
 
     function getSpeed() {
@@ -59,6 +56,10 @@ const GolfBall = function(
         draw();
     }
 
+    function update() {
+        svgUtilities.setCirclePosition(_golfBallElement, position.getCoordinates());
+    }
+
     function destroy() {
         _golfBallElement.remove();
     }
@@ -76,7 +77,7 @@ const GolfBall = function(
         getPosition, setPosition, 
         getSpeed, setSpeed,
         getDirection, setDirection,
-        destroy, step,
+        destroy, step, update,
         addEventListener, removeEventListener })
 
 }

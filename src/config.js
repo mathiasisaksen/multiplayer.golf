@@ -13,14 +13,15 @@ const gameConfig = {
 };
 
 const svgConfig = {
-    golfBallAttributes: {'r': gameConfig.golfBallRadius, 'fill': 'black'},
+    golfBallAttributes: {'r': gameConfig.golfBallRadius, 'fill': 'white', 'stroke-width': 5, 'stroke': 'black', 'stroke-opacity': '0'},
     // The boundary is divided into two components.
     // The outer draws the boundary, while the inner ensures that the inner area is white
     // for the golf ball
     directionLineAttributes: {'stroke': gameConfig.directionLineStartColor, 'stroke-width': 1, 'fill': 'none', 'stroke-linecap': 'round'},
-    boundaryAttributesOuter: {'stroke': 'black', 'stroke-width': 6, 'fill': 'none'},
-    boundaryAttributesInner: {'stroke': 'white', 'fill': 'white'},
+    boundaryAttributesOuter: {'stroke': 'black', 'stroke-width': 4, 'fill': 'none'},
+    boundaryAttributesInner: {'stroke': 'white', 'fill': '#3ab93a'},
     obstacleAttributes: {'stroke': 'white', 'fill': 'black'},
+    holeAttributes: {'r': 1.25*gameConfig.golfBallRadius, 'fill': 'black'},
 };
 svgConfig.boundaryAttributesInner['stroke-width'] = 0;
 svgConfig.obstacleAttributes['stroke-width'] = 0;

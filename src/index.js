@@ -27,7 +27,9 @@ const courseData = {
             {x: 25, y: 45},
             {x: 15, y: 45}
         ]
-    ]
+    ],
+    initialGolfBallPosition: {x: 80, y: 50},
+    hole: {position: {x: 12.5, y: 50}, radius: 2.1}
     };
 
 //const golfBall = GolfBall({x: 17, y: 57}, 2, Math.PI*1.05, rootSVGElement);

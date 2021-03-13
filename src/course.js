@@ -1,5 +1,5 @@
 import * as svgUtilities from './svg-utilities';
-import { svgConfig } from './config';
+import { gameConfig, svgConfig } from './config';
 import * as mUtils from './math-utilities'
 
 // vertices is an object containing two arrays: boundary and obstacles
@@ -8,6 +8,7 @@ import * as mUtils from './math-utilities'
 const Course = function(courseData, rootSVGElement) {
     const boundaryVertices = courseData.boundary;
     const obstacles = courseData.obstacles;
+    const hole = courseData.hole;
     let courseElement;
 
     let edges = [];
@@ -50,6 +51,9 @@ const Course = function(courseData, rootSVGElement) {
             //obstacleVertices.forEach(vertex => svgUtilities.drawCircle(courseElement, vertex, {'r': 0.5, fill: 'blue', 'stroke-width': 0 }));
             }
         )
+        const holeAttributes = svgConfig.holeAttributes;
+        holeAttributes.r = hole.radius;
+        svgUtilities.drawCircle(courseElement, hole.position, holeAttributes, ['course-hole']);
     }
 
     function destroy() {
