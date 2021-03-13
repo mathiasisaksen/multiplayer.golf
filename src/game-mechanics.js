@@ -109,7 +109,7 @@ const GameMechanics = function(course, golfBall) {
         let timeStep = (timeStamp - previousTimeStamp) / 1000;
         if (timeStep > (1 / gameConfig.framesPerSecond) && checkIfRunning()) {
             previousTimeStamp = timeStamp;
-            step(timeStep);
+            multipleSteps(timeStep, gameConfig.interpolationsPerStep);
         }
 
         if (checkIfRunning()) {

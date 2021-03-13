@@ -75,4 +75,4 @@ function setLineEnd(lineElement, endPosition) {
         'y2': endPosition.y || endPosition.getY()});
 }
 
-export { drawLine, drawPolygon, drawCircle, createGroupElement, setCirclePosition, setLineEnd, createSVGPositionComputer };
+export { setAttributes, drawLine, drawPolygon, drawCircle, createGroupElement, setCirclePosition, setLineEnd, createSVGPositionComputer };

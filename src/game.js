@@ -4,6 +4,7 @@ import GameMechanics from './game-mechanics';
 import * as svgUtilities from './svg-utilities';
 import * as mUtils from './math-utilities';
 import { svgConfig, gameConfig } from './config';
+import * as colorUtils from './color-utilities';
 
 function Game(rootSVGElement) {
     let golfBall;
@@ -61,6 +62,10 @@ function Game(rootSVGElement) {
             clientPosition = mUtils.addVectors(golfBall.getPosition(), directionLineVector);
         } 
         svgUtilities.setLineEnd(directionLineElement, clientPosition);
+        const lineColor = colorUtils.interpolateColors(gameConfig.directionLineStartColor, 
+            gameConfig.directionLineEndColor, 
+            directionLineVector.getLength() / gameConfig.maxDirectionLineLength);
+        svgUtilities.setAttributes(directionLineElement, {stroke: lineColor});
     }
 
     function _handleGolfBallMouseUp() {
@@ -72,12 +77,14 @@ function Game(rootSVGElement) {
     function _executeShot() {
         directionLineElement.remove();
         directionLineElement = null;
+        if (!directionLineVector) return;
         // The direction of the ball is in the opposite direction of
         // directionLineVector
         const initialDirection = directionLineVector.getDirection() + Math.PI;
         const initialSpeed = gameConfig.maxSpeed * 
             directionLineVector.getLength() / gameConfig.maxDirectionLineLength;
         console.log(initialSpeed);
+        directionLineVector = null;
         golfBall.setDirection(initialDirection);
         golfBall.setSpeed(initialSpeed);
 

@@ -6,8 +6,10 @@ const gameConfig = {
     maxDirectionLineLength: 20,
     framesPerSecond: 60,
 
-    directionLineStartColor: '#00ff00',
-    directionLineEndColor: '#ff00ff',
+    directionLineStartColor: 'hsl(120, 100%, 50%)',
+    directionLineEndColor: 'hsl(0, 100%, 50%)',
+
+    interpolationsPerStep: 5,
 };
 
 const svgConfig = {
@@ -15,7 +17,7 @@ const svgConfig = {
     // The boundary is divided into two components.
     // The outer draws the boundary, while the inner ensures that the inner area is white
     // for the golf ball
-    directionLineAttributes: {'stroke': '#00ff00', 'stroke-width': 1, 'fill': 'none', 'stroke-linecap': 'round'},
+    directionLineAttributes: {'stroke': gameConfig.directionLineStartColor, 'stroke-width': 1, 'fill': 'none', 'stroke-linecap': 'round'},
     boundaryAttributesOuter: {'stroke': 'black', 'stroke-width': 6, 'fill': 'none'},
     boundaryAttributesInner: {'stroke': 'white', 'fill': 'white'},
     obstacleAttributes: {'stroke': 'white', 'fill': 'black'},
