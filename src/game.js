@@ -29,14 +29,13 @@ function Game(rootSVGElement) {
         course.initialize();
     }
 
-    function setGameContent(courseData, initialPosition) {
+    function setGameContent(courseData) {
         _setNewCourse(courseData);
         _setNewGolfBall(courseData);
         gameMechanics = GameMechanics(course, golfBall);
     }
 
     function _handleGolfBallMouseDown() {
-        console.log(gameMechanics.checkIfRunning());
         if (gameMechanics.checkIfRunning()) return;
         const golfBallPosition = golfBall.getPosition();
         directionLineElement = svgUtilities.drawLine(rootSVGElement, 
@@ -46,13 +45,13 @@ function Game(rootSVGElement) {
         rootSVGElement.addEventListener('mousemove', _handleGolfBallMouseMove);
         rootSVGElement.addEventListener('mouseup', _handleGolfBallMouseUp);
 
-        //rootSVGElement.addEventListener('touchmove', handleMouseMove);
-        //rootSVGElement.addEventListener('touchend', handleMovementEnd);
+        //rootSVGElement.addEventListener('touchmove', _handleGolfBallMouseMove);
+        //rootSVGElement.addEventListener('touchend', _handleGolfBallMouseUp);
     }
 
     function _handleGolfBallMouseMove(event) {
         //const touch = event.changedTouches[0];
-        //const position = computeSVGPosition({x: touch.clientX, y: touch.clientY});
+        //const clientPosition = _computeSVGPosition({x: touch.clientX, y: touch.clientY});
         let clientPosition = _computeSVGPosition({x: event.clientX, y: event.clientY});
         
         // A vector from the center of the golf ball to the position of the mouse
@@ -79,6 +78,8 @@ function Game(rootSVGElement) {
     function _handleGolfBallMouseUp() {
         rootSVGElement.removeEventListener('mousemove', _handleGolfBallMouseMove);
         rootSVGElement.removeEventListener('mouseup', _handleGolfBallMouseUp);
+        //rootSVGElement.removeEventListener('touchmove', _handleGolfBallMouseMove);
+        //rootSVGElement.removeEventListener('touchend', _handleGolfBallMouseUp);
         _executeShot();
     }
 

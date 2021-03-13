@@ -8,7 +8,8 @@ import * as mUtils from './math-utilities'
 const Course = function(courseData, rootSVGElement) {
     const boundaryVertices = courseData.boundary;
     const obstacles = courseData.obstacles;
-    const hole = courseData.hole;
+    const holePosition = mUtils.Vector(courseData.hole.position);
+    const holeRadius = courseData.hole.radius;
     let courseElement;
 
     let edges = [];
@@ -52,8 +53,8 @@ const Course = function(courseData, rootSVGElement) {
             }
         )
         const holeAttributes = svgConfig.holeAttributes;
-        holeAttributes.r = hole.radius;
-        svgUtilities.drawCircle(courseElement, hole.position, holeAttributes, ['course-hole']);
+        holeAttributes.r = holeRadius;
+        svgUtilities.drawCircle(courseElement, holePosition, holeAttributes, ['course-hole']);
     }
 
     function destroy() {
@@ -79,8 +80,12 @@ const Course = function(courseData, rootSVGElement) {
         return(edges);
     }
 
+    function getHole() {
+        return({position: holePosition, radius: holeRadius});
+    }
+
     return({ draw, initialize, getBoundaryVertices, getObstacles, getEdges,
-    destroy });
+        getHole, destroy });
 };
 
 export default Course;

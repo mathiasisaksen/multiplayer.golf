@@ -6,6 +6,7 @@ const GameMechanics = function(course, golfBall) {
     
     // Create array of edges from both boundary and inner obstacles
     const edges = course.getEdges();
+    const hole = course.getHole();
     let collisionData;
     let isRunning = false;
     let previousTimeStamp;
@@ -25,12 +26,8 @@ const GameMechanics = function(course, golfBall) {
         // golf ball at collision, and direction of golf ball after collision
         let earliestCollisionData = {time: Infinity};
         for (const edge of edges) {
-            const start = edge.getStartVertex();
-            const end = edge.getEndVertex();
-            
             const interSectionA = mUtils.computePathEdgeIntersection(outerPaths.pathA, edge);
             const interSectionB = mUtils.computePathEdgeIntersection(outerPaths.pathB, edge);
-            let color; //
             if (interSectionA && interSectionB) {
                 const canCollide = 
                     (mUtils.isInRange(interSectionA.edgeParameter, 0, 1) && 
@@ -79,6 +76,7 @@ const GameMechanics = function(course, golfBall) {
             golfBall.setDirection(collisionData.directionAfterCollision);
             const remainingStepTime = timeStep - partialStepTime;
             collisionData = null;
+            checkIfWon();
 
             step(remainingStepTime);
         } else {
@@ -90,6 +88,7 @@ const GameMechanics = function(course, golfBall) {
                 golfBall.setSpeed(0);
                 reset();
             }
+            checkIfWon();
         }
     }
 
@@ -121,6 +120,14 @@ const GameMechanics = function(course, golfBall) {
 
     function checkIfRunning() {
         return(isRunning);
+    }
+
+    function checkIfWon() {
+        const position = golfBall.getPosition();
+        const hole = course.getHole();
+        if (mUtils.subtractVectors(position, hole.position).getLength() <= hole.radius) {
+            console.log("hole");
+        }
     }
 
     function reset() {
