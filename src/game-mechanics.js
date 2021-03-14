@@ -1,14 +1,20 @@
 import * as mUtils from './math-utilities';
 import { gameConfig } from './config';
-import * as svgUtilities from './svg-utilities';
 
-const GameMechanics = function(course, golfBall) {
+const GameMechanics = function(game) {
+    const golfBall = game.getGolfBall();
+    const course = game.getCourse();
     
     // Create array of edges from both boundary and inner obstacles
     const edges = course.getEdges();
     const hole = course.getHole();
+    const upperPutVelocity = Math.sqrt(gameConfig.gravity / (2*gameConfig.golfBallRadius)) *
+        (2*hole.radius - gameConfig.golfBallRadius);
+    console.log(upperPutVelocity);
+
     let collisionData;
     let isRunning = false;
+    let isFinished = false;
     let previousTimeStamp;
 
     function computeNextCollision() {
@@ -16,7 +22,6 @@ const GameMechanics = function(course, golfBall) {
         const golfBallDirection = golfBall.getDirection();
         const directionVector = mUtils.createUnitVector(golfBallDirection);
         const golfBallPath = mUtils.Path(golfBallPosition, directionVector);
-
         // Paths that outline the extent covered by the motion of the golf ball
         const outerPaths = mUtils.getParallelPaths(golfBallPath, gameConfig.golfBallRadius);
         
@@ -45,7 +50,7 @@ const GameMechanics = function(course, golfBall) {
             } 
         }
         const collisionPointCenterVector = mUtils.subtractVectors(earliestCollisionData.collisionPoint, 
-            earliestCollisionData.collisionCenter)
+            earliestCollisionData.collisionCenter);
         let newDirectionVector = mUtils.vectorReflection(directionVector,
             collisionPointCenterVector);
         newDirectionVector = mUtils.scaleVector(newDirectionVector, -1);
@@ -69,16 +74,19 @@ const GameMechanics = function(course, golfBall) {
         // to the collision, and a post-collision step using the remaining time
         if (nextStepLength > distanceToCollision) {
             // Partial step
-            const partialStepTime = distanceToCollision / golfBall.getSpeed();
-            golfBall.step(partialStepTime);
+            const partialTimeStep = distanceToCollision / golfBall.getSpeed();
+            golfBall.step(partialTimeStep);
+            const oldSpeed = golfBall.getSpeed();
+            const newSpeed = (1 - gameConfig.frictionPerTime*partialTimeStep)*oldSpeed;
+            golfBall.setSpeed(newSpeed);
 
             // Change direction due to collision, and perform rest of step
             golfBall.setDirection(collisionData.directionAfterCollision);
-            const remainingStepTime = timeStep - partialStepTime;
+            const remainingTimeStep = timeStep - partialTimeStep;
             collisionData = null;
             checkIfWon();
 
-            step(remainingStepTime);
+            step(remainingTimeStep);
         } else {
             golfBall.step(timeStep);
             const oldSpeed = golfBall.getSpeed();
@@ -86,7 +94,7 @@ const GameMechanics = function(course, golfBall) {
             golfBall.setSpeed(newSpeed);
             if (golfBall.getSpeed() < gameConfig.speedThreshold) {
                 golfBall.setSpeed(0);
-                reset();
+                isRunning = false;
             }
             checkIfWon();
         }
@@ -94,6 +102,7 @@ const GameMechanics = function(course, golfBall) {
 
     function multipleSteps(timeStep, numberOfSteps) {
         for (let i = 0; i < numberOfSteps; i++) {
+            if (!isRunning) return;
             step(timeStep / numberOfSteps);
         }
     }
@@ -103,14 +112,20 @@ const GameMechanics = function(course, golfBall) {
             previousTimeStamp = timeStamp;
         }
         let timeStep = (timeStamp - previousTimeStamp) / 1000;
-        if (timeStep > (1 / gameConfig.framesPerSecond) && checkIfRunning()) {
+        if (timeStep > (1 / gameConfig.framesPerSecond) && isRunning) {
             previousTimeStamp = timeStamp;
             multipleSteps(timeStep, gameConfig.interpolationsPerStep);
             golfBall.update();
         }
 
-        if (checkIfRunning()) {
+        if (isFinished) {
+            game.playerFinished();
+            reset();
+        } else if (isRunning) {
             window.requestAnimationFrame(stepLoop);
+        } else {
+            reset();
+            golfBall.setIsReady();
         }
     }
 
@@ -123,10 +138,16 @@ const GameMechanics = function(course, golfBall) {
     }
 
     function checkIfWon() {
+        // In order to put, the distance between the center of the golf ball
+        // and the center of the hole must be less than the radius of the hole,
+        // and the velocity must be less than a certain limit
         const position = golfBall.getPosition();
-        const hole = course.getHole();
-        if (mUtils.subtractVectors(position, hole.position).getLength() <= hole.radius) {
-            console.log("hole");
+        const speed = golfBall.getSpeed();
+        if (mUtils.subtractVectors(position, hole.position).getLength() <= hole.radius &&
+                                                            speed < upperPutVelocity) {
+            golfBall.setPosition(hole.position);
+            isRunning = false;
+            isFinished = true;
         }
     }
 

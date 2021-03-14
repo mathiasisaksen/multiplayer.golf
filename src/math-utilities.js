@@ -1,4 +1,4 @@
-
+﻿
 // Represents a general two-dimensional vector (or point)
 function Vector({x, y}) {
     let _x = x;
@@ -48,11 +48,11 @@ function Vector({x, y}) {
     }
 
     function getDirection() {
-        return(Math.atan2(_y, x));
+        return(Math.atan2(_y, _x));
     }
 
     function getString() {
-        return(`[x: ${_x}, y: ${y}]`)
+        return(`[x: ${_x}, y: ${_y}]`)
     }
     return({ getX, setX, getY, setY, getPerpendicular, getLength, normalize,
             getCoordinates, getNormalized, getDirection, getString })

@@ -54,6 +54,7 @@ const GolfBall = function(
 
     function initialize() {
         draw();
+        setIsReady();
     }
 
     function update() {
@@ -72,13 +73,21 @@ const GolfBall = function(
         _golfBallElement.removeEventListener(eventName, callback);
     }
 
+    function setIsReady() {
+        _golfBallElement.classList.add('ready');
+    }
+
+    function setNotReady() {
+        _golfBallElement.classList.remove('ready');
+    }
 
     return({ initialize, draw, 
         getPosition, setPosition, 
         getSpeed, setSpeed,
         getDirection, setDirection,
         destroy, step, update,
-        addEventListener, removeEventListener })
+        addEventListener, removeEventListener,
+        setIsReady, setNotReady })
 
 }
 

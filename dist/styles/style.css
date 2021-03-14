@@ -23,3 +23,7 @@ main {
     /*border: 1px solid black;*/
     box-sizing: border-box;
 }
+
+.golf-ball.ready:hover {
+    stroke-opacity: 0.2;
+}

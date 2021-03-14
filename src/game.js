@@ -7,9 +7,11 @@ import { svgConfig, gameConfig } from './config';
 import * as colorUtils from './color-utilities';
 
 function Game(rootSVGElement) {
+    let courseData;
     let golfBall;
     let course;
     let gameMechanics;
+    let isReady = true;
 
     let directionLineElement;
     let directionLineVector;
@@ -22,6 +24,10 @@ function Game(rootSVGElement) {
         golfBall.initialize();
         golfBall.addEventListener('mousedown', _handleGolfBallMouseDown);
     }
+    
+    function getGolfBall() {
+        return(golfBall);
+    }
 
     function _setNewCourse(courseData) {
         course?.destroy();
@@ -29,14 +35,21 @@ function Game(rootSVGElement) {
         course.initialize();
     }
 
-    function setGameContent(courseData) {
+    function getCourse() {
+        return(course);
+    }
+
+    function setGameContent(newCourseData) {
+        courseData = newCourseData;
         _setNewCourse(courseData);
         _setNewGolfBall(courseData);
-        gameMechanics = GameMechanics(course, golfBall);
+        console.log(golfBall);
+        console.log(this);
+        gameMechanics = GameMechanics(this);
     }
 
     function _handleGolfBallMouseDown() {
-        if (gameMechanics.checkIfRunning()) return;
+        if (gameMechanics.checkIfRunning() || !isReady) return;
         const golfBallPosition = golfBall.getPosition();
         directionLineElement = svgUtilities.drawLine(rootSVGElement, 
             golfBallPosition, golfBallPosition,
@@ -80,13 +93,13 @@ function Game(rootSVGElement) {
         rootSVGElement.removeEventListener('mouseup', _handleGolfBallMouseUp);
         //rootSVGElement.removeEventListener('touchmove', _handleGolfBallMouseMove);
         //rootSVGElement.removeEventListener('touchend', _handleGolfBallMouseUp);
+        directionLineElement.remove();
+        directionLineElement = null;
+        if (!directionLineVector) return;
         _executeShot();
     }
 
     function _executeShot() {
-        directionLineElement.remove();
-        directionLineElement = null;
-        if (!directionLineVector) return;
         // The direction of the ball is in the opposite direction of
         // directionLineVector
         const initialDirection = directionLineVector.getDirection() + Math.PI;
@@ -95,15 +108,27 @@ function Game(rootSVGElement) {
         console.log(initialSpeed);
         // Set directionLineVector to null, 
         directionLineVector = null;
+        console.log(`speed: ${initialSpeed}, direction: ${initialDirection}`);
         golfBall.setDirection(initialDirection);
         golfBall.setSpeed(initialSpeed);
+        golfBall.setNotReady();
 
         gameMechanics.enableRunning();
 
         window.requestAnimationFrame(gameMechanics.stepLoop);
+        console.log("test");
     }
 
-    return({ setGameContent });
+    function playerFinished() {
+        //setGameContent.bind(this)(courseData);
+        isReady = false;
+        setTimeout(() => {
+            course.destroy();
+            golfBall.destroy();
+        }, 5000);
+    }
+
+    return({ setGameContent, getGolfBall, getCourse, playerFinished });
 }
 
 export default Game;
