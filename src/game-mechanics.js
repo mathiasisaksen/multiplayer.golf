@@ -8,9 +8,9 @@ const GameMechanics = function(game) {
     // Create array of edges from both boundary and inner obstacles
     const edges = course.getEdges();
     const hole = course.getHole();
-    const upperPutVelocity = Math.sqrt(gameConfig.gravity / (2*gameConfig.golfBallRadius)) *
+    const upperPuttVelocity = Math.sqrt(gameConfig.gravity / (2*gameConfig.golfBallRadius)) *
         (2*hole.radius - gameConfig.golfBallRadius);
-    console.log(upperPutVelocity);
+    console.log(upperPuttVelocity);
 
     let collisionData;
     let isRunning = false;
@@ -125,8 +125,14 @@ const GameMechanics = function(game) {
             window.requestAnimationFrame(stepLoop);
         } else {
             reset();
-            golfBall.setIsReady();
+            golfBall.setUserClickable();
         }
+    }
+
+    function executeShot() {
+        isRunning = true;
+        isFinished = false;
+        window.requestAnimationFrame(stepLoop);
     }
 
     function enableRunning() {
@@ -144,7 +150,7 @@ const GameMechanics = function(game) {
         const position = golfBall.getPosition();
         const speed = golfBall.getSpeed();
         if (mUtils.subtractVectors(position, hole.position).getLength() <= hole.radius &&
-                                                            speed < upperPutVelocity) {
+                                                            speed < upperPuttVelocity) {
             golfBall.setPosition(hole.position);
             isRunning = false;
             isFinished = true;
@@ -159,7 +165,8 @@ const GameMechanics = function(game) {
 
     //setInterval(() => multipleSteps(0.0167/10, 10), 1000/60);
     /*setInterval(() => step(1/25), 1000/25);*/
-    return({ step, multipleSteps, stepLoop, enableRunning, checkIfRunning });
+    return({ step, multipleSteps, stepLoop, 
+        executeShot,enableRunning, checkIfRunning });
 }
 
 export default GameMechanics;

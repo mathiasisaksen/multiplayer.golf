@@ -5,13 +5,13 @@ import * as svgUtilities from './svg-utilities';
 import * as mUtils from './math-utilities';
 import { svgConfig, gameConfig } from './config';
 import * as colorUtils from './color-utilities';
+import { generateCourse } from './generate-course';
 
 function Game(rootSVGElement) {
     let courseData;
     let golfBall;
     let course;
     let gameMechanics;
-    let isReady = true;
 
     let directionLineElement;
     let directionLineVector;
@@ -19,7 +19,6 @@ function Game(rootSVGElement) {
     const _computeSVGPosition = svgUtilities.createSVGPositionComputer(rootSVGElement);
 
     function _setNewGolfBall(courseData) {
-        golfBall?.destroy();
         golfBall = GolfBall(courseData, 0, 0, rootSVGElement);
         golfBall.initialize();
         golfBall.addEventListener('mousedown', _handleGolfBallMouseDown);
@@ -30,7 +29,6 @@ function Game(rootSVGElement) {
     }
 
     function _setNewCourse(courseData) {
-        course?.destroy();
         course = Course(courseData, rootSVGElement);
         course.initialize();
     }
@@ -39,17 +37,25 @@ function Game(rootSVGElement) {
         return(course);
     }
 
-    function setGameContent(newCourseData) {
+    const setGameContent = (newCourseData) => {
         courseData = newCourseData;
         _setNewCourse(courseData);
         _setNewGolfBall(courseData);
-        console.log(golfBall);
         console.log(this);
-        gameMechanics = GameMechanics(this);
+        gameMechanics = GameMechanics(obj);
+        //golfBall.setSpeed(20);
+        //_executeShot();
+    }
+
+    function generateNewCourse() {
+        console.log(this);
+        const newCourseData = generateCourse();
+        setGameContent(newCourseData);
     }
 
     function _handleGolfBallMouseDown() {
-        if (gameMechanics.checkIfRunning() || !isReady) return;
+        console.log(golfBall.checkUserClickable());
+        if (!golfBall.checkUserClickable()) return;
         const golfBallPosition = golfBall.getPosition();
         directionLineElement = svgUtilities.drawLine(rootSVGElement, 
             golfBallPosition, golfBallPosition,
@@ -74,12 +80,15 @@ function Game(rootSVGElement) {
         // If the length is longer than the maximum permitted value,
         // rescale to a vector of maximum permitted length,
         // and compute corresponding line end
+        let lineEnd;
         if (directionLineVector.getLength() > gameConfig.maxDirectionLineLength) {
             const unitVector = directionLineVector.getNormalized();
             directionLineVector = mUtils.scaleVector(unitVector, gameConfig.maxDirectionLineLength);
-            clientPosition = mUtils.addVectors(golfBall.getPosition(), directionLineVector);
-        } 
-        svgUtilities.setLineEnd(directionLineElement, clientPosition);
+            lineEnd = mUtils.addVectors(golfBall.getPosition(), directionLineVector);
+        } else {
+            lineEnd = clientPosition;
+        }
+        svgUtilities.setLineEnd(directionLineElement, lineEnd);
         
         // Interpolate color
         const lineColor = colorUtils.interpolateColors(gameConfig.directionLineStartColor, 
@@ -96,39 +105,48 @@ function Game(rootSVGElement) {
         directionLineElement.remove();
         directionLineElement = null;
         if (!directionLineVector) return;
+
+        computeGolfBallVelocity();
+        golfBall.setNotUserClickable();
+        directionLineVector = null;
         _executeShot();
     }
 
-    function _executeShot() {
+    function computeGolfBallVelocity() {
         // The direction of the ball is in the opposite direction of
         // directionLineVector
         const initialDirection = directionLineVector.getDirection() + Math.PI;
         const initialSpeed = gameConfig.maxSpeed * 
             directionLineVector.getLength() / gameConfig.maxDirectionLineLength;
-        console.log(initialSpeed);
         // Set directionLineVector to null, 
-        directionLineVector = null;
         console.log(`speed: ${initialSpeed}, direction: ${initialDirection}`);
         golfBall.setDirection(initialDirection);
         golfBall.setSpeed(initialSpeed);
-        golfBall.setNotReady();
+    }
 
-        gameMechanics.enableRunning();
-
-        window.requestAnimationFrame(gameMechanics.stepLoop);
-        console.log("test");
+    function _executeShot() {
+        gameMechanics.executeShot();
     }
 
     function playerFinished() {
-        //setGameContent.bind(this)(courseData);
-        isReady = false;
         setTimeout(() => {
-            course.destroy();
-            golfBall.destroy();
+            cleanUpGame();
+            generateNewCourse(1);
         }, 5000);
     }
 
-    return({ setGameContent, getGolfBall, getCourse, playerFinished });
+    function cleanUpGame() {
+        course?.destroy();
+        golfBall?.destroy();
+        course = null;
+        golfBall = null;
+        gameMechanics = null;
+        courseData = null;
+    }
+
+    const obj = { setGameContent, getGolfBall, getCourse, playerFinished,
+        generateNewCourse };
+    return(obj);
 }
 
 export default Game;

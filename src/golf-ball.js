@@ -13,6 +13,7 @@ const GolfBall = function(
     let direction = initialDirection;
     let _unitDirectionVector = mUtils.createUnitVector(direction);
     let _golfBallElement;
+    let _isUserClickable = false;
 
     function draw() {
         _golfBallElement = svgUtilities.drawCircle(rootSVGElement, position.getCoordinates(), 
@@ -54,7 +55,7 @@ const GolfBall = function(
 
     function initialize() {
         draw();
-        setIsReady();
+        setUserClickable();
     }
 
     function update() {
@@ -73,12 +74,18 @@ const GolfBall = function(
         _golfBallElement.removeEventListener(eventName, callback);
     }
 
-    function setIsReady() {
-        _golfBallElement.classList.add('ready');
+    function setUserClickable() {
+        _isUserClickable = true;
+        _golfBallElement.classList.add('user-clickable');
     }
 
-    function setNotReady() {
-        _golfBallElement.classList.remove('ready');
+    function setNotUserClickable() {
+        _isUserClickable = false;
+        _golfBallElement.classList.remove('user-clickable');
+    }
+    
+    function checkUserClickable() {
+        return(_isUserClickable);
     }
 
     return({ initialize, draw, 
@@ -87,7 +94,8 @@ const GolfBall = function(
         getDirection, setDirection,
         destroy, step, update,
         addEventListener, removeEventListener,
-        setIsReady, setNotReady })
+        setUserClickable, setNotUserClickable,
+        checkUserClickable })
 
 }
 
