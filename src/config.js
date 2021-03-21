@@ -5,7 +5,7 @@ const gameConfig = {
     speedThreshold: 0.5,
     maxDirectionLineLength: 20,
     framesPerSecond: 60,
-    gravity: 9.81,
+    gravity: Infinity,
 
     directionLineStartColor: 'hsl(120, 100%, 50%)',
     directionLineEndColor: 'hsl(0, 100%, 50%)',
@@ -16,16 +16,22 @@ const gameConfig = {
 const svgConfig = {
     golfBallAttributes: {'r': gameConfig.golfBallRadius, 'fill': 'white', 'stroke-width': 5, 'stroke': 'black', 'stroke-opacity': '0'},
     // The boundary is divided into two components.
-    // The outer draws the boundary, while the inner ensures that the inner area is white
-    // for the golf ball
+    // This is done to ensure that the drawn course is 
+    // equal to the internal representation
     directionLineAttributes: {'stroke': gameConfig.directionLineStartColor, 'stroke-width': 0.5, 'fill': 'none', 'stroke-linecap': 'round'},
     boundaryAttributesOuter: {'stroke': 'black', 'stroke-width': 2, 'fill': 'none'},
     boundaryAttributesInner: {'stroke': 'white', 'fill': '#3ab93a'},
     obstacleAttributes: {'stroke': 'white', 'fill': 'black'},
     holeAttributes: {'r': 1.25*gameConfig.golfBallRadius, 'fill': 'black'},
+    extentPadding: 0.1
 };
 svgConfig.boundaryAttributesInner['stroke-width'] = 0;
 svgConfig.obstacleAttributes['stroke-width'] = 0;
 //svgConfig.boundaryAttributesOuter['stroke-width'] = 0;
+
+const webSocketConfig = {
+    host: 'localhost',
+    port: 5500,
+}
 
 export { gameConfig, svgConfig };

@@ -75,4 +75,18 @@ function setLineEnd(lineElement, endPosition) {
         'y2': endPosition.y || endPosition.getY()});
 }
 
-export { setAttributes, drawLine, drawPolygon, drawCircle, createGroupElement, setCirclePosition, setLineEnd, createSVGPositionComputer };
+function setSVGExtent(rootSVGElement, extent, padding) {
+    const width = extent.xMax - extent.xMin;
+    const height = extent.yMax - extent.yMin;
+
+    const xMinPadded = extent.xMin - padding*width;
+    const yMinPadded = extent.yMin - padding*height;
+    const widthPadded = (1 + 2*padding)*width;
+    const heightPadded = (1 + 2*padding)*height;
+    const viewBoxString = `${xMinPadded} ${yMinPadded} ${widthPadded} ${heightPadded}`;
+    rootSVGElement.setAttribute('viewBox', viewBoxString);
+}
+
+export { setAttributes, drawLine, drawPolygon, drawCircle, createGroupElement, 
+    setCirclePosition, setLineEnd, createSVGPositionComputer,
+    setSVGExtent };

@@ -41,10 +41,8 @@ function Game(rootSVGElement) {
         courseData = newCourseData;
         _setNewCourse(courseData);
         _setNewGolfBall(courseData);
-        console.log(this);
-        gameMechanics = GameMechanics(obj);
-        //golfBall.setSpeed(20);
-        //_executeShot();
+        gameMechanics = GameMechanics(gameObj);
+        svgUtilities.setSVGExtent(rootSVGElement, course.getCourseAABB(), svgConfig.extentPadding);
     }
 
     function generateNewCourse() {
@@ -52,6 +50,8 @@ function Game(rootSVGElement) {
         const newCourseData = generateCourse();
         setGameContent(newCourseData);
     }
+
+    
 
     function _handleGolfBallMouseDown() {
         console.log(golfBall.checkUserClickable());
@@ -130,12 +130,12 @@ function Game(rootSVGElement) {
 
     function playerFinished() {
         setTimeout(() => {
-            cleanUpGame();
+            _cleanUpGame();
             generateNewCourse(1);
         }, 5000);
     }
 
-    function cleanUpGame() {
+    function _cleanUpGame() {
         course?.destroy();
         golfBall?.destroy();
         course = null;
@@ -144,9 +144,9 @@ function Game(rootSVGElement) {
         courseData = null;
     }
 
-    const obj = { setGameContent, getGolfBall, getCourse, playerFinished,
+    const gameObj = { setGameContent, getGolfBall, getCourse, playerFinished,
         generateNewCourse };
-    return(obj);
+    return(gameObj);
 }
 
 export default Game;
