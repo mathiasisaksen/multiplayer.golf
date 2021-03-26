@@ -42,8 +42,13 @@ main {
     font-size: 6rem;
     text-transform: uppercase;
     font-weight: bold;
+    text-align: center;
     margin-bottom: 5rem;
-    
+    width: 100%;
+}
+
+#title-bullet {
+    font-size: 5.5rem;
 }
 
 #menu-button-container {
@@ -70,11 +75,14 @@ main {
 
 #game-container {
     position: absolute;
-    display: none;
     height: 100%;
     width: 100%;
     /*border: 1px solid black;*/
     box-sizing: border-box;
+}
+
+.slide {
+    transform: translateY(-1000px);
 }
 
 .not-selectable {
@@ -103,6 +111,11 @@ main {
     }
 
     .menu-button:hover {
-        transform: scale(1.1);
+        transform: scale(1.05);
+        background-color: black;
+    }
+
+    #title-bullet {
+        font-size: 9rem;
     }
 }
