@@ -78,6 +78,8 @@ function Game(rootSVGElement) {
     }
 
     function _handleGolfBallTouchMove(event) {
+        // Avoid dragging screen 
+        event.preventDefault();
         const touch = event.changedTouches[0];
         const svgPosition = _computeSVGPosition({x: touch.clientX, y: touch.clientY});
         _updateDirectionLine(svgPosition);
