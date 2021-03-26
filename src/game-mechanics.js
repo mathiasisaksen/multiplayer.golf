@@ -13,7 +13,7 @@ const GameMechanics = function(game) {
     console.log(upperPuttVelocity);
 
     let collisionData;
-    let isRunning = false;
+    let golfBallIsMoving = false;
     let isFinished = false;
     let previousTimeStamp;
 
@@ -94,7 +94,7 @@ const GameMechanics = function(game) {
             golfBall.setSpeed(newSpeed);
             if (golfBall.getSpeed() < gameConfig.speedThreshold) {
                 golfBall.setSpeed(0);
-                isRunning = false;
+                golfBallIsMoving = false;
             }
             checkIfWon();
         }
@@ -102,7 +102,7 @@ const GameMechanics = function(game) {
 
     function multipleSteps(timeStep, numberOfSteps) {
         for (let i = 0; i < numberOfSteps; i++) {
-            if (!isRunning) return;
+            if (!golfBallIsMoving) return;
             step(timeStep / numberOfSteps);
         }
     }
@@ -112,7 +112,7 @@ const GameMechanics = function(game) {
             previousTimeStamp = timeStamp;
         }
         let timeStep = (timeStamp - previousTimeStamp) / 1000;
-        if (timeStep > (1 / gameConfig.framesPerSecond) && isRunning) {
+        if (timeStep > (1 / gameConfig.framesPerSecond) && golfBallIsMoving) {
             previousTimeStamp = timeStamp;
             multipleSteps(timeStep, gameConfig.interpolationsPerStep);
             golfBall.update();
@@ -121,26 +121,26 @@ const GameMechanics = function(game) {
         if (isFinished) {
             game.playerFinished();
             reset();
-        } else if (isRunning) {
+        } else if (golfBallIsMoving) {
             window.requestAnimationFrame(stepLoop);
         } else {
             reset();
-            golfBall.setUserClickable();
+            game.golfBallStoppedMoving();
         }
     }
 
     function executeShot() {
-        isRunning = true;
+        golfBallIsMoving = true;
         isFinished = false;
         window.requestAnimationFrame(stepLoop);
     }
 
     function enableRunning() {
-        isRunning = true;
+        golfBallIsMoving = true;
     }
 
     function checkIfRunning() {
-        return(isRunning);
+        return(golfBallIsMoving);
     }
 
     function checkIfWon() {
@@ -152,14 +152,14 @@ const GameMechanics = function(game) {
         if (mUtils.subtractVectors(position, hole.position).getLength() <= hole.radius &&
                                                             speed < upperPuttVelocity) {
             golfBall.setPosition(hole.position);
-            isRunning = false;
+            golfBallIsMoving = false;
             isFinished = true;
         }
     }
 
     function reset() {
         collisionData = null;
-        isRunning = false;
+        golfBallIsMoving = false;
         previousTimeStamp = null;
     }
 

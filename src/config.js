@@ -31,7 +31,7 @@ svgConfig.obstacleAttributes['stroke-width'] = 0;
 
 const webSocketConfig = {
     host: 'localhost',
-    port: 5500,
+    port: 5678,
 }
 
-export { gameConfig, svgConfig };
+export { gameConfig, svgConfig, webSocketConfig };

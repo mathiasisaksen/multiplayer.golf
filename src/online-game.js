@@ -1,4 +1,5 @@
 import Game from './game';
+import WebSocketClient from './websocket-client';
 
 function OnlineGame(rootSVGElement) {
     const game = Game(rootSVGElement);
@@ -7,6 +8,11 @@ function OnlineGame(rootSVGElement) {
         console.log("finished");
     }
 
+    game.handleIncomingMessage = function(message) {
+        console.log(message);
+    }
+
+    const wsClient = WebSocketClient(game);
     return(game);
 }
 

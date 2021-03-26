@@ -22,6 +22,7 @@ function Game(rootSVGElement) {
         golfBall = GolfBall(courseData, 0, 0, rootSVGElement);
         golfBall.initialize();
         golfBall.addEventListener('mousedown', _handleGolfBallMouseDown);
+        golfBall.addEventListener('touchstart', _handleGolfBallTouchStart);
     }
     
     function getGolfBall() {
@@ -46,15 +47,11 @@ function Game(rootSVGElement) {
     }
 
     function generateNewCourse() {
-        console.log(this);
         const newCourseData = generateCourse();
         setGameContent(newCourseData);
     }
 
-    
-
     function _handleGolfBallMouseDown() {
-        console.log(golfBall.checkUserClickable());
         if (!golfBall.checkUserClickable()) return;
         const golfBallPosition = golfBall.getPosition();
         directionLineElement = svgUtilities.drawLine(rootSVGElement, 
@@ -63,18 +60,33 @@ function Game(rootSVGElement) {
             
         rootSVGElement.addEventListener('mousemove', _handleGolfBallMouseMove);
         rootSVGElement.addEventListener('mouseup', _handleGolfBallMouseUp);
+    }
 
-        //rootSVGElement.addEventListener('touchmove', _handleGolfBallMouseMove);
-        //rootSVGElement.addEventListener('touchend', _handleGolfBallMouseUp);
+    function _handleGolfBallTouchStart() {
+        if (!golfBall.checkUserClickable()) return;
+        const golfBallPosition = golfBall.getPosition();
+        directionLineElement = svgUtilities.drawLine(rootSVGElement, 
+            golfBallPosition, golfBallPosition,
+            svgConfig.directionLineAttributes, ['direction-line']);
+        rootSVGElement.addEventListener('touchmove', _handleGolfBallTouchMove);
+        rootSVGElement.addEventListener('touchend', _handleGolfBallTouchEnd);
     }
 
     function _handleGolfBallMouseMove(event) {
-        //const touch = event.changedTouches[0];
-        //const clientPosition = _computeSVGPosition({x: touch.clientX, y: touch.clientY});
-        let clientPosition = _computeSVGPosition({x: event.clientX, y: event.clientY});
-        
-        // A vector from the center of the golf ball to the position of the mouse
-        directionLineVector = mUtils.subtractVectors(mUtils.Vector(clientPosition), 
+        const svgPosition = _computeSVGPosition({x: event.clientX, y: event.clientY});
+        _updateDirectionLine(svgPosition);
+    }
+
+    function _handleGolfBallTouchMove(event) {
+        const touch = event.changedTouches[0];
+        const svgPosition = _computeSVGPosition({x: touch.clientX, y: touch.clientY});
+        _updateDirectionLine(svgPosition);
+    }
+
+    function _updateDirectionLine(svgPosition) {
+        // A vector from the center of the golf ball to the position of the
+        // mouse/finger
+        directionLineVector = mUtils.subtractVectors(mUtils.Vector(svgPosition), 
             golfBall.getPosition());
         
         // If the length is longer than the maximum permitted value,
@@ -86,7 +98,7 @@ function Game(rootSVGElement) {
             directionLineVector = mUtils.scaleVector(unitVector, gameConfig.maxDirectionLineLength);
             lineEnd = mUtils.addVectors(golfBall.getPosition(), directionLineVector);
         } else {
-            lineEnd = clientPosition;
+            lineEnd = svgPosition;
         }
         svgUtilities.setLineEnd(directionLineElement, lineEnd);
         
@@ -100,8 +112,21 @@ function Game(rootSVGElement) {
     function _handleGolfBallMouseUp() {
         rootSVGElement.removeEventListener('mousemove', _handleGolfBallMouseMove);
         rootSVGElement.removeEventListener('mouseup', _handleGolfBallMouseUp);
-        //rootSVGElement.removeEventListener('touchmove', _handleGolfBallMouseMove);
-        //rootSVGElement.removeEventListener('touchend', _handleGolfBallMouseUp);
+        directionLineElement.remove();
+        directionLineElement = null;
+
+        // If directionLineVector is null, then the mouse has not been moved
+        if (!directionLineVector) return;
+
+        computeGolfBallVelocity();
+        golfBall.setNotUserClickable();
+        directionLineVector = null;
+        _executeShot();
+    }
+
+    function _handleGolfBallTouchEnd() {
+        rootSVGElement.removeEventListener('touchmove', _handleGolfBallTouchMove);
+        rootSVGElement.removeEventListener('touchend', _handleGolfBallTouchEnd);
         directionLineElement.remove();
         directionLineElement = null;
         if (!directionLineVector) return;
@@ -135,6 +160,10 @@ function Game(rootSVGElement) {
         }, 5000);
     }
 
+    function golfBallStoppedMoving() {
+        golfBall.setUserClickable();
+    }
+
     function _cleanUpGame() {
         course?.destroy();
         golfBall?.destroy();
@@ -145,7 +174,7 @@ function Game(rootSVGElement) {
     }
 
     const gameObj = { setGameContent, getGolfBall, getCourse, playerFinished,
-        generateNewCourse };
+        generateNewCourse, golfBallStoppedMoving };
     return(gameObj);
 }
 
