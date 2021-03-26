@@ -6,6 +6,7 @@
 
 html, body {
     height: 100%;
+    font-size: 62.5%;
 }
 
 main {
@@ -13,17 +14,66 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(135.00deg, #2449e8bf 0%, #dbac7f5e 29.613722072406112%, #676982db 51.632777092166464%, #523e4168 54.82120911829996%, #9e6675ae 55.17176539908661%, #b2581999 60.020258452278156%, #0629ad73 89.02687492386478%, #da76bca8 100%), linear-gradient(183.85deg, #a1224962 0%, #b0440188 17.040440926452334%, #5a739541 27.998038016476755%, #4c72a89f 32.303553683523916%, #d467bbe4 36.672348167903955%, #a1fd5694 61.58246857899646%, #9a94cdbe 67.01088475519663%, #454efe9d 80.50845753911403%, #19069995 89.31160805112509%, #dacfbdd2 100%), linear-gradient(101.83deg, #128451d0 0%, #4210685d 100%), linear-gradient(135.00deg, #e72a16e3 0%, #49796077 100%);
+    /*background: none;*/
+}
+
+.hidden {
+    display: none;
+}
+
+#start-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    
+}
+
+#menu-title {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 6rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.menu-button {
+    color: white;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: black;
+    margin: 2rem;
+    padding: 2rem;
+    border-radius: 1rem;
+    cursor: pointer;
 }
 
 #game-container {
-    /*width: 90vmin;*/
-    /*height: 90vmin;*/
+    position: absolute;
+    display: none;
     height: 100%;
     width: 100%;
     /*border: 1px solid black;*/
     box-sizing: border-box;
 }
 
+.not-selectable {
+    user-select: none; 
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none; 
+}
+
 .golf-ball.user-clickable:hover {
     stroke-opacity: 0.2;
+}
+
+@media (max-width: 600px) {
+
 }
