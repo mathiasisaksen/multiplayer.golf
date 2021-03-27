@@ -4,28 +4,18 @@ const MenuController = (() => {
     const menuWrapper = document.querySelector('#menu-wrapper');
     let menuObject;
     let menuElement;
-    let titleElement;
-    let buttonContainer;
-
-    function emptyMenu() {
-        return;
-        buttonContainer.classList.add('transition-out');
-        buttonContainer.innerHTML = '';
-        titleElement.innerHTML = '';
-        titleElement.classList = '';
-    }
 
     function setMenu(newMenuObject, forWardDirection = true, skipTransition = false) {
         if (menuObject) {
             menuObject.setNotActive();
         }
-
         newMenuObject.setActive();
         menuObject = newMenuObject;
+        
         let directionSign = forWardDirection ? 1 : -1;
         let duration = menuConfig.transitionDuration;
         let oldMenu = menuElement;
-        menuElement = newMenuObject.menuElement;
+        menuElement = newMenuObject.getMenuElement();
         menuWrapper.insertBefore(menuElement, menuWrapper.firstChild);
 
         const screenWidth = document.body.offsetWidth;
@@ -38,7 +28,6 @@ const MenuController = (() => {
         const transitionOffset = (screenWidth + maxMenuWidth) / 2;
 
         if (!skipTransition) {
-            let newMenuWidth = menuElement.offsetWidth;
             menuElement.style.transitionDuration = '0s';
             menuElement.style.transform = `translateX(${directionSign * transitionOffset}px)`;
         }
@@ -55,6 +44,7 @@ const MenuController = (() => {
         }
         
         if (!skipTransition) {
+            // Temporary hack to make transition work
             setTimeout(() => {
                 menuElement.style.transitionDuration = duration;
                 menuElement.style.transform = 'translateX(0px)';

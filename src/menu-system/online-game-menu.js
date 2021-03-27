@@ -1,31 +1,17 @@
+import Menu from './menu';
 import MenuController from './menu-controller';
-import * as menuUtils from './menu-utilities';
 import mainMenu from './main-menu';
 
-const onlineGameMenu = (() => {
-    const startButton = menuUtils.createButton('start-button', 'Start game');
-    const backButton = menuUtils.createButton('back-button', 'Go back');
-    const buttons = [startButton, backButton];
-    const titleInnerHTML = 'Online game';
-    const titleElement = menuUtils.createTitleElement(titleInnerHTML, ['title-small']);
-    const menuElement = menuUtils.createMenuElement(titleElement, buttons);
-    let isActive = true;
+const onlineGameMenu = Menu();
 
-    startButton.addEventListener('click', () => console.log('start'));
-    backButton.addEventListener('click', () => {
-        if (!isActive) return;
-        MenuController.setMenu(mainMenu, false)
-    });
+onlineGameMenu.addButton('start-button', 'Start game')
+    .addRestrictedEventListener('click', () => console.log('start'));
 
-    function setActive() {
-        isActive = true;
-    }
-       
-    function setNotActive() {
-        isActive = false;
-    }
+onlineGameMenu.addButton('back-button', 'Go back')
+    .addRestrictedEventListener('click', () => MenuController.setMenu(mainMenu, false));
 
-    return({ buttons, menuElement, setActive, setNotActive });
-})();
+onlineGameMenu.setTitle('Online game', ['title-small']);
+
+onlineGameMenu.createMenuElement();
 
 export default onlineGameMenu;

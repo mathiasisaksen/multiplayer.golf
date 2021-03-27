@@ -1,32 +1,17 @@
+import Menu from './menu';
 import MenuController from './menu-controller';
-import * as menuUtils from './menu-utilities';
 import mainMenu from './main-menu';
 
-const multiplayerMenu = (() => {
-    const startButton = menuUtils.createButton('start-button', 'Start game');
-    const backButton = menuUtils.createButton('back-button', 'Go back');
-    const buttons = [startButton, backButton];
-    const titleInnerHTML = 'Multi-player game';
-    const titleElement = menuUtils.createTitleElement(titleInnerHTML, ['title-small']);
-    const menuElement = menuUtils.createMenuElement(titleElement, buttons);
-    let isActive = true;
+const multiplayerMenu = Menu();
 
+multiplayerMenu.addButton('start-button', 'Start game')
+    .addRestrictedEventListener('click', () => console.log('start'));
 
-    startButton.addEventListener('click', () => console.log('start'));
-    backButton.addEventListener('click', () => {
-        if (!isActive) return;
-        MenuController.setMenu(mainMenu, false);
-    });
+multiplayerMenu.addButton('back-button', 'Go back')
+    .addRestrictedEventListener('click', () => MenuController.setMenu(mainMenu, false));
 
-    function setActive() {
-        isActive = true;
-    }
-    
-    function setNotActive() {
-        isActive = false;
-    }
+multiplayerMenu.setTitle('Multi-player game', ['title-small']);
 
-    return({ buttons, menuElement, setActive, setNotActive });
-})();
+multiplayerMenu.createMenuElement();
 
 export default multiplayerMenu;
