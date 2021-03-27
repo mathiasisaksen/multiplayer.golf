@@ -1,3 +1,9 @@
+:root {
+    --title-color: pink;
+    --title-size: 6rem;
+    --title-hole-size: 94%;
+    --button-text-color: white;
+}
 * {
     margin: 0;
     border: 0;
@@ -26,7 +32,7 @@ main {
     display: none;
 }
 
-#start-menu {
+#menu {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -38,8 +44,8 @@ main {
 }
 
 #menu-title {
-    color: white;
-    font-size: 6rem;
+    color: var(--title-color);
+    font-size: var(--title-size);
     text-transform: uppercase;
     font-weight: bold;
     text-align: center;
@@ -47,8 +53,8 @@ main {
     width: 100%;
 }
 
-#title-bullet {
-    font-size: 5.5rem;
+#title-hole {
+    font-size: var(--title-hole-size);
 }
 
 #menu-button-container {
@@ -60,7 +66,7 @@ main {
 }
 
 .menu-button {
-    color: white;
+    color: var(--button-text-color);
     font-size: 2.9rem;
     font-weight: 700;
     text-align: center;
@@ -97,6 +103,10 @@ main {
 }
 
 @media (min-width: 600px) {
+    :root {
+        --title-hole-size: 150%;
+    }
+
     #menu-button-container {
         max-width: 540px;
     }
@@ -113,9 +123,5 @@ main {
     .menu-button:hover {
         transform: scale(1.05);
         background-color: black;
-    }
-
-    #title-bullet {
-        font-size: 9rem;
     }
 }
