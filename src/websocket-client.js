@@ -6,7 +6,7 @@ function WebSocketClient(onlineGame) {
 
     webSocket.addEventListener('open', () => console.log("open"));
     webSocket.addEventListener('message', message => onlineGame.handleIncomingMessage(JSON.parse(message.data)));
-    setInterval(() => webSocket.send('test'), 1000);
+    //setInterval(() => webSocket.send('test'), 1000);
 }
 
 export default WebSocketClient;
