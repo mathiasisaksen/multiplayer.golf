@@ -92,7 +92,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _course__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./course */ \"./src/course.js\");\n/* harmony import */ var _golf_ball__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./golf-ball */ \"./src/golf-ball.js\");\n/* harmony import */ var _game_mechanics__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./game-mechanics */ \"./src/game-mechanics.js\");\n/* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./game */ \"./src/game.js\");\n/* harmony import */ var _online_game__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./online-game */ \"./src/online-game.js\");\n/* harmony import */ var _menu_system__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./menu-system */ \"./src/menu-system.js\");\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nconst rootSVGElement = document.querySelector('#game-container');\r\n\r\n\r\nconst game = (0,_online_game__WEBPACK_IMPORTED_MODULE_4__.default)(rootSVGElement);\r\ngame.generateNewCourse();\r\n//game.setGameContent(courseData, {x: 80, y: 50});\r\n\r\n//const gameMechanics = GameMechanics(course, golfBall);\r\n\n\n//# sourceURL=webpack://minigolf/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _course__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./course */ \"./src/course.js\");\n/* harmony import */ var _golf_ball__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./golf-ball */ \"./src/golf-ball.js\");\n/* harmony import */ var _game_mechanics__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./game-mechanics */ \"./src/game-mechanics.js\");\n/* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./game */ \"./src/game.js\");\n/* harmony import */ var _online_game__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./online-game */ \"./src/online-game.js\");\n/* harmony import */ var _menu_system_menu_controller__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./menu-system/menu-controller */ \"./src/menu-system/menu-controller.js\");\n/* harmony import */ var _menu_system_main_menu__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./menu-system/main-menu */ \"./src/menu-system/main-menu.js\");\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nconst rootSVGElement = document.querySelector('#game-container');\r\n\r\n_menu_system_menu_controller__WEBPACK_IMPORTED_MODULE_5__.default.setMenu(_menu_system_main_menu__WEBPACK_IMPORTED_MODULE_6__.default);\r\n\r\nconst game = (0,_online_game__WEBPACK_IMPORTED_MODULE_4__.default)(rootSVGElement);\r\ngame.generateNewCourse();\r\n//game.setGameContent(courseData, {x: 80, y: 50});\r\n\r\n//const gameMechanics = GameMechanics(course, golfBall);\r\n\n\n//# sourceURL=webpack://minigolf/./src/index.js?");
 
 /***/ }),
 
@@ -107,14 +107,36 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
-/***/ "./src/menu-system.js":
-/*!****************************!*\
-  !*** ./src/menu-system.js ***!
-  \****************************/
+/***/ "./src/menu-system/main-menu.js":
+/*!**************************************!*\
+  !*** ./src/menu-system/main-menu.js ***!
+  \**************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"StartMenu\": () => (/* binding */ StartMenu)\n/* harmony export */ });\nconst emptyMenu = (() => {\r\n    const menuContainer = document.querySelector('#menu-button-container');\r\n\r\n    function emptyMenu() {\r\n        menuContainer.innerHTML = '';\r\n    }\r\n    return(emptyMenu);\r\n})()\r\n\r\nconst StartMenu = (() => {\r\n    const singlePlayerButton = document.querySelector('#singleplayer-button');\r\n    const multiPlayerButton = document.querySelector('#multiplayer-button');\r\n    const onlineGameButton = document.querySelector('#online-button');\r\n    singlePlayerButton.addEventListener('click', () => document.querySelector(\"#game-container\").classList.toggle('hidden'));\r\n    multiPlayerButton.addEventListener('click', () => console.log('multiplayer'));\r\n    onlineGameButton.addEventListener('click', () => OnlineGameMenu.setupMenu());\r\n\r\n})();\r\n\r\nconst OnlineGameMenu = (() => {\r\n    const title = document.querySelector('#menu-title');\r\n    function setupMenu() {\r\n        emptyMenu();\r\n        title.textContent = 'Online game';\r\n    }\r\n    return({ setupMenu })\r\n})();\r\n\r\n\n\n//# sourceURL=webpack://minigolf/./src/menu-system.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _menu_controller__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./menu-controller */ \"./src/menu-system/menu-controller.js\");\n/* harmony import */ var _menu_utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./menu-utilities */ \"./src/menu-system/menu-utilities.js\");\n\r\n\r\n/*import SingleplayerMenu from './singleplayer-menu';\r\nimport MultiplayerMenu from './multiplayer-menu';\r\nimport OnlineGameMenu from './online-game-menu';*/\r\n\r\nconst mainMenu = (() => {\r\n    const singlePlayerButton = _menu_utilities__WEBPACK_IMPORTED_MODULE_1__.createButton('singleplayer-button', 'Single-player');\r\n    const multiPlayerButton = _menu_utilities__WEBPACK_IMPORTED_MODULE_1__.createButton('multiplayer-button', 'Local multi-player');\r\n    const onlineGameButton = _menu_utilities__WEBPACK_IMPORTED_MODULE_1__.createButton('online-button', 'Online game');\r\n    const buttons = [singlePlayerButton, multiPlayerButton, onlineGameButton];\r\n    const titleInnerHTML = 'Minig<span id=\"title-hole\">◘</span>lf<span id=\"title-flag\">⛳️</span>';\r\n\r\n    singlePlayerButton.addEventListener('click', () => document.querySelector(\"#game-container\").classList.toggle('hidden'));\r\n    multiPlayerButton.addEventListener('click', () => console.log('multiplayer'));\r\n    onlineGameButton.addEventListener('click', () => console.log('online game'));\r\n    return({buttons, titleInnerHTML});\r\n})();\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mainMenu);\n\n//# sourceURL=webpack://minigolf/./src/menu-system/main-menu.js?");
+
+/***/ }),
+
+/***/ "./src/menu-system/menu-controller.js":
+/*!********************************************!*\
+  !*** ./src/menu-system/menu-controller.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n\r\nconst MenuController = (() => {\r\n    const title = document.querySelector('#menu-title');\r\n    const menuContainer = document.querySelector('#menu-button-container');\r\n\r\n    function emptyMenu() {\r\n        menuContainer.innerHTML = '';\r\n    }\r\n\r\n    function setMenu(menuObject) {\r\n        emptyMenu();\r\n        for (const buttonElement of menuObject.buttons) {\r\n            menuContainer.appendChild(buttonElement);\r\n        }\r\n        title.innerHTML = menuObject.titleInnerHTML;\r\n    }\r\n    return({ setMenu });\r\n})();\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MenuController);\n\n//# sourceURL=webpack://minigolf/./src/menu-system/menu-controller.js?");
+
+/***/ }),
+
+/***/ "./src/menu-system/menu-utilities.js":
+/*!*******************************************!*\
+  !*** ./src/menu-system/menu-utilities.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"createButton\": () => (/* binding */ createButton)\n/* harmony export */ });\n\r\nfunction createButton(id, text, classArray = ['menu-button', 'not-selectable']) {\r\n    const buttonElement = document.createElement('div');\r\n    buttonElement.setAttribute('id', id);\r\n    buttonElement.textContent = text;\r\n    classArray.forEach(className => buttonElement.classList.add(className));\r\n    return(buttonElement);\r\n}\r\n\r\n\n\n//# sourceURL=webpack://minigolf/./src/menu-system/menu-utilities.js?");
 
 /***/ }),
 
@@ -147,7 +169,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config */ \"./src/config.js\");\n\r\n\r\nfunction WebSocketClient(onlineGame) {\r\n    const connectionString = `ws://${_config__WEBPACK_IMPORTED_MODULE_0__.webSocketConfig.host}:${_config__WEBPACK_IMPORTED_MODULE_0__.webSocketConfig.port}`;\r\n    const webSocket = new WebSocket(connectionString);\r\n\r\n    webSocket.addEventListener('open', () => console.log(\"open\"));\r\n    webSocket.addEventListener('message', message => onlineGame.handleIncomingMessage(JSON.parse(message.data)));\r\n    setInterval(() => webSocket.send('test'), 1000);\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (WebSocketClient);\n\n//# sourceURL=webpack://minigolf/./src/websocket-client.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config */ \"./src/config.js\");\n\r\n\r\nfunction WebSocketClient(onlineGame) {\r\n    const connectionString = `ws://${_config__WEBPACK_IMPORTED_MODULE_0__.webSocketConfig.host}:${_config__WEBPACK_IMPORTED_MODULE_0__.webSocketConfig.port}`;\r\n    const webSocket = new WebSocket(connectionString);\r\n\r\n    webSocket.addEventListener('open', () => console.log(\"open\"));\r\n    webSocket.addEventListener('message', message => onlineGame.handleIncomingMessage(JSON.parse(message.data)));\r\n    //setInterval(() => webSocket.send('test'), 1000);\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (WebSocketClient);\n\n//# sourceURL=webpack://minigolf/./src/websocket-client.js?");
 
 /***/ })
 

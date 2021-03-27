@@ -2,6 +2,7 @@
     --title-color: pink;
     --title-size: 6rem;
     --title-hole-size: 94%;
+    --title-flag-size: 90%;
     --button-text-color: white;
 }
 * {
@@ -24,8 +25,6 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    /*background: none;*/
 }
 
 .hidden {
@@ -55,6 +54,10 @@ main {
 
 #title-hole {
     font-size: var(--title-hole-size);
+}
+
+#title-flag {
+    font-size: var(--title-flag-size);
 }
 
 #menu-button-container {
@@ -105,6 +108,7 @@ main {
 @media (min-width: 600px) {
     :root {
         --title-hole-size: 150%;
+        --title-flag-size: 80%;
     }
 
     #menu-button-container {
