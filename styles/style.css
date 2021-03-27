@@ -54,7 +54,7 @@ main {
     min-width: 300px;
     width: 100%;
     box-sizing: content-box;
-    transition-timing-function: ease-in;
+    transition-timing-function: ease-in-out;
 }
 
 #menu-title {
