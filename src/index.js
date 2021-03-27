@@ -8,7 +8,7 @@ import mainMenu from './menu-system/main-menu';
 
 const rootSVGElement = document.querySelector('#game-container');
 
-MenuController.setMenu(mainMenu);
+MenuController.setMenu(mainMenu, true, true);
 
 const game = OnlineGame(rootSVGElement);
 game.generateNewCourse();

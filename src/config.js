@@ -32,6 +32,10 @@ svgConfig.obstacleAttributes['stroke-width'] = 0;
 const webSocketConfig = {
     host: 'localhost',
     port: 5678,
+};
+
+const menuConfig = {
+    transitionDuration: "0.5s",
 }
 
-export { gameConfig, svgConfig, webSocketConfig };
+export { gameConfig, svgConfig, webSocketConfig, menuConfig};

@@ -18,6 +18,8 @@ html, body {
 
 body {
     background-color:rgb(27, 27, 27);
+    width: 100%;
+    overflow: hidden;
 }
 
 main {
@@ -25,21 +27,34 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .hidden {
     display: none;
 }
 
+#menu-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
 #menu {
+    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-family: sans-serif;
-    width: 100%;
     min-width: 300px;
+    width: 100%;
     box-sizing: content-box;
+    transition-timing-function: ease-in;
 }
 
 #menu-title {
@@ -60,8 +75,12 @@ main {
     font-size: var(--title-flag-size);
 }
 
+.title-small {
+    --title-size: 4rem;
+}
+
 #menu-button-container {
-    background: linear-gradient(135.00deg, #2449e8bf 0%, #dbac7f5e 29.613722072406112%, #676982db 51.632777092166464%, #523e4168 54.82120911829996%, #9e6675ae 55.17176539908661%, #b2581999 60.020258452278156%, #0629ad73 89.02687492386478%, #da76bca8 100%), linear-gradient(183.85deg, #a1224962 0%, #b0440188 17.040440926452334%, #5a739541 27.998038016476755%, #4c72a89f 32.303553683523916%, #d467bbe4 36.672348167903955%, #a1fd5694 61.58246857899646%, #9a94cdbe 67.01088475519663%, #454efe9d 80.50845753911403%, #19069995 89.31160805112509%, #dacfbdd2 100%), linear-gradient(101.83deg, #128451d0 0%, #4210685d 100%), linear-gradient(135.00deg, #e72a16e3 0%, #49796077 100%);
+    background: linear-gradient(114.25deg, #7292237a 0%, #768eb018 28.544310498034875%, #f95b00e1 67.76231631775777%, #fdcd15fa 100%), linear-gradient(-60.65deg, #ff95f370 0%, #ffffff2b 37.16323872854659%, #00808047 100%), linear-gradient(208.95deg, #ba5860f5 0%, #88cf4c72 43.83907614489707%, #89b31857 84.33390357994351%, #0a0ab1da 100%), linear-gradient(206.79deg, #28e17984 0%, #fae978a5 13.374541439481057%, #fe174de1 49.4392607959516%, #0ca9ffc9 49.57755993587699%, #7a490fba 74.37050419428765%, #e67d1b70 77.19320217393313%, #f59d2b70 81.33138598824766%, #77b65142 87.29205538849311%, #0b9ba00b 100%);
     padding: 3rem;
     border-radius: 4rem;
     width: 90%;
@@ -79,7 +98,18 @@ main {
     padding: 2rem;
     border-radius: 1rem;
     cursor: pointer;
-    
+}
+
+.transition-out {
+    transform: translateX(-1000px);
+}
+
+.transition-in {
+    transform: translateX(0px);
+}
+
+.new-menu {
+    margin-left: 1000px;
 }
 
 #game-container {
@@ -114,18 +144,16 @@ main {
     #menu-button-container {
         max-width: 540px;
     }
-    
-    #menu-title {
-        font-family: sans-serif;
-    }
+
     .menu-button {
         font-family: sans-serif;
         transition-duration: 0.1s;
         transition-timing-function: ease-in-out;
     }
-
+    
     .menu-button:hover {
         transform: scale(1.05);
         background-color: black;
     }
+    
 }
