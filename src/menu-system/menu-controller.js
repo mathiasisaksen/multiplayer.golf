@@ -74,7 +74,13 @@ const MenuController = (() => {
         }
     }
 
-    return({ setMenu });
+    function removeMenu() {
+        menuWrapper.innerHTML = '';
+        menuObject.setNotActive();
+        menuObject = null;
+        menuElement = null;
+    }
+    return({ setMenu, removeMenu });
 })();
 
 export default MenuController;

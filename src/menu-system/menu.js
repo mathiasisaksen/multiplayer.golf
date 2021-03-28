@@ -1,7 +1,7 @@
 import * as menuUtils from './menu-utilities';
 
 function Menu(id) {
-    const buttons = [];
+    const elements = [];
     let titleElement;
     let menuElement;
     let isActive = true;
@@ -15,8 +15,12 @@ function Menu(id) {
             }
             newButton.addEventListener(eventName, restrictedHandler);
         }
-        buttons.push(newButton);
+        elements.push(newButton);
         return(newButton);
+    }
+
+    function addCustomElement(element) {
+        elements.pussh(newButton);
     }
 
     function setTitle(titleInnerHTML, classArray = []) {
@@ -24,7 +28,7 @@ function Menu(id) {
     }
 
     function createMenuElement() {
-        menuElement = menuUtils.createMenuElement(id, titleElement, buttons);
+        menuElement = menuUtils.createMenuElement(id, titleElement, elements);
     }
 
 
@@ -40,7 +44,7 @@ function Menu(id) {
         isActive = false;
     }
     return({ addButton, setTitle, createMenuElement, getMenuElement, setActive,
-         setNotActive, })
+         setNotActive, addCustomElement })
 }
 
 export default Menu;

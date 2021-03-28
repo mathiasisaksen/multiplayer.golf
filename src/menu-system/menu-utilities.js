@@ -1,16 +1,16 @@
-function createMenuElement(id, titleElement, buttonArray) {
+function createMenuElement(id, titleElement, elementArray) {
     const menuElement = document.createElement('div');
     menuElement.setAttribute('id', id);
     menuElement.classList.add('menu');
     menuElement.appendChild(titleElement);
 
-    const buttonContainer = document.createElement('div');
-    buttonContainer.setAttribute('id', 'menu-button-container');
+    const elementContainer = document.createElement('div');
+    elementContainer.classList.add('menu-element-container');
 
-    for (const buttonElement of buttonArray) {
-        buttonContainer.appendChild(buttonElement);
+    for (const element of elementArray) {
+        elementContainer.appendChild(element);
     }
-    menuElement.appendChild(buttonContainer);
+    menuElement.appendChild(elementContainer);
     
     return(menuElement);
 }
