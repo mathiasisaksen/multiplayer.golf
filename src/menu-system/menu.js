@@ -20,7 +20,7 @@ function Menu(id) {
     }
 
     function addCustomElement(element) {
-        elements.pussh(newButton);
+        elements.push(element);
     }
 
     function setTitle(titleInnerHTML, classArray = []) {

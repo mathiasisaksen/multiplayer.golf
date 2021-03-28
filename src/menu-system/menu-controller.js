@@ -5,9 +5,10 @@ const MenuController = (() => {
     let menuObject;
     let menuElement;
 
-    function setElementTransition(element, position, duration) {
+    function setElementTransition(element, position, duration, timingFunction = 'ease-in-out') {
         element.style.transitionDuration = `${duration}s`;
         element.style.transform = `translateX(${position}px)`;
+        element.style.transitionTimingFunction = timingFunction;
     }
 
     // Should probably be split into multiple functions
@@ -52,7 +53,7 @@ const MenuController = (() => {
 
         // Start exit transition of old menu
         if (oldMenu && !skipTransition) {
-            setElementTransition(oldMenu, - directionSign * transitionOffset, duration);
+            setElementTransition(oldMenu, - directionSign * transitionOffset, duration, 'ease-in-out');
             oldMenu.addEventListener('transitionstart', e => {
                 if (e.target != oldMenu) return;
                 startNewMenuEntry();
@@ -66,7 +67,7 @@ const MenuController = (() => {
         
         // Start entry transition of new menu
         function startNewMenuEntry() {
-            setElementTransition(menuElement, 0, duration);
+            setElementTransition(menuElement, 0, duration, 'ease-in-out');
             menuElement.addEventListener('transitionend', e => {
                 if (e.target != menuElement) return;
                 menuElement.style = '';
