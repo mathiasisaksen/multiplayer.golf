@@ -10,7 +10,7 @@ numberOfCoursesContainer.innerHTML = `
 <div id="singleplayer-numcourse-container" class="menu-option-container">
     <div class='menu-options-header'>Number of courses</div>
     <div id="singleplayer-numcourse-input-container" class="menu-inner-option-container">
-        <input type="text" id="singleplayer-numcourses-input">
+        <textarea rows="1" id="singleplayer-numcourses-input"></textarea>
         <div id="singleplayer-numcourses-increase" class="menu-button">+</div>
         <div id="singleplayer-numcourses-decrease" class="menu-button">-</div>
         <div id="singleplayer-numcourses-infinite" class="menu-button">∞</div>

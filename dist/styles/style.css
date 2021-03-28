@@ -119,7 +119,7 @@ main {
 }
 
 .menu-inner-option-container * {
-    margin: 1rem;
+    margin: 0.5rem;
     flex: 1;
 }
 
@@ -131,15 +131,20 @@ main {
     margin-left: 0;
 }
 
-.menu-inner-option-container input {
+.menu-inner-option-container textarea {
     background-color: #000000aa;
     border-radius: 1rem;
-    font-size: var(--menu-header-size);
-    width: 50%;
-    margin-left: 2rem;
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: calc(0.75 * var(--menu-header-size));
     outline: none;
     color: var(--button-text-color);
     text-align: center;
+    resize: none;
+    overflow: hidden;
+    padding: 2rem;
+    padding-top: 2.5rem;
+    white-space: nowrap;
 }
 
 #game-container {
@@ -147,10 +152,6 @@ main {
     height: 100%;
     width: 100%;
     box-sizing: border-box;
-}
-
-.slide {
-    transform: translateY(-1000px);
 }
 
 .not-selectable {
@@ -180,4 +181,8 @@ main {
         background-color: black;
     }
     
+    .menu-inner-option-container * {
+        margin: 1rem;
+    }
+
 }
