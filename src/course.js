@@ -43,10 +43,6 @@ const Course = function(courseData, rootSVGElement) {
         })
     
     }
-    
-    function printVertices() {
-        console.log(courseData);
-    }
 
     function draw() {
         svgUtilities.drawPolygon(_courseElement, _boundaryVertices, 
@@ -74,7 +70,6 @@ const Course = function(courseData, rootSVGElement) {
         rootSVGElement.append(_courseElement);
         _computeEdgesAndAABB();
         draw();
-        console.log(getCourseAABB());
     }
 
     function getBoundaryVertices() {

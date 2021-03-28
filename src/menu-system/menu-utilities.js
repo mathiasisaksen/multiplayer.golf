@@ -1,6 +1,7 @@
-function createMenuElement(titleElement, buttonArray) {
+function createMenuElement(id, titleElement, buttonArray) {
     const menuElement = document.createElement('div');
-    menuElement.setAttribute('id', 'menu');
+    menuElement.setAttribute('id', id);
+    menuElement.classList.add('menu');
     menuElement.appendChild(titleElement);
 
     const buttonContainer = document.createElement('div');

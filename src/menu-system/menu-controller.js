@@ -5,19 +5,36 @@ const MenuController = (() => {
     let menuObject;
     let menuElement;
 
+    function setElementTransition(element, position, duration) {
+        element.style.transitionDuration = `${duration}s`;
+        element.style.transform = `translateX(${position}px)`;
+    }
+
+    // Should probably be split into multiple functions
     function setMenu(newMenuObject, forWardDirection = true, skipTransition = false) {
+        // On the first run, menuObject does not have a value
+        // Later, we start by setting the old menu to in-active.
+        // This disables all button events
         if (menuObject) {
             menuObject.setNotActive();
         }
+
+        // Set new menu to active, enabling button events
         newMenuObject.setActive();
         menuObject = newMenuObject;
         
+        // Should the the new menu come in from the left, or the right?
         let directionSign = forWardDirection ? 1 : -1;
+        // How long should the transition take?
         let duration = menuConfig.transitionDuration;
+
+        // Store old menu for later, and update menuElement to new menu
         let oldMenu = menuElement;
         menuElement = newMenuObject.getMenuElement();
         menuWrapper.insertBefore(menuElement, menuWrapper.firstChild);
 
+        // Computing how far the menu elements should slide, when transitioning
+        // out of/in to the screen
         const screenWidth = document.body.offsetWidth;
         let oldMenuWidth;
         const newMenuWidth = menuElement.offsetWidth;
@@ -27,36 +44,36 @@ const MenuController = (() => {
         const maxMenuWidth = Math.max(newMenuWidth, oldMenuWidth);
         const transitionOffset = (screenWidth + maxMenuWidth) / 2;
 
+        // Move new menu to initial position outside the screen, without
+        // transitioning
         if (!skipTransition) {
-            menuElement.style.transitionDuration = '0s';
-            menuElement.style.transform = `translateX(${directionSign * transitionOffset}px)`;
+            setElementTransition(menuElement, directionSign * transitionOffset, 0);
         }
 
+        // Start exit transition of old menu
         if (oldMenu && !skipTransition) {
-            oldMenu.style.transitionDuration = duration;
-            oldMenu.style.transform = `translateX(${- directionSign * transitionOffset}px)`;
+            setElementTransition(oldMenu, - directionSign * transitionOffset, duration);
+            oldMenu.addEventListener('transitionstart', e => {
+                if (e.target != oldMenu) return;
+                startNewMenuEntry();
+            });
             oldMenu.addEventListener('transitionend', e => {
                 if (e.target != oldMenu) return;
-                console.log(e);
                 oldMenu.remove();
                 oldMenu = null;
             });
         }
         
-        if (!skipTransition) {
-            // Temporary hack to make transition work
-            setTimeout(() => {
-                menuElement.style.transitionDuration = duration;
-                menuElement.style.transform = 'translateX(0px)';
-                menuElement.addEventListener('transitionend', e => {
-                    if (e.target != menuElement) return;
-                    menuElement.style = '';
-                });
-            }, 0);
+        // Start entry transition of new menu
+        function startNewMenuEntry() {
+            setElementTransition(menuElement, 0, duration);
+            menuElement.addEventListener('transitionend', e => {
+                if (e.target != menuElement) return;
+                menuElement.style = '';
+            });
         }
-        
-        return;
     }
+
     return({ setMenu });
 })();
 

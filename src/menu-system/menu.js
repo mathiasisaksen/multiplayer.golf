@@ -1,6 +1,6 @@
 import * as menuUtils from './menu-utilities';
 
-function Menu() {
+function Menu(id) {
     const buttons = [];
     let titleElement;
     let menuElement;
@@ -24,8 +24,9 @@ function Menu() {
     }
 
     function createMenuElement() {
-        menuElement = menuUtils.createMenuElement(titleElement, buttons);
+        menuElement = menuUtils.createMenuElement(id, titleElement, buttons);
     }
+
 
     function getMenuElement() {
         return(menuElement);
@@ -38,7 +39,8 @@ function Menu() {
     function setNotActive() {
         isActive = false;
     }
-    return({ addButton, setTitle, createMenuElement, getMenuElement, setActive, setNotActive})
+    return({ addButton, setTitle, createMenuElement, getMenuElement, setActive,
+         setNotActive, })
 }
 
 export default Menu;

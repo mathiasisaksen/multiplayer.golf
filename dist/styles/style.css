@@ -38,13 +38,13 @@ main {
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 
 }
 
-#menu {
+.menu {
     position: absolute;
     display: flex;
     flex-direction: column;

@@ -4,7 +4,7 @@ import singleplayerMenu from './singleplayer-menu';
 import multiplayerMenu from './multiplayer-menu';
 import onlineGameMenu from './online-game-menu';
 
-const mainMenu = Menu();
+const mainMenu = Menu('main-menu');
 
 mainMenu.addButton('singleplayer-button', 'Single-player')
     .addRestrictedEventListener('click', () => MenuController.setMenu(singleplayerMenu, true));

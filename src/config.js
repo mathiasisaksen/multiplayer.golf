@@ -35,7 +35,7 @@ const webSocketConfig = {
 };
 
 const menuConfig = {
-    transitionDuration: "0.5s",
+    transitionDuration: 0.5,
 }
 
 export { gameConfig, svgConfig, webSocketConfig, menuConfig};

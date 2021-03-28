@@ -2,7 +2,7 @@ import Menu from './menu';
 import MenuController from './menu-controller';
 import mainMenu from './main-menu';
 
-const onlineGameMenu = Menu();
+const onlineGameMenu = Menu('online-game-menu');
 
 onlineGameMenu.addButton('start-button', 'Start game')
     .addRestrictedEventListener('click', () => console.log('start'));

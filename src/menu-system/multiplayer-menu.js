@@ -2,7 +2,7 @@ import Menu from './menu';
 import MenuController from './menu-controller';
 import mainMenu from './main-menu';
 
-const multiplayerMenu = Menu();
+const multiplayerMenu = Menu('multiplayer-menu');
 
 multiplayerMenu.addButton('start-button', 'Start game')
     .addRestrictedEventListener('click', () => console.log('start'));
