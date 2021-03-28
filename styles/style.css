@@ -3,6 +3,8 @@
     --title-size: 6rem;
     --title-hole-size: 4.35rem;
     --button-text-color: white;
+    --menu-header-size: 3rem;
+    --menu-header-color: white;
 }
 * {
     margin: 0;
@@ -81,6 +83,7 @@ main {
     border-radius: 4rem;
     width: 90%;
     box-sizing: border-box;
+    padding: 2rem 4rem 2rem 4rem;
 }
 
 .menu-button {
@@ -90,29 +93,59 @@ main {
     text-align: center;
     text-transform: uppercase;
     background-color: #000000aa;
-    margin: 2rem;
+    margin: 1rem 0 1rem 0;
     padding: 2rem;
     border-radius: 1rem;
     cursor: pointer;
 }
 
-.transition-out {
-    transform: translateX(-1000px);
+.menu-options-header {
+    color: var(--menu-header-color);
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: sans-serif;
+    font-size: var(--menu-header-size);
 }
 
-.transition-in {
-    transform: translateX(0px);
+.menu-options-container {
+    width: 100%;
 }
 
-.new-menu {
-    margin-left: 1000px;
+.menu-inner-option-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.menu-inner-option-container * {
+    margin: 1rem;
+    flex: 1;
+}
+
+.menu-inner-option-container :last-child {
+    margin-right: 0;
+}
+
+.menu-inner-option-container :first-child {
+    margin-left: 0;
+}
+
+.menu-inner-option-container input {
+    background-color: #000000aa;
+    border-radius: 1rem;
+    font-size: var(--menu-header-size);
+    width: 50%;
+    margin-left: 2rem;
+    outline: none;
+    color: var(--button-text-color);
+    text-align: center;
 }
 
 #game-container {
     position: absolute;
     height: 100%;
     width: 100%;
-    /*border: 1px solid black;*/
     box-sizing: border-box;
 }
 
