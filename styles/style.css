@@ -1,8 +1,7 @@
 :root {
     --title-color: pink;
     --title-size: 6rem;
-    --title-hole-size: 94%;
-    --title-flag-size: 90%;
+    --title-hole-size: 4.35rem;
     --button-text-color: white;
 }
 * {
@@ -68,18 +67,15 @@ main {
 }
 
 #title-hole {
-    font-size: var(--title-hole-size);
-}
-
-#title-flag {
-    font-size: var(--title-flag-size);
+    height: var(--title-hole-size);
+    fill: var(--title-color);
 }
 
 .title-small {
     --title-size: 4rem;
 }
 
-#menu-button-container {
+.menu-element-container {
     background: linear-gradient(114.25deg, #7292237a 0%, #768eb018 28.544310498034875%, #f95b00e1 67.76231631775777%, #fdcd15fa 100%), linear-gradient(-60.65deg, #ff95f370 0%, #ffffff2b 37.16323872854659%, #00808047 100%), linear-gradient(208.95deg, #ba5860f5 0%, #88cf4c72 43.83907614489707%, #89b31857 84.33390357994351%, #0a0ab1da 100%), linear-gradient(206.79deg, #28e17984 0%, #fae978a5 13.374541439481057%, #fe174de1 49.4392607959516%, #0ca9ffc9 49.57755993587699%, #7a490fba 74.37050419428765%, #e67d1b70 77.19320217393313%, #f59d2b70 81.33138598824766%, #77b65142 87.29205538849311%, #0b9ba00b 100%);
     padding: 3rem;
     border-radius: 4rem;
@@ -136,12 +132,7 @@ main {
 }
 
 @media (min-width: 600px) {
-    :root {
-        --title-hole-size: 150%;
-        --title-flag-size: 80%;
-    }
-
-    #menu-button-container {
+    .menu-element-container {
         max-width: 540px;
     }
 
