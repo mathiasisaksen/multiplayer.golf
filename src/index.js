@@ -3,8 +3,9 @@ import GolfBall from './golf-ball';
 import GameMechanics from './game-mechanics';
 import Game from './game';
 import OnlineGame from './online-game';
+import rootSVGElement from './svg-setup';
 
-const rootSVGElement = document.querySelector('#game-container');
+
 
 
 const game = OnlineGame(rootSVGElement);

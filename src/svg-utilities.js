@@ -87,6 +87,22 @@ function setSVGExtent(rootSVGElement, extent, padding) {
     rootSVGElement.setAttribute('viewBox', viewBoxString);
 }
 
+function computeNewViewBox(oldViewBox, mousePosition, zoomFactor, centerWeight) {
+    const midX = oldViewBox[0] + oldViewBox[2]/2;
+    const midY = oldViewBox[1] + oldViewBox[3]/2;
+
+    const newMidX = midX + centerWeight * (mousePosition.x - midX);
+    const newMidY = midY + centerWeight * (mousePosition.y - midY);
+
+    const newWidth = zoomFactor*oldViewBox[2];
+    const newHeight = zoomFactor*oldViewBox[3];
+
+    const newX = newMidX - newWidth/2;
+    const newY = newMidY - newHeight/2;
+    let newViewBox = [newX, newY, newWidth, newHeight];
+    return(newViewBox);
+};
+
 export { setAttributes, drawLine, drawPolygon, drawCircle, createGroupElement, 
     setCirclePosition, setLineEnd, createSVGPositionComputer,
-    setSVGExtent };
+    setSVGExtent, computeNewViewBox };

@@ -21,7 +21,7 @@ function Game(rootSVGElement) {
     function _setNewGolfBall(courseData) {
         golfBall = GolfBall(courseData, 0, 0, rootSVGElement);
         golfBall.initialize();
-        golfBall.addEventListener('mousedown', _handleGolfBallMouseDown);
+        golfBall.addEventListener('mousedown', _handleGolfBallMouseDown, false);
         golfBall.addEventListener('touchstart', _handleGolfBallTouchStart);
     }
     
@@ -51,7 +51,9 @@ function Game(rootSVGElement) {
         setGameContent(newCourseData);
     }
 
-    function _handleGolfBallMouseDown() {
+    function _handleGolfBallMouseDown(event) {
+        event.stopPropagation();
+        console.log("game");
         if (!golfBall.checkUserClickable()) return;
         const golfBallPosition = golfBall.getPosition();
         directionLineElement = svgUtilities.drawLine(rootSVGElement, 
