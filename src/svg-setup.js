@@ -41,7 +41,7 @@ function handleSVGMouseDown(event) {
         // Current position of pointer
         const currentPosition = {x: event.clientX , y: event.clientY};
 
-        // How far has the pointer moved since the start?
+        // How far has the pointer moved since the last move?
         let amountX = currentPosition.x - initialPosition.x;
         let amountY = currentPosition.y - initialPosition.y;
 
@@ -68,6 +68,6 @@ function handleSVGMouseDown(event) {
 }
 
 rootSVGElement.addEventListener('wheel', handleSVGScrollZoom);
-rootSVGElement.addEventListener('pointerdown', handleSVGMouseDown, false);
+rootSVGElement.addEventListener('mousedown', handleSVGMouseDown);
 
 export default rootSVGElement;

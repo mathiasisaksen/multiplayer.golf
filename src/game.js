@@ -21,7 +21,7 @@ function Game(rootSVGElement) {
     function _setNewGolfBall(courseData) {
         golfBall = GolfBall(courseData, 0, 0, rootSVGElement);
         golfBall.initialize();
-        golfBall.addEventListener('mousedown', _handleGolfBallMouseDown, false);
+        golfBall.addEventListener('mousedown', _handleGolfBallMouseDown);
         golfBall.addEventListener('touchstart', _handleGolfBallTouchStart);
     }
     
@@ -53,15 +53,16 @@ function Game(rootSVGElement) {
 
     function _handleGolfBallMouseDown(event) {
         event.stopPropagation();
-        console.log("game");
+        console.log(event);
         if (!golfBall.checkUserClickable()) return;
         const golfBallPosition = golfBall.getPosition();
         directionLineElement = svgUtilities.drawLine(rootSVGElement, 
             golfBallPosition, golfBallPosition,
             svgConfig.directionLineAttributes, ['direction-line']);
-            
+        
         rootSVGElement.addEventListener('mousemove', _handleGolfBallMouseMove);
         rootSVGElement.addEventListener('mouseup', _handleGolfBallMouseUp);
+        window.addEventListener('keydown', _handleEscapePutt);
     }
 
     function _handleGolfBallTouchStart() {
@@ -85,6 +86,16 @@ function Game(rootSVGElement) {
         const touch = event.changedTouches[0];
         const svgPosition = _computeSVGPosition({x: touch.clientX, y: touch.clientY});
         _updateDirectionLine(svgPosition);
+    }
+
+    function _handleEscapePutt(event) {
+        if (event.key != "Escape") return;
+        rootSVGElement.removeEventListener('mousemove', _handleGolfBallMouseMove);
+        rootSVGElement.removeEventListener('mouseup', _handleGolfBallMouseUp);
+        rootSVGElement.removeEventListener('keydown', _handleEscapePutt);
+        directionLineElement.remove();
+        directionLineElement = null;
+        directionLineVector = null;
     }
 
     function _updateDirectionLine(svgPosition) {
@@ -116,6 +127,7 @@ function Game(rootSVGElement) {
     function _handleGolfBallMouseUp() {
         rootSVGElement.removeEventListener('mousemove', _handleGolfBallMouseMove);
         rootSVGElement.removeEventListener('mouseup', _handleGolfBallMouseUp);
+        rootSVGElement.removeEventListener('keydown', _handleEscapePutt);
         directionLineElement.remove();
         directionLineElement = null;
 
