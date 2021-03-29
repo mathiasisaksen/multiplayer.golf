@@ -23,7 +23,14 @@ const svgConfig = {
     boundaryAttributesInner: {'stroke': 'white', 'fill': '#3ab93a'},
     obstacleAttributes: {'stroke': 'white', 'fill': 'black'},
     holeAttributes: {'r': 1.25*gameConfig.golfBallRadius, 'fill': 'black'},
-    extentPadding: 0.1
+    // The amount of padding added to the viewbox, based on the AABB of the course
+    extentPadding: 0.1,
+    // When zooming with the scroll, by how much should each scroll zoom?
+    zoomFactor: 0.9,
+    // When zooming, the center of the viewbox is interpolated between the old
+    // center and the position of the mouse. How much weight should be given to
+    // the mouse position?
+    centerMouseInterpolation: 0.1 
 };
 svgConfig.boundaryAttributesInner['stroke-width'] = 0;
 svgConfig.obstacleAttributes['stroke-width'] = 0;

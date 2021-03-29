@@ -5,8 +5,9 @@ import Game from './game';
 import OnlineGame from './online-game';
 import MenuController from './menu-system/menu-controller';
 import mainMenu from './menu-system/main-menu';
+import rootSVGElement from './svg-setup';
 
-const rootSVGElement = document.querySelector('#game-container');
+
 
 MenuController.setMenu(mainMenu, true, true);
 
