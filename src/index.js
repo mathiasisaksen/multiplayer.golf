@@ -7,8 +7,6 @@ import MenuController from './menu-system/menu-controller';
 import mainMenu from './menu-system/main-menu';
 import rootSVGElement from './svg-setup';
 
-
-
 MenuController.setMenu(mainMenu, true, true);
 
 const game = OnlineGame(rootSVGElement);
