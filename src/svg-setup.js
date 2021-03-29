@@ -28,16 +28,17 @@ function handleSVGScrollZoom(event) {
 }
 
 function handleSVGMouseDown(event) {
-    //if (event.target != this) return;
-    console.log("svg");
     let initialPosition = {x: event.clientX , y: event.clientY};
+    const courseElement = this.querySelector('.course-container');
 
     function handleSVGMouseMove(event) {
+        const courseClientRect = courseElement.getBoundingClientRect();
+        const courseSVGRect = courseElement.getBBox();
+
         const viewBox = this.getAttribute('viewBox')
             .split(' ')
             .map(elem => parseFloat(elem));
-        const width = viewBox[2];
-        const height = viewBox[3];
+
         // Current position of pointer
         const currentPosition = {x: event.clientX , y: event.clientY};
 
@@ -46,12 +47,13 @@ function handleSVGMouseDown(event) {
         let amountY = currentPosition.y - initialPosition.y;
 
         // Normalize to values between 0 and 1
-        amountX /= this.clientWidth;
-        amountY /= this.clientHeight;
+        amountX =  amountX * courseSVGRect.width / courseClientRect.width;
+        amountY =  amountY * courseSVGRect.height / courseClientRect.height;
+        console.log(amountX, amountY);
 
         // Update lower left corner of viewbox
-        viewBox[0] -= width*amountX;
-        viewBox[1] -= height*amountY;
+        viewBox[0] -= amountX;
+        viewBox[1] -= amountY;
         
         this.setAttribute('viewBox', viewBox.join(' '));
         initialPosition = currentPosition;

@@ -53,7 +53,6 @@ function Game(rootSVGElement) {
 
     function _handleGolfBallMouseDown(event) {
         event.stopPropagation();
-        console.log(event);
         if (!golfBall.checkUserClickable()) return;
         const golfBallPosition = golfBall.getPosition();
         directionLineElement = svgUtilities.drawLine(rootSVGElement, 
