@@ -126,7 +126,7 @@ function Game(rootSVGElement) {
     function _handleGolfBallMouseUp() {
         rootSVGElement.removeEventListener('mousemove', _handleGolfBallMouseMove);
         rootSVGElement.removeEventListener('mouseup', _handleGolfBallMouseUp);
-        rootSVGElement.removeEventListener('keydown', _handleEscapePutt);
+        window.removeEventListener('keydown', _handleEscapePutt);
         directionLineElement.remove();
         directionLineElement = null;
 
