@@ -12,7 +12,7 @@ function handleSVGScrollZoom(event) {
         .map(elem => parseFloat(elem));
     
     let newViewBox;
-    let deltaYNorm = event.deltaY / 83.3;
+    let deltaYNorm = event.deltaY > 0 ? 1: -1;
     let zoomFactorNorm = 1 - Math.abs(deltaYNorm) * (1 - svgConfig.zoomFactor);
     console.log(zoomFactorNorm);
     if (deltaYNorm < 0) {

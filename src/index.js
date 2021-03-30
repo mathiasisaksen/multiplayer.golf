@@ -6,6 +6,7 @@ import OnlineGame from './online-game';
 import MenuController from './menu-system/menu-controller';
 import mainMenu from './menu-system/main-menu';
 import rootSVGElement from './svg-setup';
+import * as sidebar from './sidebar';
 
 MenuController.setMenu(mainMenu, true, true);
 

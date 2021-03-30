@@ -222,7 +222,7 @@ main {
         position: absolute;
         right: 2rem;
         top: 2rem;
-        /*bottom: 2rem;*/
+        padding: 1rem 3rem 1rem 3rem;
         width: 300px;
         border-radius: 2rem;
         background-color: #000000aa;
@@ -237,19 +237,15 @@ main {
         align-items: baseline;
     }
 
-    .sidebar-collapsed {
-        bottom: unset !important;
-        height: 0px !important;
-    }
-    
     #sidebar-toggle-large-screen {
-        fill: url(#sidebar-toggle-gradient);
-        background: radial-gradient(white 60%, transparent 80%);
+        /*margin-right: 1rem;*/
+    }
+
+    .sidebar-svg-button {
+        fill: url(#sidebar-button-gradient);
         width: 3rem;
         cursor: pointer;
-        border-radius: 50%;
         transition-duration: 0.1s;
-        margin-right: 1rem;
     }
     
     #sidebar-toggle-large-screen:hover {
@@ -263,7 +259,7 @@ main {
         text-transform: uppercase;
         font-weight: bold;
         text-align: center;
-        margin: 1rem 0 1rem 3rem;
+        margin: 1rem 0 1rem 0rem;
     }
     
     #sidebar-title-hole-large-screen {
@@ -271,7 +267,50 @@ main {
         fill: var(--title-color);
     }
 
-    #filler {
+    #sidebar-body-large-screen {
         height: 500px;
     }
+
+    #chat-player-container-large-screen {
+        width: 100%;
+    }
+
+    #chat-player-header-large-screen {
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    #chat-player-buttons-large-screen {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0.2rem;
+        border-radius: 3rem;
+        background-color: #fafafa;
+    }
+
+    #chat-player-buttons-large-screen :first-child {
+        margin-right: 0.5rem;
+        background-color: #002642;
+        border-radius: 50%;
+        padding: 0.5rem;
+        
+    }
+
+    #chat-player-buttons-large-screen :last-child {
+        margin-left: 0.5rem;
+        padding: 0.5rem;
+    }
+
+    #chat-player-title-large-screen {
+        width: 100%;
+        color: #fafafa;
+        font-family: sans-serif;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 3rem;
+        text-align: left;
+    }
+
 }
