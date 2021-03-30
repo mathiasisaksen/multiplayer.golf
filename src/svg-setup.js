@@ -1,7 +1,7 @@
 import * as svgUtils from './svg-utilities';
 import { svgConfig } from './config';
 
-const rootSVGElement = document.querySelector('#game-container');
+const rootSVGElement = document.querySelector('#svg-container');
 
 
 function handleSVGScrollZoom(event) {

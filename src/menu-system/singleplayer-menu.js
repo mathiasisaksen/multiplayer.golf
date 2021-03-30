@@ -23,7 +23,7 @@ const startButton = singleplayerMenu.addButton('start-button', 'Start game');
 singleplayerMenu.addRestrictedEventListener(startButton,
      'click', () => {
         console.log("start");
-        const gameElement = document.querySelector('#game-container');
+        const gameElement = document.querySelector('#svg-container');
         gameElement.classList.remove('hidden');
         MenuController.removeMenu();
 });
