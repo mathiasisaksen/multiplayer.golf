@@ -29,13 +29,13 @@ function handleSVGScrollZoom(event) {
 
 function handleSVGMouseDown(event) {
     let initialPosition = {x: event.clientX , y: event.clientY};
-    const courseElement = this.querySelector('.course-container');
+    const courseElement = rootSVGElement.querySelector('.course-container');
 
     function handleSVGMouseMove(event) {
         const courseClientRect = courseElement.getBoundingClientRect();
         const courseSVGRect = courseElement.getBBox();
 
-        const viewBox = this.getAttribute('viewBox')
+        const viewBox = rootSVGElement.getAttribute('viewBox')
             .split(' ')
             .map(elem => parseFloat(elem));
 
@@ -55,17 +55,17 @@ function handleSVGMouseDown(event) {
         viewBox[0] -= amountX;
         viewBox[1] -= amountY;
         
-        this.setAttribute('viewBox', viewBox.join(' '));
+        rootSVGElement.setAttribute('viewBox', viewBox.join(' '));
         initialPosition = currentPosition;
     }
 
     function handleSVGMouseUp() {
-        this.removeEventListener('mousemove', handleSVGMouseMove);
-        this.removeEventListener('mouseup', handleSVGMouseUp);
+        window.removeEventListener('mousemove', handleSVGMouseMove);
+        window.removeEventListener('mouseup', handleSVGMouseUp);
     }
     
-    this.addEventListener('mousemove', handleSVGMouseMove);
-    this.addEventListener('mouseup', handleSVGMouseUp);
+    window.addEventListener('mousemove', handleSVGMouseMove);
+    window.addEventListener('mouseup', handleSVGMouseUp);
     
 }
 

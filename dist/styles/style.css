@@ -6,6 +6,8 @@
     --button-text-color: white;
     --menu-header-size: 3rem;
     --menu-header-color: white;
+    --sidebar-title-size: 4rem;
+    --sidebar-hole-size: 2.9rem;
 }
 * {
     margin: 0;
@@ -170,14 +172,12 @@ main {
 #svg-container {
     /*position: absolute;*/
     height: 100%;
-    width: 80%;
+    width: 100%;
     box-sizing: border-box;
 }
 
-#game-sidebar {
-    height: 100%;
-    width: 20%;
-    background-color: black;
+#sidebar-large-screen {
+    display: none;
 }
 
 .not-selectable {
@@ -216,4 +216,62 @@ main {
         margin: 1rem;
     }
 
+    #sidebar-large-screen {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        right: 2rem;
+        top: 2rem;
+        /*bottom: 2rem;*/
+        width: 300px;
+        border-radius: 2rem;
+        background-color: #000000aa;
+        transition: bottom 1s;
+    }
+
+    #sidebar-header-large-screen {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+
+    .sidebar-collapsed {
+        bottom: unset !important;
+        height: 0px !important;
+    }
+    
+    #sidebar-toggle-large-screen {
+        fill: url(#sidebar-toggle-gradient);
+        background: radial-gradient(white 60%, transparent 80%);
+        width: 3rem;
+        cursor: pointer;
+        border-radius: 50%;
+        transition-duration: 0.1s;
+        margin-right: 1rem;
+    }
+    
+    #sidebar-toggle-large-screen:hover {
+        transform: scale(1.1) rotate(90deg);
+    }
+    
+    #sidebar-title-large-screen {
+        font-family: sans-serif;
+        color: var(--title-color);
+        font-size: var(--sidebar-title-size);
+        text-transform: uppercase;
+        font-weight: bold;
+        text-align: center;
+        margin: 1rem 0 1rem 3rem;
+    }
+    
+    #sidebar-title-hole-large-screen {
+        height: var(--sidebar-hole-size);
+        fill: var(--title-color);
+    }
+
+    #filler {
+        height: 500px;
+    }
 }
