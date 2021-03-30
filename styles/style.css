@@ -161,10 +161,23 @@ main {
 }
 
 #game-container {
-    position: absolute;
+    display: flex;
+    flex-direction: row;
     height: 100%;
     width: 100%;
+}
+
+#svg-container {
+    /*position: absolute;*/
+    height: 100%;
+    width: 80%;
     box-sizing: border-box;
+}
+
+#game-sidebar {
+    height: 100%;
+    width: 20%;
+    background-color: black;
 }
 
 .not-selectable {
