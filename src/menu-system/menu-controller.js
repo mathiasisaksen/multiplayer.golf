@@ -13,6 +13,7 @@ const MenuController = (() => {
 
     // Should probably be split into multiple functions
     function setMenu(newMenuObject, forWardDirection = true, skipTransition = false) {
+        
         // On the first run, menuObject does not have a value
         // Later, we start by setting the old menu to in-active.
         // This disables all button events
@@ -21,7 +22,6 @@ const MenuController = (() => {
         }
 
         // Set new menu to active, enabling button events
-        newMenuObject.setActive();
         menuObject = newMenuObject;
         
         // Should the the new menu come in from the left, or the right?
@@ -33,6 +33,14 @@ const MenuController = (() => {
         let oldMenu = menuElement;
         menuElement = newMenuObject.getMenuElement();
         menuWrapper.insertBefore(menuElement, menuWrapper.firstChild);
+
+        // Remove any transition events
+        if (oldMenu) {
+            oldMenu.ontransitionstart = '';
+            oldMenu.ontransitionend = '';
+        }
+        menuElement.ontransitionstart = '';
+        menuElement.ontransitionend = '';
 
         // Computing how far the menu elements should slide, when transitioning
         // out of/in to the screen
@@ -71,7 +79,12 @@ const MenuController = (() => {
             menuElement.addEventListener('transitionend', e => {
                 if (e.target != menuElement) return;
                 menuElement.style = '';
+                menuObject.setActive();
             });
+        }
+        
+        if (skipTransition) {
+            menuObject.setActive();
         }
     }
 

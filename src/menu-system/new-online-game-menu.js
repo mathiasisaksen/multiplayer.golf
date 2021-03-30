@@ -4,11 +4,13 @@ import onlineGameMenu from './online-game-menu';
 
 const newOnlineGameMenu = Menu('new-online-game-menu');
 
-newOnlineGameMenu.addButton('start-button', 'Start game')
-    .addRestrictedEventListener('click', () => console.log('start'));
+const startButton = newOnlineGameMenu.addButton('start-button', 'Start game');
+newOnlineGameMenu.addRestrictedEventListener(startButton,
+    'click', () => console.log('start'));
 
-newOnlineGameMenu.addButton('back-button', 'Go back')
-    .addRestrictedEventListener('click', () => MenuController.setMenu(onlineGameMenu, false));
+const backButton = newOnlineGameMenu.addButton('back-button', 'Go back');
+newOnlineGameMenu.addRestrictedEventListener(backButton,
+    'click', () => MenuController.setMenu(onlineGameMenu, false));
 
 newOnlineGameMenu.setTitle('New online game', ['title-small']);
 

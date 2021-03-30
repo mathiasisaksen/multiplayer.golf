@@ -4,11 +4,13 @@ import mainMenu from './main-menu';
 
 const multiplayerMenu = Menu('multiplayer-menu');
 
-multiplayerMenu.addButton('start-button', 'Start game')
-    .addRestrictedEventListener('click', () => console.log('start'));
+const startButton = multiplayerMenu.addButton('start-button', 'Start game');
+multiplayerMenu.addRestrictedEventListener(startButton,
+    'click', () => console.log('start'));
 
-multiplayerMenu.addButton('back-button', 'Go back')
-    .addRestrictedEventListener('click', () => MenuController.setMenu(mainMenu, false));
+const backButton = multiplayerMenu.addButton('back-button', 'Go back');
+multiplayerMenu.addRestrictedEventListener(backButton,
+    'click', () => MenuController.setMenu(mainMenu, false));
 
 multiplayerMenu.setTitle('Multi-player game', ['title-small']);
 

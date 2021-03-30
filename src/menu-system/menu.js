@@ -4,17 +4,10 @@ function Menu(id) {
     const elements = [];
     let titleElement;
     let menuElement;
-    let isActive = true;
+    let isActive = false;
 
     function addButton(id, text, classArray = []) {
         const newButton = menuUtils.createButton(id, text, classArray);
-        newButton.addRestrictedEventListener = function(eventName, callback) {
-            function restrictedHandler(event) {
-                if (!isActive) return;
-                callback(event);    
-            }
-            newButton.addEventListener(eventName, restrictedHandler);
-        }
         elements.push(newButton);
         return(newButton);
     }
@@ -31,12 +24,21 @@ function Menu(id) {
         menuElement = menuUtils.createMenuElement(id, titleElement, elements);
     }
 
+    function addRestrictedEventListener(element, eventName, callback) {
+        function restrictedHandler(event) {
+            if (!isActive) return;
+            callback(event);    
+        }
+        element.addEventListener(eventName, restrictedHandler);
+    }
+
 
     function getMenuElement() {
         return(menuElement);
     }
 
     function setActive() {
+        console.log("active");
         isActive = true;
     }
        
@@ -44,7 +46,7 @@ function Menu(id) {
         isActive = false;
     }
     return({ addButton, setTitle, createMenuElement, getMenuElement, setActive,
-         setNotActive, addCustomElement })
+         setNotActive, addCustomElement, addRestrictedEventListener })
 }
 
 export default Menu;

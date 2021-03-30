@@ -19,15 +19,18 @@ numberOfCoursesContainer.innerHTML = `
 `
 singleplayerMenu.addCustomElement(numberOfCoursesContainer);
 
-singleplayerMenu.addButton('start-button', 'Start game')
-    .addRestrictedEventListener('click', () => {
+const startButton = singleplayerMenu.addButton('start-button', 'Start game');
+singleplayerMenu.addRestrictedEventListener(startButton,
+     'click', () => {
+        console.log("start");
         const gameElement = document.querySelector('#game-container');
         gameElement.classList.remove('hidden');
         MenuController.removeMenu();
-    });
+});
 
-singleplayerMenu.addButton('back-button', 'Go back')
-    .addRestrictedEventListener('click', () => MenuController.setMenu(mainMenu, false));
+const backButton = singleplayerMenu.addButton('back-button', 'Go back');
+singleplayerMenu.addRestrictedEventListener(backButton,
+    'click', () => MenuController.setMenu(mainMenu, false));
 
 singleplayerMenu.setTitle('Single-player game', ['title-small']);
 
