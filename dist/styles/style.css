@@ -191,6 +191,10 @@ main {
     stroke-opacity: 0.2;
 }
 
+.not-clickable {
+    cursor: default;
+}
+
 @media (min-width: 600px) {
     .menu-element-container {
         max-width: 540px;
@@ -246,6 +250,7 @@ main {
         width: 3rem;
         cursor: pointer;
         transition-duration: 0.1s;
+        border-radius: 50%;
     }
     
     #sidebar-toggle-large-screen:hover {
@@ -287,23 +292,34 @@ main {
         align-items: center;
         padding: 0.2rem;
         border-radius: 3rem;
-        background-color: #fafafa;
+        background-color: #6e6e6e11;
+        box-shadow: 0 0 3px 1px #fff;
+    }
+
+    .chat-player-selected {
+        background-color: #ffffff;
+        border-radius: 50%;
+        cursor: default;
     }
 
     #chat-player-buttons-large-screen :first-child {
         margin-right: 0.5rem;
-        background-color: #002642;
-        border-radius: 50%;
         padding: 0.5rem;
+        transition: background-color ease 0.1s;
         
     }
 
     #chat-player-buttons-large-screen :last-child {
         margin-left: 0.5rem;
         padding: 0.5rem;
+        transition: background-color ease 0.1s;
     }
 
-    #chat-player-title-large-screen {
+    #chat-player-buttons-large-screen :not(.chat-player-selected):hover {
+        background-color: #e0e0e0;
+    }
+
+    .sidebar-header-title {
         width: 100%;
         color: #fafafa;
         font-family: sans-serif;
