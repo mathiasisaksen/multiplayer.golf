@@ -1,8 +1,14 @@
 const scoreMock = [
     {courseName: 1, scores: [ 
-        {name: "Feldman", score: 3}, 
-        {name: "Jarrett", score: 5}, 
-        {name: "Mingus", score: 2}, 
+        {name: "Feldman", score: 3},
+        {name: "Jarrett", score: 5},
+        {name: "Mingus", score: 2},
+        {name: "Green", score: 2},
+        {name: "Davis", score: 2},
+        {name: "Frisell", score: 2},
+        {name: "Evans", score: 2},
+        {name: "Guaraldi", score: 2},
+        {name: "Hancock", score: 2},
         {name: "Budd", score: 4}]},
     {courseName: 2, scores: [ 
         {name: "Feldman", score: 4}, 
