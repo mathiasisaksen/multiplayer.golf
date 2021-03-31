@@ -48,7 +48,10 @@ main {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
 
+#menu-wrapper.hidden {
+    display: none;
 }
 
 .menu {
@@ -85,7 +88,7 @@ main {
 
 .menu-element-container {
     position: relative;
-    background: var(--main-menu-gradient)
+    background: var(--main-menu-gradient);
     padding: 3rem;
     border-radius: 4rem;
     width: 90%;
@@ -172,6 +175,10 @@ main {
     width: 100%;
 }
 
+#game-container.hidden {
+    display: none;
+}
+
 #svg-container {
     /*position: absolute;*/
     height: 100%;
@@ -235,6 +242,7 @@ main {
         background-color: #000000aa;
         transition: bottom 1s;
     }
+
 
     #sidebar-header-large-screen {
         display: flex;
@@ -348,17 +356,6 @@ main {
         filter: grayscale(100%);
     }
 
-    #course-info-large-screen {
-        max-height: 30vh;
-        overflow-y: scroll;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-
-    #course-info-large-screen::-webkit-scrollbar {
-        display: none;
-    }
-
     #score-table-large-screen {
         color: white;
         font-family: var(--main-font);
@@ -367,15 +364,42 @@ main {
         margin-top: 1rem;
     }
 
-    #score-table-large-screen th {
-        position: sticky;
-        top: 0;
-    }    
+    #table-header-large-screen {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 1rem;
+    }
 
-    #score-table-large-screen td {
+    #table-header-large-screen * {
         text-align: center;
-        padding-top: 1rem;
-    }    
+        width: 50%;
+        font-weight: bold;
+    }
+
+    #table-content-large-screen {
+        min-height: 5rem;
+        max-height: 13.4rem;
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    #table-content-large-screen::-webkit-scrollbar {
+        display: none;
+    }
+
+    #table-content-large-screen > div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    #table-content-large-screen > div * {
+        text-align: center;
+        width: 50%;
+    }
 
     #chat-player-container-large-screen {
         width: 100%;
@@ -427,7 +451,7 @@ main {
         font-family: var(--main-font);
         text-transform: uppercase;
         font-weight: 700;
-        font-size: 3rem;
+        font-size: 2.3rem;
         text-align: left;
         margin-bottom: 1rem;
     }

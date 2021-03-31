@@ -9,18 +9,15 @@
   </head>
   <body>
     <main>
-      <!-- <div id="menu-wrapper" class="not-selectable"></div>
-        <svg xmlns="http://www.w3.org/2000/svg" id="game-container" class="hidden" width="100%" height="100%" viewBox="0 30 100 40"></svg> -->
-      <div id="menu-wrapper" class="not-selectable" style="display: none"></div>
-      <div id="game-container">
+      <div id="menu-wrapper" class="not-selectable"></div>
+      <div id="game-container" class="hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           id="svg-container"
-          class=""
           viewBox="0 30 100 40"
         ></svg>
 
-        <div id="sidebar-large-screen" class="not-selectable">
+        <div id="sidebar-large-screen" class="not-selectable hidden">
           <div id="sidebar-header-large-screen">
             <div id="sidebar-title-large-screen">
               Minig<svg
@@ -38,6 +35,15 @@
                 /></svg
               >lf
             </div>
+            <svg id="sidebar-exit-button" class="sidebar-svg-button" title="Leave game and exit to menu" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 333 333" style="enable-background:new 0 0 333 333;" xml:space="preserve">
+   <circle cx="166.5" cy="166.5" r="166"/>
+<g>
+	<path fill="white" d="M90.3,63.9l75.7,77.3l75.7-77.3l25.5,26.3l-75.3,76.9l75.3,76.9l-25.9,26.3L166,193.3
+		l-75.3,76.9l-25.9-26.3l75.3-76.9L64.8,90.2L90.3,63.9z"/>
+</g>
+</svg>
+
             <svg
               id="sidebar-toggle-large-screen"
               class="sidebar-svg-button"
@@ -66,20 +72,20 @@
           </div>
           <div id="sidebar-body-large-screen">
             <div id="course-info-container-large-screen">
-              <div id="course-title-large-screen" class="sidebar-header-title">Courses</div>
+              <div id="course-title-large-screen" class="sidebar-header-title">Course <span id="current-course-number">1</span> out of <span id="total-number-of-courses">18</span></div>
               <div id="course-selection-large-screen">
                 <div id="previous-course-large-screen" class="course-selection-button">&lt</div>
                 <div id="current-course-large-screen">Course 1</div>
                 <div id="next-course-large-screen" class="course-selection-button">&gt</div>
                 <div id="course-summary-large-screen" class="course-selection-button" title="Toggle summary of all courses">Σ</div>
               </div>
-              <div id="course-info-large-screen">
-                <table id="score-table-large-screen">
-                  <tr>
-                    <th>Player</th>
-                    <th>Score</th>
-                  </tr>
-                </table>
+              <div id="score-table-large-screen">
+                <div id="table-header-large-screen">
+                  <p>Player</p>
+                  <p>Score</p>
+                </div>
+                <div id="table-content-large-screen">
+                </div>
               </div>
             </div>
             <div id="chat-player-container-large-screen">
