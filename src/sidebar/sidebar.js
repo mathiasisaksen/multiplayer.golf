@@ -1,11 +1,21 @@
 import CourseScore from './course-score';
+import MenuController from '../menu-system/menu-controller';
 
 const Sidebar = (() => {
+    const gameContainer = document.querySelector('#game-container');
+
     const chatPlayersEnum = {PLAYERS: 'players', CHAT: 'chat'}
     let currentChatOrPlayers = chatPlayersEnum.PLAYERS;
 
     const toggleSidebarButton = document.querySelector('#sidebar-toggle-large-screen');
     toggleSidebarButton.addEventListener('click', () => sidebarBody.classList.toggle('hidden'));
+
+    const exitButton = document.querySelector("#sidebar-exit-button");
+    exitButton.addEventListener('click', () => {
+        gameContainer.classList.add('hidden');
+        MenuController.showMenu();
+    })
+
     const sidebarBody = document.querySelector('#sidebar-body-large-screen');
 
     // Setup course section

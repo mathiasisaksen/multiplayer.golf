@@ -40,11 +40,18 @@ const CourseScore = (() => {
     const courseElements = [prevCourseButton, nextCourseButton, 
         courseSummaryButton, courseHeader];
     
-    const scoreTable = document.querySelector('#score-table-large-screen');
+    const scoreTable = document.querySelector('#table-content-large-screen');
 
-    let isShowingSummary = false;
-    let currentCourseNumber = 0;
-    let scoreArray = scoreMock;
+    let isShowingSummary;
+    let currentCourseNumber;
+    let scoreArray;
+    function initialSetup() {
+        isShowingSummary = false;
+        currentCourseNumber = 0;
+        scoreArray = scoreMock;
+    }
+
+    initialSetup()
     
     courseSummaryButton.addEventListener('click', handleCourseSummaryClick);
 
@@ -72,19 +79,23 @@ const CourseScore = (() => {
     }
 
     function showCurrentCourseContent() {
+        if (scoreArray.length === 0) {
+            setCourseHeader('No data yet');
+            return;
+        }
         const {courseName, scores} = scoreArray[currentCourseNumber];
         scores.sort((a, b) => a.score - b.score);
         setCourseHeader('Course ' + courseName);
 
         emptyTable();
         for (const playerScore of scores) {
-            const newRow = scoreTable.insertRow(-1);
-            newRow.innerHTML = `<td>${playerScore.name}</td><td>${playerScore.score}</td>`;
+            insertTableElement(playerScore.name, playerScore.score);
         }
     }
 
     function showSummaryContent() {
         setCourseHeader('Totals');
+        if (scoreArray.length === 0) return;
         const totalScores = {};
 
         for (const scoreEntry of scoreArray) {
@@ -101,8 +112,7 @@ const CourseScore = (() => {
 
         emptyTable();
         for (const playerScore of totalScoreArray) {
-            const newRow = scoreTable.insertRow(-1);
-            newRow.innerHTML = `<td>${playerScore.name}</td><td>${playerScore.score}</td>`;
+            insertTableElement(playerScore.name, playerScore.score);
         }
     }
 
@@ -111,9 +121,13 @@ const CourseScore = (() => {
     }
 
     function emptyTable() {
-        while (scoreTable.rows.length > 1) {
-            scoreTable.deleteRow(-1);
-        }
+        scoreTable.innerHTML = '';
+    }
+
+    function insertTableElement(playerName, score) {
+        const newRow = document.createElement('div');
+        newRow.innerHTML = `<p>${playerName}</p><p>${score}</p>`;
+        scoreTable.appendChild(newRow);
     }
 
     function updateScoreTable() {
@@ -124,7 +138,35 @@ const CourseScore = (() => {
         }
     }
 
-    showCurrentCourseContent(0);
+    function addNewCourse(courseName) {
+        if (!courseName) courseName = scoreArray.length + 1;
+        const newEntry = {courseName, scores: []};
+        scoreArray.push(newEntry);
+        currentCourseNumber = scoreArray.length - 1;
+        updateScoreTable();
+    }
+
+    function addPlayerScore(name, score) {
+        scoreArray[scoreArray.length - 1].scores.push({name, score});
+        if (currentCourseNumber === scoreArray.length - 1) updateScoreTable();
+    }
+
+    function resetScoreboard() {
+        initialSetup();
+    }
+
+    showCurrentCourseContent(currentCourseNumber);
+    /*setTimeout(() => {addNewCourse();}, 1000);
+    setTimeout(() => {addPlayerScore('Mingus', 5);}, 2000);
+    setTimeout(() => {addPlayerScore('Jarrett', 2);}, 3000);
+    setTimeout(() => {addPlayerScore('Evans', 3);}, 4000);
+    setTimeout(() => {addPlayerScore('Davis', 3);}, 5000);
+    setTimeout(() => {addPlayerScore('Guaraldi', 2);}, 6000);
+    setTimeout(() => {addPlayerScore('Frisell', 6);}, 7000);*/
+
+
+
+    return({ updateScoreTable, addNewCourse, addPlayerScore, resetScoreboard })
 })();
 
 export default CourseScore;
