@@ -30,7 +30,8 @@ const svgConfig = {
     // When zooming, the center of the viewbox is interpolated between the old
     // center and the position of the mouse. How much weight should be given to
     // the mouse position?
-    centerMouseInterpolation: 0.1 
+    centerMouseInterpolation: 0.1,
+    scrollDelay: 0.02,
 };
 svgConfig.boundaryAttributesInner['stroke-width'] = 0;
 svgConfig.obstacleAttributes['stroke-width'] = 0;

@@ -1,5 +1,5 @@
 import Game from './game';
-import WebSocketClient from './websocket-client';
+import WebSocketClient from '../websocket/websocket-client';
 
 function OnlineGame(rootSVGElement) {
     const game = Game(rootSVGElement);

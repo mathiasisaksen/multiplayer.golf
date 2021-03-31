@@ -130,7 +130,7 @@ function Edge(startVertex, endVertex) {
 
     // Takes in a position on the edge and computes the proportion,
     // so that a value between 0 (startVertex) and 1 (endVertex) is returned
-    // when the position is on the vertex
+    // when the position is on the edge
     function computePositionProportion(position) {
         const startPositionDistance = subtractVectors(startVertex, position).getLength();
         const endPositionDistance = subtractVectors(endVertex, position).getLength();

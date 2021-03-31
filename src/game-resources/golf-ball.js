@@ -1,6 +1,6 @@
-import { gameConfig, svgConfig } from './config';
-import * as svgUtilities from './svg-utilities';
-import * as mUtils from './math-utilities'
+import { gameConfig, svgConfig } from '../config';
+import * as svgUtilities from '../utilities/svg-utilities';
+import * as mUtils from '../utilities/math-utilities';
 
 const GolfBall = function(
         courseData, 

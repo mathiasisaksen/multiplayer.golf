@@ -1,10 +1,13 @@
-import * as svgUtils from './svg-utilities';
+import * as svgUtils from './utilities/svg-utilities';
 import { svgConfig } from './config';
 
 const rootSVGElement = document.querySelector('#svg-container');
-
+let timeOfLastScroll = new Date().getTime();
 
 function handleSVGScrollZoom(event) {
+    const currentTime = new Date().getTime();
+    if (currentTime - timeOfLastScroll < 1000*svgConfig.scrollDelay) return;
+
     const positionComputer = svgUtils.createSVGPositionComputer(this);
     const mousePosition = positionComputer({x: event.clientX, y: event.clientY});
     const oldViewBox = this.getAttribute('viewBox')
@@ -13,18 +16,16 @@ function handleSVGScrollZoom(event) {
     
     let newViewBox;
     let deltaYNorm = event.deltaY > 0 ? 1: -1;
-    let zoomFactorNorm = 1 - Math.abs(deltaYNorm) * (1 - svgConfig.zoomFactor);
-    console.log(zoomFactorNorm);
     if (deltaYNorm < 0) {
-        let interpolationWeightNorm = Math.abs(deltaYNorm)*svgConfig.centerMouseInterpolation;
         newViewBox = svgUtils.computeNewViewBox(oldViewBox, mousePosition, 
-            zoomFactorNorm, interpolationWeightNorm);
+            svgConfig.zoomFactor, svgConfig.centerMouseInterpolation);
     } else {
         newViewBox = svgUtils.computeNewViewBox(oldViewBox, mousePosition, 
-            1 / zoomFactorNorm, 0);
+            1 / svgConfig.zoomFactor, 0);
     }
         
     this.setAttribute('viewBox', newViewBox.join(' '));
+    timeOfLastScroll = currentTime;
 }
 
 function handleSVGMouseDown(event) {

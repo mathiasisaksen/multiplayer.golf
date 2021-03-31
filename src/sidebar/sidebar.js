@@ -4,8 +4,24 @@ const Sidebar = (() => {
     let currentChatOrPlayers = chatPlayersEnum.PLAYERS;
 
     const toggleSidebarButton = document.querySelector('#sidebar-toggle-large-screen');
+    toggleSidebarButton.addEventListener('click', () => sidebarBody.classList.toggle('hidden'));
     const sidebarBody = document.querySelector('#sidebar-body-large-screen');
 
+    // Setup course section
+    const prevCourseButton = sidebarBody.querySelector('#previous-course-large-screen');
+    const nextCourseButton = sidebarBody.querySelector('#next-course-large-screen');
+    const courseSummaryButton = sidebarBody.querySelector('#course-summary-large-screen');
+    const courseHeader = sidebarBody.querySelector('#current-course-large-screen');
+    const courseElements = [prevCourseButton, nextCourseButton, 
+        courseSummaryButton, courseHeader];
+    
+    courseSummaryButton.addEventListener('click', handleCourseSummaryClick);
+
+    function handleCourseSummaryClick() {
+        courseElements.forEach(elem => elem.classList.toggle('course-summary-enabled'));
+    }
+
+    // Setup players/chat section
     const playerButton = sidebarBody.querySelector('#show-players-large-screen');
     playerButton.addEventListener('click', handlePlayerClick);
     const chatButton = sidebarBody.querySelector('#show-chat-large-screen');
@@ -30,7 +46,6 @@ const Sidebar = (() => {
         chatPlayerTitle.textContent = currentChatOrPlayers;
     }
 
-    toggleSidebarButton.addEventListener('click', () => sidebarBody.classList.toggle('hidden'));
 
 })();
 

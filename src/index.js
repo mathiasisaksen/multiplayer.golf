@@ -1,12 +1,12 @@
-import Course from './course';
-import GolfBall from './golf-ball';
-import GameMechanics from './game-mechanics';
-import Game from './game';
-import OnlineGame from './online-game';
+import Course from './game-resources/course';
+import GolfBall from './game-resources/golf-ball';
+import GameMechanics from './game-resources/game-mechanics';
+import Game from './game-resources/game';
+import OnlineGame from './game-resources/online-game';
 import MenuController from './menu-system/menu-controller';
 import mainMenu from './menu-system/main-menu';
 import rootSVGElement from './svg-setup';
-import Sidebar from './sidebar';
+import Sidebar from './sidebar/sidebar';
 
 MenuController.setMenu(mainMenu, true, true);
 

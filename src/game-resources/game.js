@@ -1,10 +1,10 @@
 import GolfBall from './golf-ball';
 import Course from './course';
 import GameMechanics from './game-mechanics';
-import * as svgUtilities from './svg-utilities';
-import * as mUtils from './math-utilities';
-import { svgConfig, gameConfig } from './config';
-import * as colorUtils from './color-utilities';
+import * as svgUtilities from '../utilities/svg-utilities';
+import * as mUtils from '../utilities/math-utilities';
+import { svgConfig, gameConfig } from '../config';
+import * as colorUtils from '../utilities/color-utilities';
 import { generateCourse } from './generate-course';
 
 function Game(rootSVGElement) {
