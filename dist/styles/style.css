@@ -357,6 +357,19 @@ main {
         height: 300px;
     }
 
+    #score-table-large-screen {
+        color: white;
+        font-family: var(--main-font);
+        font-size: 1.7rem;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    #score-table-large-screen td {
+        text-align: center;
+        padding-top: 1rem;
+    }    
+
     #chat-player-container-large-screen {
         width: 100%;
     }
@@ -410,5 +423,4 @@ main {
         text-align: left;
         margin-bottom: 1rem;
     }
-
 }

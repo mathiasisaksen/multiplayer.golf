@@ -1,3 +1,4 @@
+import CourseScore from './course-score';
 
 const Sidebar = (() => {
     const chatPlayersEnum = {PLAYERS: 'players', CHAT: 'chat'}
@@ -8,18 +9,7 @@ const Sidebar = (() => {
     const sidebarBody = document.querySelector('#sidebar-body-large-screen');
 
     // Setup course section
-    const prevCourseButton = sidebarBody.querySelector('#previous-course-large-screen');
-    const nextCourseButton = sidebarBody.querySelector('#next-course-large-screen');
-    const courseSummaryButton = sidebarBody.querySelector('#course-summary-large-screen');
-    const courseHeader = sidebarBody.querySelector('#current-course-large-screen');
-    const courseElements = [prevCourseButton, nextCourseButton, 
-        courseSummaryButton, courseHeader];
     
-    courseSummaryButton.addEventListener('click', handleCourseSummaryClick);
-
-    function handleCourseSummaryClick() {
-        courseElements.forEach(elem => elem.classList.toggle('course-summary-enabled'));
-    }
 
     // Setup players/chat section
     const playerButton = sidebarBody.querySelector('#show-players-large-screen');
