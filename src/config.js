@@ -48,7 +48,8 @@ const menuConfig = {
 
 const messageBoxConfig = {
     userNameSaturation: 50,
-    userNameBrightness: 50,
+    userNameBrightness: 60,
+    announcementColor: "blue"
 }
 
 export { gameConfig, svgConfig, webSocketConfig, menuConfig, messageBoxConfig };

@@ -8,8 +8,24 @@ function generateRandomColor(h, s, l) {
 }
 
 const ChatBox = (() => {
-    const chatBox = document.querySelector('#chat-box');
+    const chatBoxElement = document.querySelector('#chat-box');
+    const inputElement = document.querySelector('#chat-input');
+    inputElement.addEventListener('keydown', event => {
+        if (event.key !== "Enter") return;
+        handleSendMessage();
+    })
+    const sendButton = document.querySelector('#chat-send-message-button');
+    sendButton.addEventListener('click', handleSendMessage);
     const playerColorMap = {};
+    let localPlayerName;
+
+    function handleSendMessage() {
+        const inputText = inputElement.value;
+        inputElement.focus();
+        if (!inputText.trim()) return;
+        inputElement.value = '';
+        receiveMessage(localPlayerName, inputText);
+    }
 
     function receiveMessage(playerName, message) {
         const newChatElement = document.createElement('div');
@@ -25,10 +41,9 @@ const ChatBox = (() => {
         // Set textContent to avoid XSS
         nameElement.textContent = playerName;
         nameElement.style.color = getPlayerColor(playerName);
-        console.log(playerColorMap);
         messageElement.textContent = message;
 
-        chatBox.insertBefore(newChatElement, chatBox.firstChild);
+        chatBoxElement.insertBefore(newChatElement, chatBoxElement.firstChild);
     }
 
     function getPlayerColor(playerName) {
@@ -39,8 +54,25 @@ const ChatBox = (() => {
         }
         return(playerColorMap[playerName]);
     }
-    receiveMessage('Mingus', 'Jazz it up');
 
+    function setLocalPlayerName(playerName) {
+        localPlayerName = playerName;
+    }
+
+    function receiveAnnouncement(announcement) {
+        const newChatElement = document.createElement('div');
+        newChatElement.classList.add('chat-element', 'chat-announcement');
+        newChatElement.textContent = announcement;
+
+        chatBoxElement.insertBefore(newChatElement, chatBoxElement.firstChild);
+    }
+
+    receiveMessage('Mingus', 'Jazz it up');
+    setLocalPlayerName('Mathias');
+    receiveAnnouncement('Mathias just joined the game')
+
+
+    return({ receiveMessage, setLocalPlayerName, receiveAnnouncement});
 })();
 
 export default ChatBox;
