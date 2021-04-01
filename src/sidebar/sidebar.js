@@ -1,4 +1,4 @@
-import CourseScore from './course-score';
+import ScoreBoard from './score-board';
 import MenuController from '../menu-system/menu-controller';
 
 const Sidebar = (() => {

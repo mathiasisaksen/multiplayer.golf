@@ -27,7 +27,7 @@ const scoreMock = [
         {name: "Budd", score: 5}]},
 ];
 
-const CourseScore = (() => {
+const ScoreBoard = (() => {
     const prevCourseButton = document.querySelector('#previous-course-large-screen');
     prevCourseButton.addEventListener('click', handlePreviousCourseClick);
 
@@ -156,17 +156,8 @@ const CourseScore = (() => {
     }
 
     showCurrentCourseContent(currentCourseNumber);
-    /*setTimeout(() => {addNewCourse();}, 1000);
-    setTimeout(() => {addPlayerScore('Mingus', 5);}, 2000);
-    setTimeout(() => {addPlayerScore('Jarrett', 2);}, 3000);
-    setTimeout(() => {addPlayerScore('Evans', 3);}, 4000);
-    setTimeout(() => {addPlayerScore('Davis', 3);}, 5000);
-    setTimeout(() => {addPlayerScore('Guaraldi', 2);}, 6000);
-    setTimeout(() => {addPlayerScore('Frisell', 6);}, 7000);*/
-
-
 
     return({ updateScoreTable, addNewCourse, addPlayerScore, resetScoreboard })
 })();
 
-export default CourseScore;
+export default ScoreBoard;
