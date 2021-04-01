@@ -19,11 +19,11 @@
           viewBox="0 30 100 40"
         ></svg>
 
-        <div id="sidebar-large-screen" class="not-selectable hidden">
-          <div id="sidebar-header-large-screen">
-            <div id="sidebar-title-large-screen">
+        <div id="sidebar" class="not-selectable hidden">
+          <div id="sidebar-header">
+            <div id="sidebar-title">
               Minig<svg
-                id="sidebar-title-hole-large-screen"
+                id="sidebar-title-hole"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 x="0px"
@@ -47,7 +47,7 @@
 </svg>
 
             <svg
-              id="sidebar-toggle-large-screen"
+              id="sidebar-toggle"
               class="sidebar-svg-button"
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -72,30 +72,30 @@
               </g>
             </svg>
           </div>
-          <div id="sidebar-body-large-screen">
-            <div id="course-info-container-large-screen">
-              <div id="course-title-large-screen" class="sidebar-header-title">Course <span id="current-course-number">1</span> out of <span id="total-number-of-courses">18</span></div>
-              <div id="course-selection-large-screen">
-                <div id="previous-course-large-screen" class="course-selection-button">&lt</div>
-                <div id="current-course-large-screen">Course 1</div>
-                <div id="next-course-large-screen" class="course-selection-button">&gt</div>
-                <div id="course-summary-large-screen" class="course-selection-button" title="Toggle summary of all courses">Σ</div>
+          <div id="sidebar-body">
+            <div id="course-info-container">
+              <div id="course-title" class="sidebar-header-title">Course <span id="current-course-number">1</span> out of <span id="total-number-of-courses">18</span></div>
+              <div id="course-selection">
+                <div id="previous-course" class="course-selection-button">&lt</div>
+                <div id="current-course">Course 1</div>
+                <div id="next-course" class="course-selection-button">&gt</div>
+                <div id="course-summary" class="course-selection-button" title="Toggle summary of all courses">Σ</div>
               </div>
-              <div id="score-table-large-screen">
-                <div id="table-header-large-screen">
+              <div id="score-table">
+                <div id="table-header">
                   <p>Player</p>
                   <p>Score</p>
                 </div>
-                <div id="table-content-large-screen">
+                <div id="table-content">
                 </div>
               </div>
             </div>
-            <div id="chat-player-container-large-screen">
-              <div id="chat-player-header-large-screen">
-                <div id="chat-player-title-large-screen" class="sidebar-header-title">Players</div>
-                <div id="chat-player-buttons-large-screen">
+            <div id="chat-player-container">
+              <div id="chat-player-header">
+                <div id="chat-player-title" class="sidebar-header-title">Players</div>
+                <div id="chat-player-buttons">
                   <svg
-                    id="show-players-large-screen"
+                    id="show-players"
                     class="sidebar-svg-button chat-player-selected"
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -115,7 +115,7 @@
                     />
                   </svg>
                   <svg
-                    id="show-chat-large-screen"
+                    id="show-chat"
                     class="sidebar-svg-button"
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -140,7 +140,13 @@
                   </svg>
                 </div>
               </div>
-              <div id="chat-box-large-screen"></div>
+              <div id="chat-box-container">
+                <div id="chat-box"></div>
+                <div id="chat-input-container">
+                  <input type="text" id="chat-input">
+                  <div id="chat-send-message-button">Send</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
