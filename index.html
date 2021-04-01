@@ -9,9 +9,9 @@
   </head>
   <body>
     <main>
-      <!--<div id="menu-wrapper" class="not-selectable"></div>-->
+      <!-- <div id="menu-wrapper" class="not-selectable"></div> -->
       <div id="menu-wrapper" class="not-selectable hidden"></div>
-      <!--<div id="game-container" class="hidden">-->
+      <!-- <div id="game-container" class="hidden"> -->
       <div id="game-container" class="">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -39,9 +39,9 @@
             </div>
             <svg id="sidebar-exit-button" class="sidebar-svg-button" title="Leave game and exit to menu" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 333 333" style="enable-background:new 0 0 333 333;" xml:space="preserve">
-   <circle cx="166.5" cy="166.5" r="166"/>
+   <circle class="sidebar-svg-button-primary" cx="166.5" cy="166.5" r="166"/>
 <g>
-	<path fill="white" d="M90.3,63.9l75.7,77.3l75.7-77.3l25.5,26.3l-75.3,76.9l75.3,76.9l-25.9,26.3L166,193.3
+	<path class="sidebar-svg-button-secondary" d="M90.3,63.9l75.7,77.3l75.7-77.3l25.5,26.3l-75.3,76.9l75.3,76.9l-25.9,26.3L166,193.3
 		l-75.3,76.9l-25.9-26.3l75.3-76.9L64.8,90.2L90.3,63.9z"/>
 </g>
 </svg>
@@ -64,8 +64,8 @@
                   <stop offset="90%" stop-color="#3c5778" />
                 </linearGradient>
               </defs>
-              <circle cx="178.5" cy="178.5" r="178" />
-              <g fill="white">
+              <circle class="sidebar-svg-button-primary" cx="178.5" cy="178.5" r="178" />
+              <g class="sidebar-svg-button-secondary">
                 <rect x="68" y="81" width="221" height="41" />
                 <rect x="68" y="158" width="221" height="41" />
                 <rect x="68" y="234" width="221" height="41" />
@@ -95,27 +95,30 @@
                 <div id="chat-player-title" class="sidebar-header-title">Players</div>
                 <div id="chat-player-buttons">
                   <svg
-                    id="show-players"
-                    class="sidebar-svg-button chat-player-selected"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    x="0px"
-                    y="0px"
-                    viewBox="0 0 327 327"
-                  >
-                    <circle cx="163.5" cy="163.5" r="163" />
-                    <path
-                      fill="white"
-                      d="M261.7,141.9c2.2-9,3.4-19.3,3.4-30.2c0-34.7-12.5-62.8-28-62.8c-15.5,0-28,28.1-28,62.8
-	c0,10.7,1.2,20.8,3.3,29.6c-3.9,4.4-7.4,9.8-10.3,15.9c-3.4-9.7-8-18.1-13.4-24.4c2.2-9,3.4-19.3,3.4-30.2c0-34.7-12.5-62.8-28-62.8
-	c-15.5,0-28,28.1-28,62.8c0,10.7,1.2,20.8,3.3,29.6c-5.5,6.1-10.1,14.2-13.5,23.8c-2.9-5.8-6.3-10.9-10-15.1
-	c2.7-9.7,4.3-21.1,4.3-33.3c0-34.7-12.5-62.8-28-62.8c-15.5,0-28,28.1-28,62.8c0,12,1.5,23.2,4.1,32.7
-	c-12.7,13.6-21.1,37.7-21.1,65.3c0,42.4,20,76.8,44.7,76.8c16,0,30-14.5,37.9-36.2c8.2,16.6,20.4,27.2,34.1,27.2
-	c14,0,26.5-11.1,34.7-28.4c7.8,22.4,22,37.4,38.3,37.4c24.7,0,44.7-34.4,44.7-76.8C281.5,179.1,273.7,155.7,261.7,141.9z"
+                  id="show-chat"
+                  class="sidebar-svg-button chat-player-selected"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 327 327"
+                >
+                  <circle class="sidebar-svg-button-primary" cx="163.5" cy="163.5" r="163" />
+                  <g>
+                    <path 
+                      class="sidebar-svg-button-secondary"                      
+                      d="M232.3,69.5H94.7c-25.2,0-46.5,19.6-46.5,44.8v61c0,25.2,21.3,46.2,46.5,46.2h25.5
+  c29,39,92.8,73.8,92.8,73.8c-21.8-20.7-46.8-73.8-46.8-73.8h66.2c25.2,0,44.8-21,44.8-46.2v-61C277.2,89.1,257.5,69.5,232.3,69.5z"
                     />
-                  </svg>
+                    <g>
+                      <rect class="sidebar-svg-button-primary" x="82.2" y="86.5" width="162" height="25" />
+                      <rect class="sidebar-svg-button-primary" x="82.2" y="133.5" width="162" height="24" />
+                      <rect class="sidebar-svg-button-primary" x="83.2" y="180.5" width="161" height="24" />
+                    </g>
+                  </g>
+                </svg>
                   <svg
-                    id="show-chat"
+                    id="show-players"
                     class="sidebar-svg-button"
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -123,21 +126,16 @@
                     y="0px"
                     viewBox="0 0 327 327"
                   >
-                    <circle cx="163.5" cy="163.5" r="163" />
-                    <g>
-                      <path
-                        fill="white"
-                        class="st1"
-                        d="M232.3,69.5H94.7c-25.2,0-46.5,19.6-46.5,44.8v61c0,25.2,21.3,46.2,46.5,46.2h25.5
-		c29,39,92.8,73.8,92.8,73.8c-21.8-20.7-46.8-73.8-46.8-73.8h66.2c25.2,0,44.8-21,44.8-46.2v-61C277.2,89.1,257.5,69.5,232.3,69.5z"
-                      />
-                      <g>
-                        <rect x="82.2" y="86.5" width="162" height="25" />
-                        <rect x="82.2" y="133.5" width="162" height="24" />
-                        <rect x="83.2" y="180.5" width="161" height="24" />
-                      </g>
-                    </g>
-                  </svg>
+                    <circle class="sidebar-svg-button-primary" cx="163.5" cy="163.5" r="163" />
+                    <path class="sidebar-svg-button-secondary"
+                      d="M261.7,141.9c2.2-9,3.4-19.3,3.4-30.2c0-34.7-12.5-62.8-28-62.8c-15.5,0-28,28.1-28,62.8
+	c0,10.7,1.2,20.8,3.3,29.6c-3.9,4.4-7.4,9.8-10.3,15.9c-3.4-9.7-8-18.1-13.4-24.4c2.2-9,3.4-19.3,3.4-30.2c0-34.7-12.5-62.8-28-62.8
+	c-15.5,0-28,28.1-28,62.8c0,10.7,1.2,20.8,3.3,29.6c-5.5,6.1-10.1,14.2-13.5,23.8c-2.9-5.8-6.3-10.9-10-15.1
+	c2.7-9.7,4.3-21.1,4.3-33.3c0-34.7-12.5-62.8-28-62.8c-15.5,0-28,28.1-28,62.8c0,12,1.5,23.2,4.1,32.7
+	c-12.7,13.6-21.1,37.7-21.1,65.3c0,42.4,20,76.8,44.7,76.8c16,0,30-14.5,37.9-36.2c8.2,16.6,20.4,27.2,34.1,27.2
+	c14,0,26.5-11.1,34.7-28.4c7.8,22.4,22,37.4,38.3,37.4c24.7,0,44.7-34.4,44.7-76.8C281.5,179.1,273.7,155.7,261.7,141.9z"
+                    />
+                  </svg>         
                 </div>
               </div>
               <div id="chat-box-container">
@@ -146,6 +144,8 @@
                   <input type="text" id="chat-input">
                   <div id="chat-send-message-button">Send</div>
                 </div>
+              </div>
+              <div id="player-list-container" class="hidden disable-scrollbar">
               </div>
             </div>
           </div>
