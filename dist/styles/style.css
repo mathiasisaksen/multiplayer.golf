@@ -275,11 +275,18 @@ main {
     }
 
     .sidebar-svg-button {
-        fill: url(#sidebar-button-gradient);
         width: 3rem;
         cursor: pointer;
         transition-duration: 0.1s;
         border-radius: 50%;
+    }
+
+    .sidebar-svg-button-primary {
+        fill: transparent;
+    }
+
+    .sidebar-svg-button-secondary {
+        fill: url(#sidebar-button-gradient);
     }
     
     #sidebar-toggle:hover {
@@ -351,7 +358,7 @@ main {
         color: white;
     }
 
-    .course-selection-button.course-summary-enabled {
+    .course-selection-button.course-summary-enabled:not(#course-summary) {
         cursor: default;
     }
 
@@ -369,7 +376,8 @@ main {
         padding: 0.3rem;
         flex: 1;
         text-align: center;
-        background: var(--main-menu-gradient);;
+        background: var(--main-menu-gradient);
+        transition: filter 0.5s ease-in-out;
     }
 
     #current-course.course-summary-enabled {
@@ -483,7 +491,6 @@ main {
         display: flex;
         flex-direction: column;
         flex-grow: 1;
-        min-height: 0;
     }
 
     #chat-box-container.hidden {
@@ -558,4 +565,34 @@ main {
         margin: 0 0 0 1rem;
     }
 
+
+    #player-list-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-grow: 1;
+        flex-wrap: wrap;
+        align-content: flex-start;
+
+        /* To make div scrollable: */
+        min-height: 0;
+        height: 0;
+
+        overflow: auto;
+    }
+
+    #player-list-container.hidden {
+        display: none;
+    }
+
+    .player-list-element {
+        display:inline-block;
+        font-size: 1.5rem;
+        color: white;
+        padding: 0.8rem;
+        height: fit-content;
+        font-family: var(--main-font);
+        border-radius: 2rem;
+        margin: 0 1rem 1rem 0;
+    }
 }

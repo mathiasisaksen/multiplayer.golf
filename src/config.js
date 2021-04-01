@@ -46,10 +46,10 @@ const menuConfig = {
     transitionDuration: 0.5,
 };
 
-const messageBoxConfig = {
+const sidebarConfig = {
     userNameSaturation: 50,
     userNameBrightness: 60,
     announcementColor: "blue"
 }
 
-export { gameConfig, svgConfig, webSocketConfig, menuConfig, messageBoxConfig };
+export { gameConfig, svgConfig, webSocketConfig, menuConfig, sidebarConfig };

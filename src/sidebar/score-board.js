@@ -25,6 +25,7 @@ const scoreMock = [
         {name: "Jarrett", score: 1}, 
         {name: "Mingus", score: 3}, 
         {name: "Budd", score: 5}]},
+    {courseName: 5, scores: []}
 ];
 
 const ScoreBoard = (() => {

@@ -24,4 +24,23 @@ function _parseHSLString(hslString) {
     return({h: hsl[0], s: hsl[1], l: hsl[2]});
 }
 
-export { interpolateColors };
+function generateRandomColor(hue, saturation, luminosity) {
+    if (!hue) hue = 360*Math.random();
+    if (!saturation) saturation = 100*Math.random();
+    if (!luminosity) luminosity = 100*Math.random();
+    return(`hsl(${hue}, ${saturation}%, ${luminosity}%)`);
+}
+
+function generateDistinctColor(index, saturation, luminosity) {
+    let hue;
+    if (index <= 2) {
+        hue = 360 * (index - 1) / 2;
+    } else {
+        let exponent = Math.ceil(Math.log2(index));
+        let numerator = 2*(index - 2**(exponent - 1)) - 1;
+        hue = 360 * numerator / 2**exponent;
+    }
+    return(`hsl(${hue}, ${saturation}%, ${luminosity}%)`);
+}
+
+export { interpolateColors, generateRandomColor, generateDistinctColor };
