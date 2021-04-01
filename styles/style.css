@@ -205,6 +205,15 @@ main {
     cursor: default;
 }
 
+.disable-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.disable-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
 @media (min-width: 600px) {
     .menu-element-container {
         max-width: 540px;
@@ -236,6 +245,7 @@ main {
         position: absolute;
         right: 2rem;
         top: 2rem;
+        bottom: 2rem;
         padding: 1rem 3rem 1rem 3rem;
         width: 300px;
         border-radius: 2rem;
@@ -243,6 +253,16 @@ main {
         transition: bottom 1s;
     }
 
+    #sidebar-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    #sidebar-body.hidden {
+        display: none;
+    }
 
     #sidebar-header {
         display: flex;
@@ -380,11 +400,6 @@ main {
         min-height: 5rem;
         max-height: 13.4rem;
         overflow-y: scroll;
-        -ms-overflow-style: none;
-    }
-
-    #table-content::-webkit-scrollbar {
-        display: none;
     }
 
     #table-content > div {
@@ -401,8 +416,11 @@ main {
     }
 
     #chat-player-container {
+        display: flex;
+        flex-direction: column;
         width: 100%;
         margin-top: 2rem;
+        flex-grow: 1;
     }
 
     #chat-player-header {
@@ -410,6 +428,7 @@ main {
         display: flex;
         align-items: center;
         margin: 0 0 1rem 0;
+        flex: none;
     }
 
     #chat-player-buttons {
@@ -463,21 +482,29 @@ main {
     #chat-box-container {
         display: flex;
         flex-direction: column;
+        flex-grow: 1;
+        min-height: 0;
+    }
+
+    #chat-box-container.hidden {
+        display: none;
     }
 
     #chat-box {
         display: flex;
         flex-direction: column-reverse;
-        height: 20rem;
+        flex-grow: 1;
+
+        /* To make div scrollable: */
+        min-height: 0;
+        height: 0;
+        
         border: 1px solid rgb(255, 255, 255);
         border-radius: 1rem;
-        padding: 1rem;
-        overflow-y: scroll;   
-        -ms-overflow-style: none;
-    }
 
-    #chat-box::-webkit-scrollbar {
-        display: none;
+        padding: 1rem;
+        overflow: auto;
+        white-space: pre-wrap; /* Preserve whitespace */
     }
 
     #chat-box :last-child {
@@ -508,6 +535,7 @@ main {
         margin: 1rem 0 1rem 0;
         display: flex;
         flex-direction: row;
+        flex: none;
     }
 
     #chat-input {
