@@ -186,7 +186,7 @@ main {
     box-sizing: border-box;
 }
 
-#sidebar-large-screen {
+#sidebar {
     display: none;
 }
 
@@ -230,7 +230,7 @@ main {
         margin: 1rem;
     }
 
-    #sidebar-large-screen {
+    #sidebar {
         display: flex;
         flex-direction: column;
         position: absolute;
@@ -244,7 +244,7 @@ main {
     }
 
 
-    #sidebar-header-large-screen {
+    #sidebar-header {
         display: flex;
         width: 100%;
         flex-direction: row;
@@ -262,11 +262,11 @@ main {
         border-radius: 50%;
     }
     
-    #sidebar-toggle-large-screen:hover {
+    #sidebar-toggle:hover {
         transform: scale(1.1) rotate(90deg);
     }
     
-    #sidebar-title-large-screen {
+    #sidebar-title {
         color: var(--title-color);
         font-size: var(--sidebar-title-size);
         text-transform: uppercase;
@@ -275,12 +275,12 @@ main {
         margin: 1rem 0 1rem 0rem;
     }
     
-    #sidebar-title-hole-large-screen {
+    #sidebar-title-hole {
         height: var(--sidebar-hole-size);
         fill: var(--title-color);
     }
 
-    #course-selection-large-screen {
+    #course-selection {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
@@ -288,15 +288,15 @@ main {
         
     }
 
-    #course-selection-large-screen * {
+    #course-selection * {
         margin: 0 0.5rem 0 0.5rem;
     }
 
-    #course-selection-large-screen :first-child {
+    #course-selection :first-child {
         margin-left: 0;
     }
 
-    #course-selection-large-screen :last-child {
+    #course-selection :last-child {
         margin-right: 0;
     }
     
@@ -321,12 +321,12 @@ main {
         color: var(--background-color);
     }
 
-    #course-summary-large-screen.course-summary-enabled {
+    #course-summary.course-summary-enabled {
         background-color: white;
         color: var(--background-color);
     }
 
-    #course-summary-large-screen.course-summary-enabled:hover {
+    #course-summary.course-summary-enabled:hover {
         background-color: transparent;
         color: white;
     }
@@ -340,7 +340,7 @@ main {
         color: white;
     }
 
-    #current-course-large-screen {
+    #current-course {
         color: white;
         font-family: var(--main-font);
         font-size: 2rem;
@@ -352,11 +352,11 @@ main {
         background: var(--main-menu-gradient);;
     }
 
-    #current-course-large-screen.course-summary-enabled {
+    #current-course.course-summary-enabled {
         filter: grayscale(100%);
     }
 
-    #score-table-large-screen {
+    #score-table {
         color: white;
         font-family: var(--main-font);
         font-size: 1.7rem;
@@ -364,31 +364,30 @@ main {
         margin-top: 1rem;
     }
 
-    #table-header-large-screen {
+    #table-header {
         display: flex;
         flex-direction: row;
         margin-bottom: 1rem;
     }
 
-    #table-header-large-screen * {
+    #table-header * {
         text-align: center;
         width: 50%;
         font-weight: bold;
     }
 
-    #table-content-large-screen {
+    #table-content {
         min-height: 5rem;
         max-height: 13.4rem;
         overflow-y: scroll;
         -ms-overflow-style: none;
-        scrollbar-width: none;
     }
 
-    #table-content-large-screen::-webkit-scrollbar {
+    #table-content::-webkit-scrollbar {
         display: none;
     }
 
-    #table-content-large-screen > div {
+    #table-content > div {
         width: 100%;
         display: flex;
         flex-direction: row;
@@ -396,23 +395,24 @@ main {
         margin-bottom: 1rem;
     }
 
-    #table-content-large-screen > div * {
+    #table-content > div * {
         text-align: center;
         width: 50%;
     }
 
-    #chat-player-container-large-screen {
+    #chat-player-container {
         width: 100%;
         margin-top: 2rem;
     }
 
-    #chat-player-header-large-screen {
+    #chat-player-header {
         width: 100%;
         display: flex;
         align-items: center;
+        margin: 0 0 1rem 0;
     }
 
-    #chat-player-buttons-large-screen {
+    #chat-player-buttons {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -428,21 +428,25 @@ main {
         cursor: default;
     }
 
-    #chat-player-buttons-large-screen :first-child {
+    #chat-player-buttons :first-child {
         margin-right: 0.5rem;
         padding: 0.5rem;
         transition: background-color ease 0.1s;
         
     }
 
-    #chat-player-buttons-large-screen :last-child {
+    #chat-player-buttons :last-child {
         margin-left: 0.5rem;
         padding: 0.5rem;
         transition: background-color ease 0.1s;
     }
 
-    #chat-player-buttons-large-screen :not(.chat-player-selected):hover {
+    #chat-player-buttons :not(.chat-player-selected):hover {
         background-color: #e0e0e0;
+    }
+
+    #chat-player-title {
+        margin-bottom: 0;
     }
 
     .sidebar-header-title {
@@ -455,4 +459,70 @@ main {
         text-align: left;
         margin-bottom: 1rem;
     }
+
+    #chat-box-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #chat-box {
+        display: flex;
+        flex-direction: column-reverse;
+        height: 20rem;
+        border: 1px solid rgb(255, 255, 255);
+        border-radius: 1rem;
+        padding: 1rem;
+        overflow-y: scroll;   
+        -ms-overflow-style: none;
+    }
+
+    #chat-box::-webkit-scrollbar {
+        display: none;
+    }
+
+    #chat-box :last-child {
+        margin-top: auto;
+    }
+
+    .chat-element {
+        font-family: var(--main-font);
+        color: white;
+        font-size: 1.5rem;
+        margin: 1rem 0 1rem 0;
+    }
+
+    .chat-playername {
+        color: #fab816;
+    }
+
+    .chat-message {
+
+    }
+
+    #chat-input-container {
+        margin: 1rem 0 1rem 0;
+        display: flex;
+        flex-direction: row;
+    }
+
+    #chat-input {
+        border-radius: 1rem;
+        flex: 1;
+        padding: 1rem;
+        outline: none;
+        background-color: #ffffffaa;
+    }
+
+    #chat-send-message-button {
+        cursor: pointer;
+        background-color: #ffffff;
+        font-size: 1.5rem;
+        font-family: var(--main-font);
+        font-weight: bold;
+        text-transform: uppercase;
+        padding: 1rem;
+        border-radius: 1rem;
+        margin: 0 0 0 1rem;
+    }
+
 }

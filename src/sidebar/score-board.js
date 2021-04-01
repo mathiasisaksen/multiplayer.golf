@@ -28,19 +28,19 @@ const scoreMock = [
 ];
 
 const ScoreBoard = (() => {
-    const prevCourseButton = document.querySelector('#previous-course-large-screen');
+    const prevCourseButton = document.querySelector('#previous-course');
     prevCourseButton.addEventListener('click', handlePreviousCourseClick);
 
-    const nextCourseButton = document.querySelector('#next-course-large-screen');
+    const nextCourseButton = document.querySelector('#next-course');
     nextCourseButton.addEventListener('click', handleNextCourseClick);
 
-    const courseSummaryButton = document.querySelector('#course-summary-large-screen');
+    const courseSummaryButton = document.querySelector('#course-summary');
 
-    const courseHeader = document.querySelector('#current-course-large-screen');
+    const courseHeader = document.querySelector('#current-course');
     const courseElements = [prevCourseButton, nextCourseButton, 
         courseSummaryButton, courseHeader];
     
-    const scoreTable = document.querySelector('#table-content-large-screen');
+    const scoreTable = document.querySelector('#table-content');
 
     let isShowingSummary;
     let currentCourseNumber;

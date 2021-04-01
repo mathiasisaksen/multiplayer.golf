@@ -44,6 +44,11 @@ const webSocketConfig = {
 
 const menuConfig = {
     transitionDuration: 0.5,
+};
+
+const messageBoxConfig = {
+    userNameSaturation: 50,
+    userNameBrightness: 50,
 }
 
-export { gameConfig, svgConfig, webSocketConfig, menuConfig};
+export { gameConfig, svgConfig, webSocketConfig, menuConfig, messageBoxConfig };
