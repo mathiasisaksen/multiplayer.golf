@@ -4,25 +4,37 @@ import ChatBox from './chat-box';
 
 const Sidebar = (() => {
     const gameContainer = document.querySelector('#game-container');
-
-    const chatPlayersEnum = {PLAYERS: 'players', CHAT: 'chat'}
-    let currentChatOrPlayers = chatPlayersEnum.PLAYERS;
+    const sidebarBody = document.querySelector('#sidebar-body');
+    const sideBarElement = document.querySelector('#sidebar');
 
     const toggleSidebarButton = document.querySelector('#sidebar-toggle');
-    toggleSidebarButton.addEventListener('click', () => sidebarBody.classList.toggle('hidden'));
+    toggleSidebarButton.addEventListener('click', handleToggleSidebar);
+
+    let isCollapsed = false;
 
     const exitButton = document.querySelector("#sidebar-exit-button");
     exitButton.addEventListener('click', () => {
         gameContainer.classList.add('hidden');
         MenuController.showMenu();
-    })
+    });
 
-    const sidebarBody = document.querySelector('#sidebar-body');
+    function handleToggleSidebar() {
+        if (isCollapsed) {            
+            sidebarBody.classList.remove('hidden');
+            sideBarElement.removeAttribute('style');
+        } else {
+            sidebarBody.classList.add('hidden');
+            sideBarElement.style.bottom = 'initial';
+        }
+        isCollapsed = !isCollapsed;
+        console.log(isCollapsed);
+    }
 
-    // Setup course section
-    
 
     // Setup players/chat section
+
+    const chatPlayersEnum = {PLAYERS: 'players', CHAT: 'chat'}
+    let currentChatOrPlayers = chatPlayersEnum.PLAYERS;
     const playerButton = sidebarBody.querySelector('#show-players');
     playerButton.addEventListener('click', handlePlayerClick);
     const chatButton = sidebarBody.querySelector('#show-chat');

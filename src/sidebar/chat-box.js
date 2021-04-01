@@ -8,6 +8,7 @@ function generateRandomColor(h, s, l) {
 }
 
 const ChatBox = (() => {
+    const chatBoxContainer = document.querySelector('#chat-box-container');
     const chatBoxElement = document.querySelector('#chat-box');
     const inputElement = document.querySelector('#chat-input');
     inputElement.addEventListener('keydown', event => {
@@ -41,6 +42,7 @@ const ChatBox = (() => {
         // Set textContent to avoid XSS
         nameElement.textContent = playerName;
         nameElement.style.color = getPlayerColor(playerName);
+        console.log(message);
         messageElement.textContent = message;
 
         chatBoxElement.insertBefore(newChatElement, chatBoxElement.firstChild);
@@ -69,8 +71,7 @@ const ChatBox = (() => {
 
     receiveMessage('Mingus', 'Jazz it up');
     setLocalPlayerName('Mathias');
-    receiveAnnouncement('Mathias just joined the game')
-
+    receiveAnnouncement('Mathias just joined the game');
 
     return({ receiveMessage, setLocalPlayerName, receiveAnnouncement});
 })();
