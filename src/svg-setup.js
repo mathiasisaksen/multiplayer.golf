@@ -1,10 +1,13 @@
-import * as svgUtils from './svg-utilities';
+import * as svgUtils from './utilities/svg-utilities';
 import { svgConfig } from './config';
 
-const rootSVGElement = document.querySelector('#game-container');
-
+const rootSVGElement = document.querySelector('#svg-container');
+let timeOfLastScroll = new Date().getTime();
 
 function handleSVGScrollZoom(event) {
+    const currentTime = new Date().getTime();
+    if (currentTime - timeOfLastScroll < 1000*svgConfig.scrollDelay) return;
+
     const positionComputer = svgUtils.createSVGPositionComputer(this);
     const mousePosition = positionComputer({x: event.clientX, y: event.clientY});
     const oldViewBox = this.getAttribute('viewBox')
@@ -12,30 +15,28 @@ function handleSVGScrollZoom(event) {
         .map(elem => parseFloat(elem));
     
     let newViewBox;
-    let deltaYNorm = event.deltaY / 83.3;
-    let zoomFactorNorm = 1 - Math.abs(deltaYNorm) * (1 - svgConfig.zoomFactor);
-    console.log(zoomFactorNorm);
+    let deltaYNorm = event.deltaY > 0 ? 1: -1;
     if (deltaYNorm < 0) {
-        let interpolationWeightNorm = Math.abs(deltaYNorm)*svgConfig.centerMouseInterpolation;
         newViewBox = svgUtils.computeNewViewBox(oldViewBox, mousePosition, 
-            zoomFactorNorm, interpolationWeightNorm);
+            svgConfig.zoomFactor, svgConfig.centerMouseInterpolation);
     } else {
         newViewBox = svgUtils.computeNewViewBox(oldViewBox, mousePosition, 
-            1 / zoomFactorNorm, 0);
+            1 / svgConfig.zoomFactor, 0);
     }
         
     this.setAttribute('viewBox', newViewBox.join(' '));
+    timeOfLastScroll = currentTime;
 }
 
 function handleSVGMouseDown(event) {
     let initialPosition = {x: event.clientX , y: event.clientY};
-    const courseElement = this.querySelector('.course-container');
+    const courseElement = rootSVGElement.querySelector('.course-container');
 
     function handleSVGMouseMove(event) {
         const courseClientRect = courseElement.getBoundingClientRect();
         const courseSVGRect = courseElement.getBBox();
 
-        const viewBox = this.getAttribute('viewBox')
+        const viewBox = rootSVGElement.getAttribute('viewBox')
             .split(' ')
             .map(elem => parseFloat(elem));
 
@@ -55,17 +56,17 @@ function handleSVGMouseDown(event) {
         viewBox[0] -= amountX;
         viewBox[1] -= amountY;
         
-        this.setAttribute('viewBox', viewBox.join(' '));
+        rootSVGElement.setAttribute('viewBox', viewBox.join(' '));
         initialPosition = currentPosition;
     }
 
     function handleSVGMouseUp() {
-        this.removeEventListener('mousemove', handleSVGMouseMove);
-        this.removeEventListener('mouseup', handleSVGMouseUp);
+        window.removeEventListener('mousemove', handleSVGMouseMove);
+        window.removeEventListener('mouseup', handleSVGMouseUp);
     }
     
-    this.addEventListener('mousemove', handleSVGMouseMove);
-    this.addEventListener('mouseup', handleSVGMouseUp);
+    window.addEventListener('mousemove', handleSVGMouseMove);
+    window.addEventListener('mouseup', handleSVGMouseUp);
     
 }
 

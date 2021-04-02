@@ -1,6 +1,6 @@
-import * as svgUtilities from './svg-utilities';
-import { gameConfig, svgConfig } from './config';
-import * as mUtils from './math-utilities'
+import * as svgUtilities from '../utilities/svg-utilities';
+import { svgConfig } from '../config';
+import * as mUtils from '../utilities/math-utilities'
 
 // vertices is an object containing two arrays: boundary and obstacles
 // boundary contains the vertices of the polygonal boundary, while

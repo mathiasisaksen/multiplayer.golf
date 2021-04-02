@@ -1,5 +1,5 @@
-import * as mUtils from './math-utilities';
-import { gameConfig } from './config';
+import * as mUtils from '../utilities/math-utilities';
+import { gameConfig } from '../config';
 
 const GameMechanics = function(game) {
     const golfBall = game.getGolfBall();

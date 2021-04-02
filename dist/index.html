@@ -1,17 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Minigolf</title>
-    <link rel="stylesheet" href="./styles/style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="./styles/style.css" />
+  </head>
+  <body>
     <main>
-        <div id="menu-wrapper" class="not-selectable"></div>
-        <svg xmlns="http://www.w3.org/2000/svg" id="game-container" class="hidden" width="100%" height="100%" viewBox="0 30 100 40"></svg>
+      <div id="menu-wrapper" class="not-selectable"></div>
+      <div id="game-container" class="hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          id="svg-container"
+          viewBox="0 30 100 40"
+        ></svg>
+
+        <div id="sidebar" class="not-selectable hidden">
+          <div id="sidebar-header">
+            <div id="sidebar-title">
+              Minig<svg
+                id="sidebar-title-hole"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 260 260"
+                xml:space="preserve"
+              >
+                <path
+                  d="M0.5,0.5v259h259V0.5H0.5z M130.5,234.5C72.2,234.5,25,187.3,25,129S72.2,23.5,130.5,23.5
+                        S236,70.7,236,129S188.8,234.5,130.5,234.5z"
+                /></svg
+              >lf
+            </div>
+            <svg id="sidebar-exit-button" class="sidebar-svg-button" title="Leave game and exit to menu" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 333 333" style="enable-background:new 0 0 333 333;" xml:space="preserve">
+   <circle class="sidebar-svg-button-primary" cx="166.5" cy="166.5" r="166"/>
+<g>
+	<path class="sidebar-svg-button-secondary" d="M90.3,63.9l75.7,77.3l75.7-77.3l25.5,26.3l-75.3,76.9l75.3,76.9l-25.9,26.3L166,193.3
+		l-75.3,76.9l-25.9-26.3l75.3-76.9L64.8,90.2L90.3,63.9z"/>
+</g>
+</svg>
+
+            <svg
+              id="sidebar-toggle"
+              class="sidebar-svg-button"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              viewBox="0 0 357 357"
+            >
+              <defs>
+                <linearGradient id="sidebar-button-gradient">
+                  <stop offset="10%" stop-color="#fbc217" />
+                  <stop offset="30%" stop-color="#eb620b" />
+                  <stop offset="50%" stop-color="#b07830" />
+                  <stop offset="70%" stop-color="#586761" />
+                  <stop offset="90%" stop-color="#3c5778" />
+                </linearGradient>
+              </defs>
+              <circle class="sidebar-svg-button-primary" cx="178.5" cy="178.5" r="178" />
+              <g class="sidebar-svg-button-secondary">
+                <rect x="68" y="81" width="221" height="41" />
+                <rect x="68" y="158" width="221" height="41" />
+                <rect x="68" y="234" width="221" height="41" />
+              </g>
+            </svg>
+          </div>
+          <div id="sidebar-body">
+            <div id="course-info-container">
+              <div id="course-title" class="sidebar-header-title">Course <span id="current-course-number">5</span> out of <span id="total-number-of-courses">18</span></div>
+              <div id="course-selection">
+                <div id="previous-course" class="course-selection-button">&lt</div>
+                <div id="current-course">Course 1</div>
+                <div id="next-course" class="course-selection-button">&gt</div>
+                <div id="course-summary" class="course-selection-button" title="Toggle summary of all courses">Σ</div>
+              </div>
+              <div id="score-table">
+                <div id="table-header">
+                  <p>Player</p>
+                  <p>Score</p>
+                </div>
+                <div id="table-content" class="disable-scrollbar">
+                </div>
+              </div>
+            </div>
+            <div id="chat-player-container">
+              <div id="chat-player-header">
+                <div id="chat-player-title" class="sidebar-header-title">Players</div>
+                <div id="chat-player-buttons">
+                  <svg
+                  id="show-chat"
+                  class="sidebar-svg-button chat-player-selected"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 327 327"
+                >
+                  <circle class="sidebar-svg-button-primary" cx="163.5" cy="163.5" r="163" />
+                  <g>
+                    <path 
+                      class="sidebar-svg-button-secondary"                      
+                      d="M232.3,69.5H94.7c-25.2,0-46.5,19.6-46.5,44.8v61c0,25.2,21.3,46.2,46.5,46.2h25.5
+  c29,39,92.8,73.8,92.8,73.8c-21.8-20.7-46.8-73.8-46.8-73.8h66.2c25.2,0,44.8-21,44.8-46.2v-61C277.2,89.1,257.5,69.5,232.3,69.5z"
+                    />
+                    <g>
+                      <rect class="sidebar-svg-button-primary" x="82.2" y="86.5" width="162" height="25" />
+                      <rect class="sidebar-svg-button-primary" x="82.2" y="133.5" width="162" height="24" />
+                      <rect class="sidebar-svg-button-primary" x="83.2" y="180.5" width="161" height="24" />
+                    </g>
+                  </g>
+                </svg>
+                  <svg
+                    id="show-players"
+                    class="sidebar-svg-button"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 327 327"
+                  >
+                    <circle class="sidebar-svg-button-primary" cx="163.5" cy="163.5" r="163" />
+                    <path class="sidebar-svg-button-secondary"
+                      d="M261.7,141.9c2.2-9,3.4-19.3,3.4-30.2c0-34.7-12.5-62.8-28-62.8c-15.5,0-28,28.1-28,62.8
+	c0,10.7,1.2,20.8,3.3,29.6c-3.9,4.4-7.4,9.8-10.3,15.9c-3.4-9.7-8-18.1-13.4-24.4c2.2-9,3.4-19.3,3.4-30.2c0-34.7-12.5-62.8-28-62.8
+	c-15.5,0-28,28.1-28,62.8c0,10.7,1.2,20.8,3.3,29.6c-5.5,6.1-10.1,14.2-13.5,23.8c-2.9-5.8-6.3-10.9-10-15.1
+	c2.7-9.7,4.3-21.1,4.3-33.3c0-34.7-12.5-62.8-28-62.8c-15.5,0-28,28.1-28,62.8c0,12,1.5,23.2,4.1,32.7
+	c-12.7,13.6-21.1,37.7-21.1,65.3c0,42.4,20,76.8,44.7,76.8c16,0,30-14.5,37.9-36.2c8.2,16.6,20.4,27.2,34.1,27.2
+	c14,0,26.5-11.1,34.7-28.4c7.8,22.4,22,37.4,38.3,37.4c24.7,0,44.7-34.4,44.7-76.8C281.5,179.1,273.7,155.7,261.7,141.9z"
+                    />
+                  </svg>         
+                </div>
+              </div>
+              <div id="chat-box-container">
+                <div id="chat-box" class="disable-scrollbar"></div>
+                <div id="chat-input-container">
+                  <input type="text" id="chat-input">
+                  <div id="chat-send-message-button">Send</div>
+                </div>
+              </div>
+              <div id="player-list-container" class="hidden disable-scrollbar">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
     <script src="./main.js"></script>
-</body>
+  </body>
 </html>

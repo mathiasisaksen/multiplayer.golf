@@ -1,4 +1,4 @@
-import { webSocketConfig } from './config';
+import { webSocketConfig } from '../config';
 
 function WebSocketClient(onlineGame) {
     const connectionString = `ws://${webSocketConfig.host}:${webSocketConfig.port}`;

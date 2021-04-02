@@ -1,4 +1,5 @@
 import { menuConfig } from '../config';
+import mainMenu from './main-menu';
 
 const MenuController = (() => {
     const menuWrapper = document.querySelector('#menu-wrapper');
@@ -68,6 +69,7 @@ const MenuController = (() => {
             });
             oldMenu.addEventListener('transitionend', e => {
                 if (e.target != oldMenu) return;
+                oldMenu.removeAttribute('style');
                 oldMenu.remove();
                 oldMenu = null;
             });
@@ -78,7 +80,7 @@ const MenuController = (() => {
             setElementTransition(menuElement, 0, duration, 'ease-in-out');
             menuElement.addEventListener('transitionend', e => {
                 if (e.target != menuElement) return;
-                menuElement.style = '';
+                menuElement.removeAttribute('style');
                 menuObject.setActive();
             });
         }
@@ -89,12 +91,19 @@ const MenuController = (() => {
     }
 
     function removeMenu() {
+        menuWrapper.classList.add('hidden');
         menuWrapper.innerHTML = '';
         menuObject.setNotActive();
         menuObject = null;
         menuElement = null;
     }
-    return({ setMenu, removeMenu });
+
+    function showMenu() {
+        menuWrapper.classList.remove('hidden');
+        setMenu(mainMenu, true, true);
+    }
+
+    return({ setMenu, removeMenu, showMenu });
 })();
 
 export default MenuController;
