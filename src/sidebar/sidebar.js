@@ -34,7 +34,6 @@ const Sidebar = (() => {
 
 
     // Setup players/chat section
-
     const chatPlayersEnum = {PLAYERS: 'players', CHAT: 'chat'}
     let currentChatOrPlayers = chatPlayersEnum.CHAT;
     const playerButton = sidebarBody.querySelector('#show-players');

@@ -43,31 +43,6 @@ const PlayerList = (() => {
     }
 
     addPlayer('Mathias');
-    addPlayer('Mathias2');
-    addPlayer('Mathias3');
-    addPlayer('Mathias4');
-    addPlayer('Mathias5');
-    addPlayer('Mathias6');
-    addPlayer('Mathias7');
-    addPlayer('Mathias8');
-    addPlayer('Mathias9');
-    addPlayer('Mathias10');
-    addPlayer('Mathias11');
-    addPlayer('Mathias12');
-    addPlayer('Mathias13');
-    addPlayer('Mathias14');
-    addPlayer('Mathias15');
-    addPlayer('Mathias16');
-    addPlayer('Mathias17');
-    addPlayer('Mathias18');
-    addPlayer('Mathias19');
-    addPlayer('Mathias20');
-    addPlayer('Mathias21');
-    addPlayer('Mathias22');
-    addPlayer('Mathias23');
-    addPlayer('Mathias24');
-
-
 
     return({ show, hide, getPlayerColor });
 })();
