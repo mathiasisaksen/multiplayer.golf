@@ -11,6 +11,8 @@ const GolfBall = function(
     let position = mUtils.Vector(courseData.initialGolfBallPosition);
     let speed = initialSpeed;
     let direction = initialDirection;
+    let radius = courseData.golfBallRadius || gameConfig.golfBallRadius;
+    
     let _unitDirectionVector = mUtils.createUnitVector(direction);
     let _golfBallElement;
     let _isUserClickable = false;
@@ -43,6 +45,14 @@ const GolfBall = function(
     function setDirection(newDirection) {
         direction = newDirection;
         _unitDirectionVector = mUtils.createUnitVector(direction)
+    }
+
+    function getRadius() {
+        return(radius);
+    }
+
+    function setRadius(newRadius) {
+        radius = newRadius;
     }
 
     function step(timeStep) {
@@ -88,14 +98,19 @@ const GolfBall = function(
         return(_isUserClickable);
     }
 
+    function moveToInitialPosition() {
+        position = mUtils.Vector(courseData.initialGolfBallPosition);
+    }
+
     return({ initialize, draw, 
         getPosition, setPosition, 
         getSpeed, setSpeed,
         getDirection, setDirection,
+        getRadius, setRadius,
         destroy, step, update,
         addEventListener, removeEventListener,
         setUserClickable, setNotUserClickable,
-        checkUserClickable })
+        checkUserClickable, moveToInitialPosition });
 
 }
 

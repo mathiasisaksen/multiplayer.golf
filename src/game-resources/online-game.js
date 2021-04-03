@@ -7,9 +7,9 @@ function OnlineGame(rootSVGElement) {
     let course;
 
     // Method called by gameMechanics when the player finishes
-    game.playerFinished = function() {
+    /*game.playerFinished = function() {
         console.log("finished");
-    }
+    }*/
 
     game.handleIncomingMessage = function(message) {
         console.log(message);

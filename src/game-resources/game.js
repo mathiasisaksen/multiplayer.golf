@@ -170,6 +170,7 @@ function Game(rootSVGElement) {
 
     function playerFinished() {
         setTimeout(() => {
+            console.log("finished")
             _cleanUpGame();
             generateNewCourse(1);
         }, 5000);
@@ -188,8 +189,17 @@ function Game(rootSVGElement) {
         courseData = null;
     }
 
+    function setGolfBallSpeed(newSpeed) {
+        golfBall.setSpeed(newSpeed);
+    }
+
+    function setGolfBallDirection(newDirection) {
+        golfBall.setDirection(newDirection);
+    }
+
     const gameObj = { setGameContent, getGolfBall, getCourse, playerFinished,
-        generateNewCourse, golfBallStoppedMoving };
+        generateNewCourse, golfBallStoppedMoving, 
+        setGolfBallDirection, setGolfBallSpeed };
     return(gameObj);
 }
 
