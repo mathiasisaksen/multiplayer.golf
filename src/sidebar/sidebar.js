@@ -2,6 +2,7 @@ import ScoreBoard from './score-board';
 import MenuController from '../menu-system/menu-controller';
 import ChatBox from './chat-box';
 import PlayerList from './player-list';
+import dialogBox from '../menu-system/dialog-box';
 
 
 const Sidebar = (() => {
@@ -15,10 +16,7 @@ const Sidebar = (() => {
     let isCollapsed = false;
 
     const exitButton = document.querySelector("#sidebar-exit-button");
-    exitButton.addEventListener('click', () => {
-        gameContainer.classList.add('hidden');
-        MenuController.showMenu();
-    });
+    exitButton.addEventListener('click', handleExit);
 
     function handleToggleSidebar() {
         if (isCollapsed) {            
@@ -32,6 +30,16 @@ const Sidebar = (() => {
         console.log(isCollapsed);
     }
 
+    function handleExit() {
+        const buttonCallbacks = [];
+        // TODO: Clean up properly before leaving
+        buttonCallbacks.push({text: 'Leave game', callback: () => {
+            gameContainer.classList.add('hidden');
+            MenuController.showMenu();
+        }});
+        buttonCallbacks.push({text: 'Cancel', callback: () => {}});
+        dialogBox('Are you sure you want to leave the game?', buttonCallbacks);
+    }
 
     // Setup players/chat section
     const chatPlayersEnum = {PLAYERS: 'players', CHAT: 'chat'}

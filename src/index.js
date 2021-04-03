@@ -10,6 +10,7 @@ import Sidebar from './sidebar/sidebar';
 
 MenuController.setMenu(mainMenu, true, true);
 
+
 const game = OnlineGame(rootSVGElement);
 game.generateNewCourse();
 //game.setGameContent(courseData, {x: 80, y: 50});

@@ -19,7 +19,6 @@ function createTitleElement(titleInnerHTML, classArray = []) {
     const titleElement = document.createElement('div');
     titleElement.innerHTML = titleInnerHTML;
     titleElement.setAttribute('id', 'menu-title');
-    classArray.push('not-selectable');
     classArray.forEach(className => titleElement.classList.add(className));
     return(titleElement);
 }
@@ -28,7 +27,7 @@ function createButton(id, text, classArray = []) {
     const buttonElement = document.createElement('div');
     buttonElement.setAttribute('id', id);
     buttonElement.textContent = text;
-    classArray = classArray.concat(['menu-button', 'not-selectable']);
+    classArray = classArray.concat(['menu-button']);
     classArray.forEach(className => buttonElement.classList.add(className));
     return(buttonElement);
 }
