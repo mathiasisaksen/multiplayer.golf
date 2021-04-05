@@ -270,8 +270,10 @@ main {
     position: relative;
     padding: 2rem;
     background-color: #00000077;
+    background: linear-gradient(135.00deg, #87d7dcea 0%, #cb9b0069 24.84050638656275%, #d7245838 39.61244280006058%, #607bf25d 100%), linear-gradient(135.00deg, #9892cbad 0%, #c24c740e 13.420577127358701%, #7cd07392 18.672831489131905%, #fc890f95 26.74551378701311%, #8f1435da 43.54185806822602%, #50a467da 66.49749977061639%, #65ab9ea8 75.41733952536438%, #705ddfad 100%), linear-gradient(212.43deg, #69474aeb 0%, #c1781ada 14.94842270387883%, #08ede6bc 15.966145413764298%, #d482b981 42.25626308812375%, #79ad39dd 100%);
     border-radius: 2rem;
-    box-shadow: 0 0 20px 1px white;
+    margin: 2rem;
+    /*box-shadow: 0 0 20px 1px white;*/
 }
 
 .dialog-box-description {
@@ -279,6 +281,7 @@ main {
     font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 3rem;
+    text-align: center;
 }
 
 .dialog-box-button-container {
@@ -287,17 +290,21 @@ main {
 }
 
 .dialog-box-button {
+    mix-blend-mode: lighten;
     cursor: pointer;
     font-size: var(--dialog-font-size);
     text-transform: uppercase;
     padding: 1rem;
     border-radius: 1rem;
     border: 2px solid white;
+    text-align: center;
+    background-color: white;
+    color: black;
 }
 
 .dialog-box-button:hover {
-    background-color: white;
-    color: black;
+    background-color: black;
+    color: white;
 }
 
 @media (min-width: 600px) {
