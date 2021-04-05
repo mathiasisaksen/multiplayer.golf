@@ -1,3 +1,6 @@
+import { playerConfig } from '../config';
+import OnlineGameHandler from '../online-game-handler/online-game-handler';
+import dialogBox from './dialog-box';
 import Menu from './menu';
 import MenuController from './menu-controller';
 import onlineGameMenu from './online-game-menu';
@@ -47,8 +50,35 @@ function handleCreateGame() {
     const playerName = nameInput.value;
     const gameId = gameIdInput.value;
     const numCourses = numCoursesInput.value;
-    
+
+    if (!playerName) {
+        dialogBox('Please enter a name', 
+            [{text: 'Ok'}]);
+    } else if (playerName.length > playerConfig.maxNameLength) {
+        dialogBox('The name entered is too long', 
+        [{text: 'Ok'}]);
+    } else if (!numCourses || numCourses < 1) {
+        dialogBox('The number of holes must be a number greater than 0', 
+        [{text: 'Ok'}]);
+    } else {
+        OnlineGameHandler.createGame();
+        const wsClient = OnlineGameHandler.createWSClient();
+        wsClient.addEventListener('open', () => 
+            sendCreateGameMessage(wsClient, playerName, gameId, numCourses));
+    }
 }
 
+function sendCreateGameMessage(webSocket, playerName, gameId, numCourses) {
+    console.log("send");
+    const message = {};
+    message.eventName = 'newOnlineGame';
+    message.data = {
+        playerName,
+        gameId,
+        isGameIdSpecified: Boolean(gameId),
+        numberOfCourses: numCourses
+    };
+    webSocket.send(JSON.stringify(message));
+}
 
 export default newOnlineGameMenu;

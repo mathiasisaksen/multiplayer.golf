@@ -39,12 +39,16 @@ svgConfig.obstacleAttributes['stroke-width'] = 0;
 
 const webSocketConfig = {
     host: 'localhost',
-    port: 5678,
+    port: 5600,
 };
 
 const menuConfig = {
     transitionDuration: 0.5,
 };
+
+const playerConfig = {
+    maxNameLength: 20
+}
 
 const sidebarConfig = {
     userNameSaturation: 50,
@@ -52,4 +56,4 @@ const sidebarConfig = {
     announcementColor: "blue"
 }
 
-export { gameConfig, svgConfig, webSocketConfig, menuConfig, sidebarConfig };
+export { gameConfig, svgConfig, webSocketConfig, menuConfig, sidebarConfig, playerConfig };

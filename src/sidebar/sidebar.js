@@ -37,7 +37,7 @@ const Sidebar = (() => {
             gameContainer.classList.add('hidden');
             MenuController.showMenu();
         }});
-        buttonCallbacks.push({text: 'Cancel', callback: () => {}});
+        buttonCallbacks.push({text: 'Cancel'});
         dialogBox('Are you sure you want to leave the game?', buttonCallbacks);
     }
 
@@ -73,8 +73,6 @@ const Sidebar = (() => {
         chatButton.classList.add('chat-player-selected');
         chatPlayerTitle.textContent = currentChatOrPlayers;
     }
-
-
 })();
 
 export default Sidebar;

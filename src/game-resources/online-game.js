@@ -3,25 +3,28 @@ import WebSocketClient from '../websocket/websocket-client';
 
 function OnlineGame(rootSVGElement) {
     const game = Game(rootSVGElement);
-    let golfBall;
-    let course;
+    let wsClient;
 
     // Method called by gameMechanics when the player finishes
     /*game.playerFinished = function() {
         console.log("finished");
     }*/
 
-    game.handleIncomingMessage = function(message) {
+    function handleIncomingMessage(message) {
         console.log(message);
         console.log(golfBall.getPosition());
     }
 
-    game.handleNewCourse = function(courseData) {
+    function handleNewCourse(courseData) {
         const golfBall = game.getGolfBall();
         const course = game.getCourse();
     }
 
-    const wsClient = WebSocketClient(game);
+    function setWSClient(wsClient) {
+
+    }
+
+    Object.assign(game, {handleIncomingMessage, setWSClient, handleNewCourse });
     return(game);
 }
 

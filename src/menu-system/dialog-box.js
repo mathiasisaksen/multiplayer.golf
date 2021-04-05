@@ -31,7 +31,9 @@ function dialogBox(prompt, buttonCallbackArray) {
         buttonElement.textContent = button.text;
 
         function buttonClickHandler(event) {
-            button.callback(event);
+            if (typeof button.callback === 'function') {
+                button.callback(event);
+            }
             removeBlur();
             dialogContainer.remove();
         }
