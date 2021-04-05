@@ -3,7 +3,6 @@ import WebSocketClient from '../websocket/websocket-client';
 
 function OnlineGame(rootSVGElement) {
     const game = Game(rootSVGElement);
-    let wsClient;
 
     // Method called by gameMechanics when the player finishes
     /*game.playerFinished = function() {
@@ -21,10 +20,27 @@ function OnlineGame(rootSVGElement) {
     }
 
     function setWSClient(wsClient) {
-
+        game.wsClient = wsClient;
     }
 
-    Object.assign(game, {handleIncomingMessage, setWSClient, handleNewCourse });
+    function setPlayerId(playerId) {
+        game.playerId = playerId;
+    }
+
+    function getPlayerId() {
+        return(game.playerId);
+    }
+
+    function setGameId(gameId) {
+        game.gameId = gameId;
+    }
+
+    function getGameId() {
+        return(game.gameId);
+    }
+
+    Object.assign(game, {handleIncomingMessage, setWSClient, handleNewCourse,
+        setPlayerId, getPlayerId, setGameId, getGameId });
     return(game);
 }
 

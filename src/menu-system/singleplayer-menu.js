@@ -25,7 +25,7 @@ singleplayerMenu.addRestrictedEventListener(startButton,
         console.log("start");
         const gameElement = document.querySelector('#game-container');
         gameElement.classList.remove('hidden');
-        MenuController.removeMenu();
+        MenuController.hide();
 });
 
 const backButton = singleplayerMenu.addButton('back-button', 'Go back');

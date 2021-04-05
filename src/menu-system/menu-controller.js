@@ -90,7 +90,7 @@ const MenuController = (() => {
         }
     }
 
-    function removeMenu() {
+    function hide() {
         menuWrapper.classList.add('hidden');
         menuWrapper.innerHTML = '';
         menuObject.setNotActive();
@@ -98,12 +98,12 @@ const MenuController = (() => {
         menuElement = null;
     }
 
-    function showMenu() {
+    function show() {
         menuWrapper.classList.remove('hidden');
         setMenu(mainMenu, true, true);
     }
 
-    return({ setMenu, removeMenu, showMenu });
+    return({ setMenu, hide, show });
 })();
 
 export default MenuController;

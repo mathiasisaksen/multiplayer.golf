@@ -197,9 +197,18 @@ function Game(rootSVGElement) {
         golfBall.setDirection(newDirection);
     }
 
+    function show() {
+        rootSVGElement.classList.remove('hidden');
+    }
+
+    function hide() {
+        rootSVGElement.classList.add('hidden');
+    }
+
     const gameObj = { setGameContent, getGolfBall, getCourse, playerFinished,
         generateNewCourse, golfBallStoppedMoving, 
-        setGolfBallDirection, setGolfBallSpeed };
+        setGolfBallDirection, setGolfBallSpeed,
+        show, hide };
     return(gameObj);
 }
 

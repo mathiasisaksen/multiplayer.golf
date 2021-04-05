@@ -1,7 +1,6 @@
 import ScoreBoard from './score-board';
 import MenuController from '../menu-system/menu-controller';
-import ChatBox from './chat-box';
-import PlayerList from './player-list';
+import {ChatBox, PlayerList} from './chat-player-list';
 import dialogBox from '../menu-system/dialog-box';
 
 
@@ -35,7 +34,7 @@ const Sidebar = (() => {
         // TODO: Clean up properly before leaving
         buttonCallbacks.push({text: 'Leave game', callback: () => {
             gameContainer.classList.add('hidden');
-            MenuController.showMenu();
+            MenuController.show();
         }});
         buttonCallbacks.push({text: 'Cancel'});
         dialogBox('Are you sure you want to leave the game?', buttonCallbacks);
@@ -73,6 +72,15 @@ const Sidebar = (() => {
         chatButton.classList.add('chat-player-selected');
         chatPlayerTitle.textContent = currentChatOrPlayers;
     }
+
+    function show() {
+        gameContainer.classList.remove('hidden');
+    }
+
+    function hide() {
+        gameContainer.classList.add('hidden');
+    }
+    return({show, hide})
 })();
 
 export default Sidebar;
