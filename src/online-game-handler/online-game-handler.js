@@ -3,8 +3,9 @@ import OnlineGame from "../game-resources/online-game";
 import rootSVGElement from '../svg-setup';
 import handleGameCreationSuccessful from './handle-game-creation-successful';
 import handlePlayerJoined from "./handle-player-joined";
+import handlePlayerLeft from "./handle-player-left";
 
-const eventHandlers = {handleGameCreationSuccessful, handlePlayerJoined};
+const eventHandlers = {handleGameCreationSuccessful, handlePlayerJoined, handlePlayerLeft};
 
 const  OnlineGameHandler = (() => {
     let onlineGame;

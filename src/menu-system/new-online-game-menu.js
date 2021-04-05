@@ -60,6 +60,9 @@ function handleCreateGame() {
     } else if (!numCourses || numCourses < 1) {
         dialogBox('The number of holes must be a number greater than 0', 
         [{text: 'Ok'}]);
+    } else if (gameId && !checkValidId(gameId)) {
+        dialogBox('The game ID can only consist of letters, numbers and hyphens (-)', 
+        [{text: 'Ok'}]);
     } else {
         OnlineGameHandler.createGame();
         const wsClient = OnlineGameHandler.createWSClient();
@@ -79,6 +82,15 @@ function sendCreateGameMessage(webSocket, playerName, gameId, numCourses) {
         numberOfCourses: numCourses
     };
     webSocket.send(JSON.stringify(message));
+}
+
+function checkValidId(name) {
+    const nameArray = [...name.toLowerCase()];
+    const isValid = nameArray.every(char => {
+        const c = char.charCodeAt(0);
+        return((c >= 97 && c <= 122) || (c >= 48 && c <= 57) || c === 45);
+    });
+    return(isValid);
 }
 
 export default newOnlineGameMenu;
