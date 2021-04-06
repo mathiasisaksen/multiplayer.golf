@@ -66,6 +66,7 @@ function handleCreateGame() {
         [{text: 'Ok'}]);
     } else {
         OnlineGameHandler.createGame();
+        OnlineGameHandler.setPlayerName(playerName);
         const wsClient = OnlineGameHandler.createWSClient();
         wsClient.addEventListener('open', () => 
             sendCreateGameMessage(playerName, gameId, numCourses));

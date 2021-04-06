@@ -38,7 +38,7 @@ function Game(rootSVGElement) {
         return(course);
     }
 
-    const setGameContent = (newCourseData) => {
+    function setGameContent(newCourseData) {
         courseData = newCourseData;
         _setNewCourse(courseData);
         _setNewGolfBall(courseData);
@@ -136,7 +136,7 @@ function Game(rootSVGElement) {
         computeGolfBallVelocity();
         golfBall.setNotUserClickable();
         directionLineVector = null;
-        _executeShot();
+        executePutt();
     }
 
     function _handleGolfBallTouchEnd() {
@@ -149,7 +149,7 @@ function Game(rootSVGElement) {
         computeGolfBallVelocity();
         golfBall.setNotUserClickable();
         directionLineVector = null;
-        _executeShot();
+        executePutt();
     }
 
     function computeGolfBallVelocity() {
@@ -164,8 +164,8 @@ function Game(rootSVGElement) {
         golfBall.setSpeed(initialSpeed);
     }
 
-    function _executeShot() {
-        gameMechanics.executeShot();
+    function executePutt() {
+        gameMechanics.executePutt();
     }
 
     function playerFinished() {
@@ -197,6 +197,12 @@ function Game(rootSVGElement) {
         golfBall.setDirection(newDirection);
     }
 
+    function setGolfBallPosition(newX, newY) {
+        const position = mUtils.Vector({newX, newY});
+        golfBall.setPosition(position);
+        golfBall.update();
+    }
+
     function show() {
         rootSVGElement.classList.remove('hidden');
     }
@@ -205,10 +211,14 @@ function Game(rootSVGElement) {
         rootSVGElement.classList.add('hidden');
     }
 
+    function update() {
+        golfBall.update();
+    }
+
     const gameObj = { setGameContent, getGolfBall, getCourse, playerFinished,
-        generateNewCourse, golfBallStoppedMoving, 
-        setGolfBallDirection, setGolfBallSpeed,
-        show, hide };
+        generateNewCourse, golfBallStoppedMoving, update,
+        setGolfBallDirection, setGolfBallSpeed, setGolfBallPosition,
+        show, hide, executePutt };
     return(gameObj);
 }
 

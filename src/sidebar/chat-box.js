@@ -1,3 +1,4 @@
+import OnlineGameHandler from '../online-game-handler/online-game-handler';
 import PlayerList from './player-list';
 
 const ChatBox = (() => {
@@ -19,12 +20,16 @@ const ChatBox = (() => {
         const inputText = inputElement.value;
         inputElement.focus();
         if (!inputText.trim()) return;
-        message = {};
+        const gameId = OnlineGameHandler.getGameId();
+        const playerId = OnlineGameHandler.getPlayerId();
+        
+        const message = {};
         message.eventName = 'messageSent';
-        message.data = {}
+        message.data = {gameId, playerId, message: inputText};
+        OnlineGameHandler.sendMessage(JSON.stringify(message));
 
         inputElement.value = '';
-        receiveMessage(localPlayerName, inputText);
+        //receiveMessage(localPlayerName, inputText);
     }
 
     function receiveMessage(playerName, message) {

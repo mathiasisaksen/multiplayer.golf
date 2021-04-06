@@ -129,7 +129,7 @@ const GameMechanics = function(game) {
         }
     }
 
-    function executeShot() {
+    function executePutt() {
         golfBallIsMoving = true;
         isFinished = false;
         window.requestAnimationFrame(stepLoop);
@@ -164,7 +164,7 @@ const GameMechanics = function(game) {
     }
 
     return({ step, multipleSteps, stepLoop, 
-        executeShot, enableRunning, checkIfRunning });
+        executePutt, enableRunning, checkIfRunning });
 }
 
 export default GameMechanics;

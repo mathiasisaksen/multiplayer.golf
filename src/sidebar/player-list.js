@@ -60,8 +60,6 @@ const PlayerList = (() => {
         playerColorMap = {};
     }
 
-    addPlayer('Mathias');
-
     return({ addPlayer, removePlayer, show, hide, getPlayerColor, clear });
 })();
 

@@ -23,24 +23,11 @@ function OnlineGame(rootSVGElement) {
         game.wsClient = wsClient;
     }
 
-    function setPlayerId(playerId) {
-        game.playerId = playerId;
+    function setCurrentPlayer(currentPlayer) {
+        game.currentPlayer = currentPlayer;
     }
 
-    function getPlayerId() {
-        return(game.playerId);
-    }
-
-    function setGameId(gameId) {
-        game.gameId = gameId;
-    }
-
-    function getGameId() {
-        return(game.gameId);
-    }
-
-    Object.assign(game, {handleIncomingMessage, setWSClient, handleNewCourse,
-        setPlayerId, getPlayerId, setGameId, getGameId });
+    Object.assign(game, {handleIncomingMessage, setWSClient, handleNewCourse, setCurrentPlayer});
     return(game);
 }
 
