@@ -19,6 +19,10 @@ const ChatBox = (() => {
         const inputText = inputElement.value;
         inputElement.focus();
         if (!inputText.trim()) return;
+        message = {};
+        message.eventName = 'messageSent';
+        message.data = {}
+
         inputElement.value = '';
         receiveMessage(localPlayerName, inputText);
     }

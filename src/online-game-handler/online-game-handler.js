@@ -9,6 +9,9 @@ const eventHandlers = {handleGameCreationSuccessful, handlePlayerJoined, handleP
 
 const  OnlineGameHandler = (() => {
     let onlineGame;
+    let webSocket;
+    let gameId;
+    let playerId;
     
     function createGame() {
         onlineGame = OnlineGame(rootSVGElement);
@@ -17,10 +20,26 @@ const  OnlineGameHandler = (() => {
 
     function createWSClient() {
         const connectionString = `ws://${webSocketConfig.host}:${webSocketConfig.port}`;
-        const webSocket = new WebSocket(connectionString);
+        webSocket = new WebSocket(connectionString);
         onlineGame.setWSClient(webSocket);
         webSocket.addEventListener('message', handleIncomingMessage);
         return(webSocket);
+    }
+
+    function setGameId(_gameId) {
+        gameId = _gameId;
+    }
+
+    function getGameId() {
+        return(gameId);
+    }
+
+    function setPlayerId(_playerId) {
+        playerId = _playerId;
+    }
+
+    function getPlayerId() {
+        return(playerId);
     }
 
     function handleIncomingMessage(event) {
@@ -35,7 +54,12 @@ const  OnlineGameHandler = (() => {
         eventHandlers[handlerName](onlineGame, data);
     }
 
-    return({createGame, createWSClient})
+    function sendMessage(message) {
+        webSocket.send(message);
+    }
+
+    return({createGame, createWSClient, sendMessage,
+        setGameId, getGameId, setPlayerId, getPlayerId})
 })();
 
 export default OnlineGameHandler;

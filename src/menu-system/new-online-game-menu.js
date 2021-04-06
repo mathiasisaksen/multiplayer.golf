@@ -1,5 +1,6 @@
 import { playerConfig } from '../config';
 import OnlineGameHandler from '../online-game-handler/online-game-handler';
+import { checkValidId } from '../utilities/online-utilities';
 import dialogBox from './dialog-box';
 import Menu from './menu';
 import MenuController from './menu-controller';
@@ -19,8 +20,8 @@ const nameInput = playerNameContainer.querySelector('#create-player-name-input')
 const gameIdContainer = document.createElement('div');
 gameIdContainer.innerHTML = `
 <div id="create-game-id" class="menu-inner-option-container menu-text-option">
-    <div id="create-game-id-label" class="option-label">Game ID (optional)</div>
-    <textarea id="create-game-id-input" rows="1"></textarea>
+    <div id="create-game-id-label" class="option-label">Game ID</div>
+    <textarea id="create-game-id-input" rows="1" placeholder="optional"></textarea>
 </div>`;
 newOnlineGameMenu.addCustomElement(gameIdContainer);
 const gameIdInput = gameIdContainer.querySelector('#create-game-id-input');
@@ -29,7 +30,7 @@ const numCoursesContainer = document.createElement('div');
 numCoursesContainer.innerHTML = `
 <div id="create-number-courses" class="menu-inner-option-container menu-text-option">
     <div id="create-number-courses-label" class="option-label">Number of holes</div>
-    <textarea id="create-number-courses-input" rows="1"></textarea>
+    <textarea id="create-number-courses-input" rows="1" placeholder="must be ≥ 1"></textarea>
 </div>`;
 newOnlineGameMenu.addCustomElement(numCoursesContainer);
 const numCoursesInput = numCoursesContainer.querySelector('#create-number-courses-input');
@@ -67,12 +68,11 @@ function handleCreateGame() {
         OnlineGameHandler.createGame();
         const wsClient = OnlineGameHandler.createWSClient();
         wsClient.addEventListener('open', () => 
-            sendCreateGameMessage(wsClient, playerName, gameId, numCourses));
+            sendCreateGameMessage(playerName, gameId, numCourses));
     }
 }
 
-function sendCreateGameMessage(webSocket, playerName, gameId, numCourses) {
-    console.log("send");
+function sendCreateGameMessage(playerName, gameId, numCourses) {
     const message = {};
     message.eventName = 'newOnlineGame';
     message.data = {
@@ -81,16 +81,9 @@ function sendCreateGameMessage(webSocket, playerName, gameId, numCourses) {
         isGameIdSpecified: Boolean(gameId),
         numberOfCourses: numCourses
     };
-    webSocket.send(JSON.stringify(message));
+    OnlineGameHandler.sendMessage(JSON.stringify(message));
 }
 
-function checkValidId(name) {
-    const nameArray = [...name.toLowerCase()];
-    const isValid = nameArray.every(char => {
-        const c = char.charCodeAt(0);
-        return((c >= 97 && c <= 122) || (c >= 48 && c <= 57) || c === 45);
-    });
-    return(isValid);
-}
+
 
 export default newOnlineGameMenu;
