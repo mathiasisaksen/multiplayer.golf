@@ -19,14 +19,17 @@ const  OnlineGameHandler = (() => {
     let playerName;
     
     function createGame() {
-        onlineGame = OnlineGame(rootSVGElement);
+        onlineGame = new OnlineGame(rootSVGElement);
+        return(onlineGame);
+    }
+
+    function getGame() {
         return(onlineGame);
     }
 
     function createWSClient() {
         const connectionString = `ws://${webSocketConfig.host}:${webSocketConfig.port}`;
         webSocket = new WebSocket(connectionString);
-        onlineGame.setWSClient(webSocket);
         webSocket.addEventListener('message', handleIncomingMessage);
         return(webSocket);
     }
@@ -64,16 +67,26 @@ const  OnlineGameHandler = (() => {
         
         eventName = eventName[0].toUpperCase() + eventName.slice(1);
         const handlerName = 'handle' + eventName;
-        eventHandlers[handlerName](onlineGame, data);
+        eventHandlers[handlerName](data);
     }
 
     function sendMessage(message) {
         webSocket.send(message);
     }
 
-    return({createGame, createWSClient, sendMessage,
+    function sendPuttMessage() {
+        const {golfBallSpeed, golfBallDirection} = onlineGame.getGolfBallVelocity();
+
+        const message = {};
+        message.eventName = 'executePutt';
+        message.data = {playerId, gameId,
+            golfBallSpeed, golfBallDirection}
+        sendMessage(JSON.stringify(message));
+    }
+
+    return({createGame, getGame, createWSClient, sendMessage,
         setGameId, getGameId, setPlayerId, getPlayerId,
-        setPlayerName, getPlayerName})
+        setPlayerName, getPlayerName, sendPuttMessage})
 })();
 
 export default OnlineGameHandler;

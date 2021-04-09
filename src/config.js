@@ -38,7 +38,7 @@ svgConfig.obstacleAttributes['stroke-width'] = 0;
 //svgConfig.boundaryAttributesOuter['stroke-width'] = 0;
 
 const webSocketConfig = {
-    host: 'localhost',
+    host: '192.168.0.253',
     port: 5600,
 };
 

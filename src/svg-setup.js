@@ -50,7 +50,6 @@ function handleSVGMouseDown(event) {
         // Normalize to values between 0 and 1
         amountX =  amountX * courseSVGRect.width / courseClientRect.width;
         amountY =  amountY * courseSVGRect.height / courseClientRect.height;
-        console.log(amountX, amountY);
 
         // Update lower left corner of viewbox
         viewBox[0] -= amountX;

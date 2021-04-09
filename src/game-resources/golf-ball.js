@@ -28,6 +28,7 @@ const GolfBall = function(
 
     function setPosition(newPosition) {
         position = newPosition;
+        update();
     }
 
     function getSpeed() {

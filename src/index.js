@@ -11,8 +11,8 @@ import Sidebar from './sidebar/sidebar';
 MenuController.setMenu(mainMenu, true, true);
 
 
-const game = OnlineGame(rootSVGElement);
-game.generateNewCourse();
+//const game = new OnlineGame(rootSVGElement);
+//game.generateNewCourse();
 //game.setGameContent(courseData, {x: 80, y: 50});
 
 //const gameMechanics = GameMechanics(course, golfBall);

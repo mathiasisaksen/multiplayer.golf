@@ -4,14 +4,15 @@ import PlayerList from "../sidebar/player-list";
 import Sidebar from "../sidebar/sidebar";
 import OnlineGameHandler from "./online-game-handler";
 
-function handleJoinRequestSuccessful(onlineGame, data) {
+function handleJoinRequestSuccessful(data) {
     console.log(data);
+    OnlineGameHandler.setPlayerId(data.playerId);
+    OnlineGameHandler.setGameId(data.gameId);
+    const onlineGame = OnlineGameHandler.createGame();
     onlineGame.show();
     onlineGame.setGameContent(data.courseData);
     Sidebar.show();
     MenuController.hide();
-    OnlineGameHandler.setPlayerId(data.playerId);
-    OnlineGameHandler.setGameId(data.gameId);
 
     for (const playerName of data.playerNames) {
         PlayerList.addPlayer(playerName);
@@ -19,7 +20,8 @@ function handleJoinRequestSuccessful(onlineGame, data) {
 
     onlineGame.setCurrentPlayer(data.currentPlayer);
     const position = data.golfBallPosition;
-    onlineGame.setGolfBallPosition(position.x, position.y);
+    console.log(position);
+    onlineGame.setGolfBallPosition(position);
 }
 
 export default handleJoinRequestSuccessful;

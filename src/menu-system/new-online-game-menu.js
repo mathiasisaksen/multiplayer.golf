@@ -65,7 +65,6 @@ function handleCreateGame() {
         dialogBox('The game ID can only consist of letters, numbers and hyphens (-)', 
         [{text: 'Ok'}]);
     } else {
-        OnlineGameHandler.createGame();
         OnlineGameHandler.setPlayerName(playerName);
         const wsClient = OnlineGameHandler.createWSClient();
         wsClient.addEventListener('open', () => 

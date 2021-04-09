@@ -118,13 +118,11 @@ const GameMechanics = function(game) {
             golfBall.update();
         }
 
-        if (isFinished) {
-            game.playerFinished();
-            reset();
-        } else if (golfBallIsMoving) {
+        if (golfBallIsMoving) {
             window.requestAnimationFrame(stepLoop);
         } else {
             reset();
+            game.setPlayerFinished(isFinished);
             game.golfBallStoppedMoving();
         }
     }
@@ -151,7 +149,6 @@ const GameMechanics = function(game) {
         const speed = golfBall.getSpeed();
         if (mUtils.subtractVectors(position, hole.position).getLength() <= hole.radius &&
                                                             speed < upperPuttVelocity) {
-            golfBall.setPosition(hole.position);
             golfBallIsMoving = false;
             isFinished = true;
         }

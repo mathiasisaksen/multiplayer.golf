@@ -8,218 +8,222 @@ import * as colorUtils from '../utilities/color-utilities';
 import { generateCourse } from './generate-course';
 
 function Game(rootSVGElement) {
-    let courseData;
-    let golfBall;
-    let course;
-    let gameMechanics;
+    this.rootSVGElement = rootSVGElement;
+    this._computeSVGPosition = svgUtilities.createSVGPositionComputer(rootSVGElement);
+    this.isPlayerFinished = false;
 
-    let directionLineElement;
-    let directionLineVector;
+    this._handleGolfBallMouseDown = this._handleGolfBallMouseDown.bind(this);
+    this._handleGolfBallMouseMove = this._handleGolfBallMouseMove.bind(this);
+    this._handleGolfBallMouseUp = this._handleGolfBallMouseUp.bind(this);
+    this._handleGolfBallTouchStart = this._handleGolfBallTouchStart.bind(this);
+    this._handleGolfBallTouchMove = this._handleGolfBallTouchMove.bind(this);
+    this._handleGolfBallTouchEnd = this._handleGolfBallTouchEnd.bind(this);
+}
 
-    const _computeSVGPosition = svgUtilities.createSVGPositionComputer(rootSVGElement);
+Game.prototype.setPlayerFinished = function(isFinished) {
+    this.isPlayerFinished = isFinished;
+}
 
-    function _setNewGolfBall(courseData) {
-        golfBall = GolfBall(courseData, 0, 0, rootSVGElement);
-        golfBall.initialize();
-        golfBall.addEventListener('mousedown', _handleGolfBallMouseDown);
-        golfBall.addEventListener('touchstart', _handleGolfBallTouchStart);
-    }
+Game.prototype._setNewGolfBall =  function(courseData) {
+    this.golfBall = GolfBall(courseData, 0, 0, this.rootSVGElement);
+    this.golfBall.initialize();
+    this.golfBall.addEventListener('mousedown', this._handleGolfBallMouseDown);
+    this.golfBall.addEventListener('touchstart', this._handleGolfBallTouchStart);
+}
     
-    function getGolfBall() {
-        return(golfBall);
+Game.prototype.getGolfBall = function() {
+    return(this.golfBall);
+}
+
+Game.prototype._setNewCourse = function(courseData) {
+    this.course = Course(courseData, this.rootSVGElement);
+    this.course.initialize();
+}
+
+Game.prototype.getCourse = function() {
+    return(this.course);
+}
+
+Game.prototype.setGameContent = function(newCourseData) {
+    this.courseData = newCourseData;
+    this._setNewCourse(this.courseData);
+    this._setNewGolfBall(this.courseData);
+    this.gameMechanics = GameMechanics(this);
+    svgUtilities.setSVGExtent(this.rootSVGElement, 
+        this.course.getCourseAABB(), svgConfig.extentPadding);
+}
+
+Game.prototype.generateNewCourse = function() {
+    const newCourseData = generateCourse();
+    this.setGameContent(newCourseData);
+}
+
+Game.prototype._handleGolfBallMouseDown = function(event) {
+    event.stopPropagation();
+    if (!this.golfBall.checkUserClickable()) return;
+    const golfBallPosition = this.golfBall.getPosition();
+    this.directionLineElement = svgUtilities.drawLine(this.rootSVGElement, 
+        golfBallPosition, golfBallPosition,
+        svgConfig.directionLineAttributes, ['direction-line']);
+    
+    //this._handleGolfBallMouseMove = this._handleGolfBallMouseMove.bind(this)
+    window.addEventListener('mousemove', this._handleGolfBallMouseMove);
+    window.addEventListener('mouseup', this._handleGolfBallMouseUp);
+    window.addEventListener('keydown', this._handleEscapePutt);
+}
+
+Game.prototype._handleGolfBallTouchStart = function() {
+    if (!this.golfBall.checkUserClickable()) return;
+    const golfBallPosition = this.golfBall.getPosition();
+    directionLineElement = svgUtilities.drawLine(this.rootSVGElement, 
+        golfBallPosition, golfBallPosition,
+        svgConfig.directionLineAttributes, ['direction-line']);
+    this.rootSVGElement.addEventListener('touchmove', this._handleGolfBallTouchMove);
+    this.rootSVGElement.addEventListener('touchend', this._handleGolfBallTouchEnd);
+}
+
+Game.prototype._handleGolfBallMouseMove = function(event) {
+    const svgPosition = this._computeSVGPosition({x: event.clientX, y: event.clientY});
+    this._updateDirectionLine(svgPosition);
+}
+
+Game.prototype._handleGolfBallTouchMove = function(event) {
+    // Avoid dragging screen 
+    event.preventDefault();
+    const touch = event.changedTouches[0];
+    const svgPosition = this._computeSVGPosition({x: touch.clientX, y: touch.clientY});
+    this._updateDirectionLine(svgPosition);
+}
+
+Game.prototype._handleEscapePutt = function(event) {
+    if (event.key != "Escape") return;
+    window.removeEventListener('mousemove', this._handleGolfBallMouseMove);
+    window.removeEventListener('mouseup', this._handleGolfBallMouseUp);
+    window.removeEventListener('keydown', this._handleEscapePutt);
+    this.directionLineElement.remove();
+    this.directionLineElement = null;
+    this.directionLineVector = null;
+}
+
+Game.prototype._updateDirectionLine = function(svgPosition) {
+    // A vector from the center of the golf ball to the position of the
+    // mouse/finger
+    this.directionLineVector = mUtils.subtractVectors(mUtils.Vector(svgPosition), 
+        this.golfBall.getPosition());
+    
+    // If the length is longer than the maximum permitted value,
+    // rescale to a vector of maximum permitted length,
+    // and compute corresponding line end
+    let lineEnd;
+    if (this.directionLineVector.getLength() > gameConfig.maxDirectionLineLength) {
+        const unitVector = this.directionLineVector.getNormalized();
+        this.directionLineVector = mUtils.scaleVector(unitVector, gameConfig.maxDirectionLineLength);
+        lineEnd = mUtils.addVectors(this.golfBall.getPosition(), this.directionLineVector);
+    } else {
+        lineEnd = svgPosition;
     }
+    svgUtilities.setLineEnd(this.directionLineElement, lineEnd);
+    
+    // Interpolate color
+    const lineColor = colorUtils.interpolateColors(gameConfig.directionLineStartColor, 
+        gameConfig.directionLineEndColor, 
+        this.directionLineVector.getLength() / gameConfig.maxDirectionLineLength);
+    svgUtilities.setAttributes(this.directionLineElement, {stroke: lineColor});
+}
 
-    function _setNewCourse(courseData) {
-        course = Course(courseData, rootSVGElement);
-        course.initialize();
-    }
+Game.prototype._handleGolfBallMouseUp = function() {
+    window.removeEventListener('mousemove', this._handleGolfBallMouseMove);
+    window.removeEventListener('mouseup', this._handleGolfBallMouseUp);
+    window.removeEventListener('keydown', this._handleEscapePutt);
+    this.directionLineElement.remove();
+    this.directionLineElement = null;
 
-    function getCourse() {
-        return(course);
-    }
+    // If directionLineVector is null, then the mouse has not been moved
+    if (!this.directionLineVector) return;
 
-    function setGameContent(newCourseData) {
-        courseData = newCourseData;
-        _setNewCourse(courseData);
-        _setNewGolfBall(courseData);
-        gameMechanics = GameMechanics(gameObj);
-        svgUtilities.setSVGExtent(rootSVGElement, course.getCourseAABB(), svgConfig.extentPadding);
-    }
+    this.computeGolfBallVelocity();
+    this.golfBall.setNotUserClickable();
+    this.directionLineVector = null;
+    this.executePutt();
+}
 
-    function generateNewCourse() {
-        const newCourseData = generateCourse();
-        setGameContent(newCourseData);
-    }
+Game.prototype._handleGolfBallTouchEnd = function() {
+    this.rootSVGElement.removeEventListener('touchmove', this._handleGolfBallTouchMove);
+    this.rootSVGElement.removeEventListener('touchend', this._handleGolfBallTouchEnd);
+    this.directionLineElement.remove();
+    this.directionLineElement = null;
+    if (!this.directionLineVector) return;
 
-    function _handleGolfBallMouseDown(event) {
-        event.stopPropagation();
-        if (!golfBall.checkUserClickable()) return;
-        const golfBallPosition = golfBall.getPosition();
-        directionLineElement = svgUtilities.drawLine(rootSVGElement, 
-            golfBallPosition, golfBallPosition,
-            svgConfig.directionLineAttributes, ['direction-line']);
-        
-        window.addEventListener('mousemove', _handleGolfBallMouseMove);
-        window.addEventListener('mouseup', _handleGolfBallMouseUp);
-        window.addEventListener('keydown', _handleEscapePutt);
-    }
+    this.computeGolfBallVelocity();
+    this.golfBall.setNotUserClickable();
+    this.directionLineVector = null;
+    this.executePutt();
+}
 
-    function _handleGolfBallTouchStart() {
-        if (!golfBall.checkUserClickable()) return;
-        const golfBallPosition = golfBall.getPosition();
-        directionLineElement = svgUtilities.drawLine(rootSVGElement, 
-            golfBallPosition, golfBallPosition,
-            svgConfig.directionLineAttributes, ['direction-line']);
-        rootSVGElement.addEventListener('touchmove', _handleGolfBallTouchMove);
-        rootSVGElement.addEventListener('touchend', _handleGolfBallTouchEnd);
-    }
+Game.prototype.computeGolfBallVelocity = function() {
+    // The direction of the ball is in the opposite direction of
+    // directionLineVector
+    const initialDirection = this.directionLineVector.getDirection() + Math.PI;
+    const initialSpeed = gameConfig.maxSpeed * 
+        this.directionLineVector.getLength() / gameConfig.maxDirectionLineLength;
+    
+    console.log(`speed: ${initialSpeed}, direction: ${initialDirection}`);
+    this.golfBall.setDirection(initialDirection);
+    this.golfBall.setSpeed(initialSpeed);
+}
 
-    function _handleGolfBallMouseMove(event) {
-        const svgPosition = _computeSVGPosition({x: event.clientX, y: event.clientY});
-        _updateDirectionLine(svgPosition);
-    }
+Game.prototype.executePutt = function() {
+    this.gameMechanics.executePutt();
+}
 
-    function _handleGolfBallTouchMove(event) {
-        // Avoid dragging screen 
-        event.preventDefault();
-        const touch = event.changedTouches[0];
-        const svgPosition = _computeSVGPosition({x: touch.clientX, y: touch.clientY});
-        _updateDirectionLine(svgPosition);
-    }
+Game.prototype.playerFinished = function() {
+    const hole = this.course.getHole();
+    this.golfBall.setPosition(hole.position);
+    setTimeout(() => {
+        console.log("finished")
+        this._cleanUpGame();
+        this.generateNewCourse(1);
+    }, 5000);
+}
 
-    function _handleEscapePutt(event) {
-        if (event.key != "Escape") return;
-        window.removeEventListener('mousemove', _handleGolfBallMouseMove);
-        window.removeEventListener('mouseup', _handleGolfBallMouseUp);
-        window.removeEventListener('keydown', _handleEscapePutt);
-        directionLineElement.remove();
-        directionLineElement = null;
-        directionLineVector = null;
-    }
+Game.prototype.golfBallStoppedMoving = function() {
+    this.golfBall.setUserClickable();
+}
 
-    function _updateDirectionLine(svgPosition) {
-        // A vector from the center of the golf ball to the position of the
-        // mouse/finger
-        directionLineVector = mUtils.subtractVectors(mUtils.Vector(svgPosition), 
-            golfBall.getPosition());
-        
-        // If the length is longer than the maximum permitted value,
-        // rescale to a vector of maximum permitted length,
-        // and compute corresponding line end
-        let lineEnd;
-        if (directionLineVector.getLength() > gameConfig.maxDirectionLineLength) {
-            const unitVector = directionLineVector.getNormalized();
-            directionLineVector = mUtils.scaleVector(unitVector, gameConfig.maxDirectionLineLength);
-            lineEnd = mUtils.addVectors(golfBall.getPosition(), directionLineVector);
-        } else {
-            lineEnd = svgPosition;
-        }
-        svgUtilities.setLineEnd(directionLineElement, lineEnd);
-        
-        // Interpolate color
-        const lineColor = colorUtils.interpolateColors(gameConfig.directionLineStartColor, 
-            gameConfig.directionLineEndColor, 
-            directionLineVector.getLength() / gameConfig.maxDirectionLineLength);
-        svgUtilities.setAttributes(directionLineElement, {stroke: lineColor});
-    }
+Game.prototype._cleanUpGame = function() {
+    this.course?.destroy();
+    this.golfBall?.destroy();
+    this.course = null;
+    this.golfBall = null;
+    this.gameMechanics = null;
+    this.courseData = null;
+}
 
-    function _handleGolfBallMouseUp() {
-        window.removeEventListener('mousemove', _handleGolfBallMouseMove);
-        window.removeEventListener('mouseup', _handleGolfBallMouseUp);
-        window.removeEventListener('keydown', _handleEscapePutt);
-        directionLineElement.remove();
-        directionLineElement = null;
+Game.prototype.setGolfBallSpeed = function(newSpeed) {
+    this.golfBall.setSpeed(newSpeed);
+}
 
-        // If directionLineVector is null, then the mouse has not been moved
-        if (!directionLineVector) return;
+Game.prototype.setGolfBallDirection = function(newDirection) {
+    this.golfBall.setDirection(newDirection);
+}
 
-        computeGolfBallVelocity();
-        golfBall.setNotUserClickable();
-        directionLineVector = null;
-        executePutt();
-    }
+Game.prototype.setGolfBallPosition = function(newPosition) {
+    const position = mUtils.Vector(newPosition);
+    console.log(position.getCoordinates());
+    this.golfBall.setPosition(position);
+    this.golfBall.update();
+}
 
-    function _handleGolfBallTouchEnd() {
-        rootSVGElement.removeEventListener('touchmove', _handleGolfBallTouchMove);
-        rootSVGElement.removeEventListener('touchend', _handleGolfBallTouchEnd);
-        directionLineElement.remove();
-        directionLineElement = null;
-        if (!directionLineVector) return;
+Game.prototype.show = function() {
+    this.rootSVGElement.classList.remove('hidden');
+}
 
-        computeGolfBallVelocity();
-        golfBall.setNotUserClickable();
-        directionLineVector = null;
-        executePutt();
-    }
+Game.prototype.hide = function() {
+    this.rootSVGElement.classList.add('hidden');
+}
 
-    function computeGolfBallVelocity() {
-        // The direction of the ball is in the opposite direction of
-        // directionLineVector
-        const initialDirection = directionLineVector.getDirection() + Math.PI;
-        const initialSpeed = gameConfig.maxSpeed * 
-            directionLineVector.getLength() / gameConfig.maxDirectionLineLength;
-        // Set directionLineVector to null, 
-        console.log(`speed: ${initialSpeed}, direction: ${initialDirection}`);
-        golfBall.setDirection(initialDirection);
-        golfBall.setSpeed(initialSpeed);
-    }
-
-    function executePutt() {
-        gameMechanics.executePutt();
-    }
-
-    function playerFinished() {
-        setTimeout(() => {
-            console.log("finished")
-            _cleanUpGame();
-            generateNewCourse(1);
-        }, 5000);
-    }
-
-    function golfBallStoppedMoving() {
-        golfBall.setUserClickable();
-    }
-
-    function _cleanUpGame() {
-        course?.destroy();
-        golfBall?.destroy();
-        course = null;
-        golfBall = null;
-        gameMechanics = null;
-        courseData = null;
-    }
-
-    function setGolfBallSpeed(newSpeed) {
-        golfBall.setSpeed(newSpeed);
-    }
-
-    function setGolfBallDirection(newDirection) {
-        golfBall.setDirection(newDirection);
-    }
-
-    function setGolfBallPosition(newX, newY) {
-        const position = mUtils.Vector({newX, newY});
-        golfBall.setPosition(position);
-        golfBall.update();
-    }
-
-    function show() {
-        rootSVGElement.classList.remove('hidden');
-    }
-
-    function hide() {
-        rootSVGElement.classList.add('hidden');
-    }
-
-    function update() {
-        golfBall.update();
-    }
-
-    const gameObj = { setGameContent, getGolfBall, getCourse, playerFinished,
-        generateNewCourse, golfBallStoppedMoving, update,
-        setGolfBallDirection, setGolfBallSpeed, setGolfBallPosition,
-        show, hide, executePutt };
-    return(gameObj);
+Game.prototype.update = function() {
+    this.golfBall.update();
 }
 
 export default Game;

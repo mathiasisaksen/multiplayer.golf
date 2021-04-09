@@ -3,8 +3,9 @@ import PlayerList from "../sidebar/player-list";
 import Sidebar from "../sidebar/sidebar";
 import OnlineGameHandler from "./online-game-handler";
 
-function handleGameCreationSuccessful(onlineGame, data) {
+function handleGameCreationSuccessful(data) {
     console.log(data);
+    const onlineGame = OnlineGameHandler.createGame();
     onlineGame.show();
     onlineGame.setGameContent(data.courseData);
     Sidebar.show();
