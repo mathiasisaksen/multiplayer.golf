@@ -34,5 +34,3 @@ function dialogBox(prompt, buttonCallbackArray) {
     }
     document.body.appendChild(dialogContainer);
 }
-
-export default dialogBox;

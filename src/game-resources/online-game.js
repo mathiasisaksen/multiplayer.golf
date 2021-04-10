@@ -1,6 +1,7 @@
 import Game from './game';
 import OnlineGameHandler from '../online-game-handler/online-game-handler';
 import * as mUtils from '../utilities/math-utilities';
+import Sidebar from '../sidebar/sidebar';
 
 function OnlineGame(rootSVGElement) {
     Game.call(this, rootSVGElement);
@@ -74,6 +75,7 @@ OnlineGame.prototype.golfBallStoppedMoving = function() {
     if (this.hasNewCourse) {
         this.switchToNewCourse();
         this.switchToNextPlayer();
+        Sidebar.incrementCurrentCourse();
     } else if (this.hasNextPlayer) {
         this.switchToNextPlayer();
         this.golfBall.moveToInitialPosition();

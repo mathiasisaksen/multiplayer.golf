@@ -1,4 +1,5 @@
 import ScoreBoard from "../sidebar/score-board";
+import Sidebar from "../sidebar/sidebar";
 import OnlineGameHandler from "./online-game-handler";
 
 function handleExecutePutt(data) {

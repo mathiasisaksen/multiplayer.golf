@@ -12,12 +12,18 @@ function Game(rootSVGElement) {
     this._computeSVGPosition = svgUtilities.createSVGPositionComputer(rootSVGElement);
     this.isPlayerFinished = false;
 
+    // Event handlers need to be bound to Game object
     this._handleGolfBallMouseDown = this._handleGolfBallMouseDown.bind(this);
     this._handleGolfBallMouseMove = this._handleGolfBallMouseMove.bind(this);
     this._handleGolfBallMouseUp = this._handleGolfBallMouseUp.bind(this);
     this._handleGolfBallTouchStart = this._handleGolfBallTouchStart.bind(this);
     this._handleGolfBallTouchMove = this._handleGolfBallTouchMove.bind(this);
     this._handleGolfBallTouchEnd = this._handleGolfBallTouchEnd.bind(this);
+    this._handleEscapePutt = this._handleEscapePutt.bind(this);
+}
+
+Game.prototype.setNumberOfCourses = function(numCourses) {
+    this.numberOfCourses = numCourses;
 }
 
 Game.prototype.setPlayerFinished = function(isFinished) {
@@ -179,16 +185,6 @@ Game.prototype.computeGolfBallVelocity = function() {
 
 Game.prototype.executePutt = function() {
     this.gameMechanics.executePutt();
-}
-
-Game.prototype.playerFinished = function() {
-    const hole = this.course.getHole();
-    this.golfBall.setPosition(hole.position);
-    setTimeout(() => {
-        console.log("finished")
-        this._cleanUpGame();
-        this.generateNewCourse(1);
-    }, 5000);
 }
 
 Game.prototype.golfBallStoppedMoving = function() {

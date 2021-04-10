@@ -17,6 +17,8 @@ function handleGameCreationSuccessful(data) {
         PlayerList.addPlayer(playerName);
     }
     OnlineGameHandler.showGame();
+    Sidebar.setNumberOfCourses(data.numberOfCourses);
+    Sidebar.setCurrentCourse(1);
 }
 
 export default handleGameCreationSuccessful;

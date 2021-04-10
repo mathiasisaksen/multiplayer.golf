@@ -13,7 +13,31 @@ const Sidebar = (() => {
     const toggleSidebarButton = document.querySelector('#sidebar-toggle');
     toggleSidebarButton.addEventListener('click', handleToggleSidebar);
 
+    const currentCourseElement = document.querySelector('#current-course-number');
+    const totalCoursesElement = document.querySelector('#total-number-of-courses');
+
     let isCollapsed = false;
+    let numberOfCourses;
+    let currentCourseNumber = 1;
+
+    function setNumberOfCourses(numCourses) {
+        numberOfCourses = numCourses;
+        totalCoursesElement.textContent = numberOfCourses;
+    }
+
+    function getNumberOfCourses() {
+        return(numberOfCourses);
+    }
+
+    function setCurrentCourse(courseNumber) {
+        currentCourseNumber = courseNumber;
+        currentCourseElement.textContent = currentCourseNumber;
+    }
+
+    function incrementCurrentCourse() {
+        currentCourseNumber++;
+        currentCourseElement.textContent = currentCourseNumber;
+    }
 
     const exitButton = document.querySelector("#sidebar-exit-button");
     exitButton.addEventListener('click', handleExit);
@@ -81,7 +105,8 @@ const Sidebar = (() => {
     function hide() {
         gameContainer.classList.add('hidden');
     }
-    return({show, hide})
+    return({show, hide, setNumberOfCourses, getNumberOfCourses,
+        incrementCurrentCourse, setCurrentCourse})
 })();
 
 export default Sidebar;

@@ -1,5 +1,6 @@
 import { webSocketConfig } from "../config";
 import OnlineGame from "../game-resources/online-game";
+import dialogBox from "../menu-system/dialog-box";
 import MenuController from "../menu-system/menu-controller";
 import Sidebar from "../sidebar/sidebar";
 import rootSVGElement from '../svg-setup';
@@ -9,7 +10,7 @@ import handleJoinRequestSuccessful from "./handle-join-request-successful";
 import handleMessageReceived from "./handle-message-received";
 import handlePlayerJoined from "./handle-player-joined";
 import handlePlayerLeft from "./handle-player-left";
-import handleGeneralError from "./handleGeneralError";
+import handleGeneralError from "./handle-general-error";
 
 const eventHandlers = {handleGameCreationSuccessful, handlePlayerJoined, 
     handlePlayerLeft, handleMessageReceived, handleJoinRequestSuccessful, 
@@ -35,6 +36,7 @@ const OnlineGameHandler = (() => {
         const connectionString = `ws://${webSocketConfig.host}:${webSocketConfig.port}`;
         webSocket = new WebSocket(connectionString);
         webSocket.addEventListener('message', handleIncomingMessage);
+        webSocket.addEventListener('error', handleConnectionError);
         return(webSocket);
     }
 
@@ -71,11 +73,19 @@ const OnlineGameHandler = (() => {
         
         eventName = eventName[0].toUpperCase() + eventName.slice(1);
         const handlerName = 'handle' + eventName;
+        if (handlerName in eventHandlers) {
         eventHandlers[handlerName](data);
+        } else {
+            handleGeneralError(data);
+        }
     }
 
     function sendMessage(message) {
         webSocket.send(message);
+    }
+
+    function handleConnectionError() {
+        dialogBox('Could not connect to server. Please try again later', [{text: 'Ok'}]);
     }
 
     function showGame() {

@@ -1,18 +1,24 @@
-import Course from './game-resources/course';
-import GolfBall from './game-resources/golf-ball';
-import GameMechanics from './game-resources/game-mechanics';
-import Game from './game-resources/game';
-import OnlineGame from './game-resources/online-game';
 import MenuController from './menu-system/menu-controller';
 import mainMenu from './menu-system/main-menu';
-import rootSVGElement from './svg-setup';
-import Sidebar from './sidebar/sidebar';
+import OnlineGameHandler from './online-game-handler/online-game-handler';
+
+const queryParameters = new URLSearchParams(window.location.search);
+const gameIdParameter = queryParameters.get('game-id');
+
+if (gameIdParameter) {
+    const playerName = "Mathias";
+    OnlineGameHandler.setPlayerName(playerName);
+    const wsClient = OnlineGameHandler.createWSClient();
+    wsClient.addEventListener('open', () => {
+        const message = {};
+        message.eventName = 'joinRequest';
+        message.data = {
+            playerName,
+            gameId: gameIdParameter
+        };
+        OnlineGameHandler.sendMessage(JSON.stringify(message));
+    }
+    );            
+}
 
 MenuController.setMenu(mainMenu, true, true);
-
-
-//const game = new OnlineGame(rootSVGElement);
-//game.generateNewCourse();
-//game.setGameContent(courseData, {x: 80, y: 50});
-
-//const gameMechanics = GameMechanics(course, golfBall);

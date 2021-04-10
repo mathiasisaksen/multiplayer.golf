@@ -24,6 +24,8 @@ function handleJoinRequestSuccessful(data) {
 
     OnlineGameHandler.showGame();
     ScoreBoard.setScoreArray(data.scoreArray);
+    Sidebar.setNumberOfCourses(data.numberOfCourses);
+    Sidebar.setCurrentCourse(data.courseNumber);
 }
 
 export default handleJoinRequestSuccessful;
