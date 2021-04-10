@@ -39,6 +39,14 @@ OnlineGame.prototype.setCurrentPlayer = function(currentPlayer) {
     }
 };
 
+OnlineGame.prototype.setCurrentCourseName = function(courseName) {
+    this.currentCourseName = courseName;
+}
+
+OnlineGame.prototype.getCurrentCourseName = function() {
+    return(this.currentCourseName);
+}
+
 OnlineGame.prototype.getGolfBallVelocity = function() {
     const golfBallSpeed = this.golfBall.getSpeed();
     const golfBallDirection = this.golfBall.getDirection();
@@ -54,7 +62,8 @@ OnlineGame.prototype.storeNextPlayer = function(nextPlayerName) {
     this.nextPlayer = nextPlayerName;
 }
 
-OnlineGame.prototype.storeNewCourseData = function(newCourseData) {
+OnlineGame.prototype.storeNewCourseData = function(newCourseData, newCourseName) {
+    this.newCourseName = newCourseName;
     this.hasNewCourse = true;
     this.newCourseData = newCourseData;
 }
@@ -83,8 +92,11 @@ OnlineGame.prototype.switchToNextPlayer = function() {
 
 OnlineGame.prototype.switchToNewCourse = function() {
     this.setGameContent(this.newCourseData);
+    this.currentCourseName = this.newCourseName;
+
     this.hasNewCourse = false;
     this.newCourseData = null;
+    this.newCourseName = null;
 }
 
 OnlineGame.prototype.resetGolfBall = function() {

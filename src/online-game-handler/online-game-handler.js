@@ -1,5 +1,7 @@
 import { webSocketConfig } from "../config";
 import OnlineGame from "../game-resources/online-game";
+import MenuController from "../menu-system/menu-controller";
+import Sidebar from "../sidebar/sidebar";
 import rootSVGElement from '../svg-setup';
 import handleExecutePutt from "./handle-execute-putt";
 import handleGameCreationSuccessful from './handle-game-creation-successful';
@@ -13,7 +15,7 @@ const eventHandlers = {handleGameCreationSuccessful, handlePlayerJoined,
     handlePlayerLeft, handleMessageReceived, handleJoinRequestSuccessful, 
     handleExecutePutt, handleGeneralError};
 
-const  OnlineGameHandler = (() => {
+const OnlineGameHandler = (() => {
     let onlineGame;
     let webSocket;
     let gameId;
@@ -76,6 +78,18 @@ const  OnlineGameHandler = (() => {
         webSocket.send(message);
     }
 
+    function showGame() {
+        onlineGame.show();
+        Sidebar.show();
+        MenuController.hide();    
+    }
+
+    function hideGame() {
+        onlineGame.hide();
+        Sidebar.hide();
+        MenuController.show();    
+    }
+
     function sendPuttMessage() {
         const {golfBallSpeed, golfBallDirection} = onlineGame.getGolfBallVelocity();
 
@@ -86,9 +100,19 @@ const  OnlineGameHandler = (() => {
         sendMessage(JSON.stringify(message));
     }
 
+    function exit() {
+        webSocket.close();
+        webSocket = null;
+        onlineGame = null;
+        gameId = null;
+        playerId = null;
+        playerName = null;
+    }
+
     return({createGame, getGame, createWSClient, sendMessage,
         setGameId, getGameId, setPlayerId, getPlayerId,
-        setPlayerName, getPlayerName, sendPuttMessage})
+        setPlayerName, getPlayerName, sendPuttMessage,
+        exit, showGame, hideGame})
 })();
 
 export default OnlineGameHandler;

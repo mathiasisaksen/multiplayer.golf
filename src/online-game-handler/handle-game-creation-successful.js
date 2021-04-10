@@ -6,12 +6,9 @@ import OnlineGameHandler from "./online-game-handler";
 function handleGameCreationSuccessful(data) {
     console.log(data);
     const onlineGame = OnlineGameHandler.createGame();
-    onlineGame.show();
     onlineGame.setGameContent(data.courseData);
     onlineGame.setCurrentPlayer(data.currentPlayer);
-
-    Sidebar.show();
-    MenuController.hide();
+    onlineGame.setCurrentCourseName(data.courseName);
     
     OnlineGameHandler.setPlayerId(data.playerId);
     OnlineGameHandler.setGameId(data.gameId);
@@ -19,6 +16,7 @@ function handleGameCreationSuccessful(data) {
     for (const playerName of data.playerNames) {
         PlayerList.addPlayer(playerName);
     }
+    OnlineGameHandler.showGame();
 }
 
 export default handleGameCreationSuccessful;

@@ -3,6 +3,7 @@ import MenuController from '../menu-system/menu-controller';
 import ChatBox from './chat-box';
 import dialogBox from '../menu-system/dialog-box';
 import PlayerList from './player-list';
+import OnlineGameHandler from '../online-game-handler/online-game-handler';
 
 const Sidebar = (() => {
     const gameContainer = document.querySelector('#game-container');
@@ -33,8 +34,8 @@ const Sidebar = (() => {
         const buttonCallbacks = [];
         // TODO: Clean up properly before leaving
         buttonCallbacks.push({text: 'Leave game', callback: () => {
-            gameContainer.classList.add('hidden');
-            MenuController.show();
+            OnlineGameHandler.hideGame();
+            OnlineGameHandler.exit();
         }});
         buttonCallbacks.push({text: 'Cancel'});
         dialogBox('Are you sure you want to leave the game?', buttonCallbacks);

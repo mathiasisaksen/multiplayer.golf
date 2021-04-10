@@ -11,6 +11,7 @@ function handlePlayerLeft(data) {
         onlineGame.resetGolfBall();
         if (data.isNewCourse) {
             onlineGame.setGameContent(data.newCourseData);
+            onlineGame.setCurrentCourseName(data.newCourseName);
         }
         onlineGame.setCurrentPlayer(data.newCurrentPlayerName);
     } 

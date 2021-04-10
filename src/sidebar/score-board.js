@@ -44,15 +44,42 @@ const ScoreBoard = (() => {
     const scoreTable = document.querySelector('#table-content');
 
     let isShowingSummary;
-    let currentCourseNumber;
+    let selectedCourseNumber;
+    let courseNameIndexMap;
     let scoreArray;
     function initialSetup() {
         isShowingSummary = false;
-        currentCourseNumber = 0;
-        scoreArray = scoreMock;
+        selectedCourseNumber = 0;
+        courseNameIndexMap = {};
+        scoreArray = [];
     }
 
-    initialSetup()
+    initialSetup();
+
+    function incrementPlayerScore(courseName, playerName) {
+        // Has a score for the course already been registered?
+        if (!(courseName in courseNameIndexMap)) {
+            courseNameIndexMap[courseName] = scoreArray.length;
+            scoreArray.push({courseName, scores: []});
+        }
+
+        const courseIndex = courseNameIndexMap[courseName];
+        const courseScores = scoreArray[courseIndex].scores;
+
+        const playerIndex = courseScores.findIndex(entry => entry.name === playerName);
+        if (playerIndex !== -1) {
+            courseScores[playerIndex].score += 1;
+        } else {
+            courseScores.push({name: playerName, score: 1});
+        }
+        selectedCourseNumber = courseIndex;
+        updateScoreTable();
+    }
+
+    function setScoreArray(_scoreArray) {
+        scoreArray = _scoreArray;
+        updateScoreTable();
+    }
     
     courseSummaryButton.addEventListener('click', handleCourseSummaryClick);
 
@@ -68,14 +95,14 @@ const ScoreBoard = (() => {
     }
 
     function handlePreviousCourseClick() {
-        if (isShowingSummary || currentCourseNumber === 0) return;
-        currentCourseNumber--;
+        if (isShowingSummary || selectedCourseNumber === 0) return;
+        selectedCourseNumber--;
         showCurrentCourseContent();
     }
 
     function handleNextCourseClick() {
-        if (isShowingSummary || currentCourseNumber === scoreArray.length - 1) return;
-        currentCourseNumber++;
+        if (isShowingSummary || selectedCourseNumber === scoreArray.length - 1) return;
+        selectedCourseNumber++;
         showCurrentCourseContent();
     }
 
@@ -84,7 +111,7 @@ const ScoreBoard = (() => {
             setCourseHeader('No data yet');
             return;
         }
-        const {courseName, scores} = scoreArray[currentCourseNumber];
+        const {courseName, scores} = scoreArray[selectedCourseNumber];
         scores.sort((a, b) => a.score - b.score);
         setCourseHeader('Course ' + courseName);
 
@@ -139,26 +166,15 @@ const ScoreBoard = (() => {
         }
     }
 
-    function addNewCourse(courseName) {
-        if (!courseName) courseName = scoreArray.length + 1;
-        const newEntry = {courseName, scores: []};
-        scoreArray.push(newEntry);
-        currentCourseNumber = scoreArray.length - 1;
+    function resetScoreboard() {
+        initialSetup();
         updateScoreTable();
     }
 
-    function addPlayerScore(name, score) {
-        scoreArray[scoreArray.length - 1].scores.push({name, score});
-        if (currentCourseNumber === scoreArray.length - 1) updateScoreTable();
-    }
+    showCurrentCourseContent();
 
-    function resetScoreboard() {
-        initialSetup();
-    }
-
-    showCurrentCourseContent(currentCourseNumber);
-
-    return({ updateScoreTable, addNewCourse, addPlayerScore, resetScoreboard })
+    return({ updateScoreTable, resetScoreboard,
+        incrementPlayerScore, setScoreArray });
 })();
 
 export default ScoreBoard;

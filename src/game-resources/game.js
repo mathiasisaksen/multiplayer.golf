@@ -50,6 +50,10 @@ Game.prototype.setGameContent = function(newCourseData) {
     this._setNewCourse(this.courseData);
     this._setNewGolfBall(this.courseData);
     this.gameMechanics = GameMechanics(this);
+    this.resizeViewBoxToCourse();
+}
+
+Game.prototype.resizeViewBoxToCourse = function() {
     svgUtilities.setSVGExtent(this.rootSVGElement, 
         this.course.getCourseAABB(), svgConfig.extentPadding);
 }
