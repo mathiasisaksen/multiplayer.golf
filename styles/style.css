@@ -248,7 +248,7 @@ main {
     background-color: #000000aa;
 }
 
-.dialog-box-wrapper {
+.dialog-box-wrapper, .input-box-wrapper {
     position: absolute;
     top: 0;
     right: 0;
@@ -264,7 +264,7 @@ main {
     filter: blur(8px);
 }
 
-.dialog-box {
+.dialog-box, .input-box {
     color: white;
     font-family: var(--main-font);
     position: relative;
@@ -276,7 +276,7 @@ main {
     /*box-shadow: 0 0 20px 1px white;*/
 }
 
-.dialog-box-description {
+.dialog-box-description, .input-box-description {
     font-size: var(--dialog-font-size);
     font-weight: bold;
     text-transform: uppercase;
@@ -284,12 +284,12 @@ main {
     text-align: center;
 }
 
-.dialog-box-button-container {
+.dialog-box-button-container, .input-box-button-container {
     display: flex;
     justify-content: space-evenly;
 }
 
-.dialog-box-button {
+.dialog-box-button, .input-box-button {
     mix-blend-mode: lighten;
     cursor: pointer;
     font-size: var(--dialog-font-size);
@@ -302,7 +302,7 @@ main {
     color: black;
 }
 
-.dialog-box-button:hover {
+.dialog-box-button:hover, .input-box-button:hover {
     background-color: black;
     color: white;
 }
