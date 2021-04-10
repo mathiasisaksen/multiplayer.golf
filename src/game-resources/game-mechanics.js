@@ -114,7 +114,8 @@ const GameMechanics = function(game) {
         let timeStep = (timeStamp - previousTimeStamp) / 1000;
         if (timeStep > (1 / gameConfig.framesPerSecond) && golfBallIsMoving) {
             previousTimeStamp = timeStamp;
-            multipleSteps(timeStep, gameConfig.interpolationsPerStep);
+            const numberOfSteps = Math.round(timeStep * gameConfig.framesPerSecond);
+            multipleSteps(timeStep, numberOfSteps * gameConfig.interpolationsPerStep);
             golfBall.update();
         }
 

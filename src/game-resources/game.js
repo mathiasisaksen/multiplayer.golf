@@ -45,6 +45,7 @@ Game.prototype.getCourse = function() {
 }
 
 Game.prototype.setGameContent = function(newCourseData) {
+    this._cleanUpGame();
     this.courseData = newCourseData;
     this._setNewCourse(this.courseData);
     this._setNewGolfBall(this.courseData);

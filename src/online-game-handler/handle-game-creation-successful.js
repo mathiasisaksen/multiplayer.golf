@@ -8,12 +8,13 @@ function handleGameCreationSuccessful(data) {
     const onlineGame = OnlineGameHandler.createGame();
     onlineGame.show();
     onlineGame.setGameContent(data.courseData);
+    onlineGame.setCurrentPlayer(data.currentPlayer);
+
     Sidebar.show();
     MenuController.hide();
+    
     OnlineGameHandler.setPlayerId(data.playerId);
     OnlineGameHandler.setGameId(data.gameId);
-    console.log(OnlineGameHandler.getGameId());
-    console.log(OnlineGameHandler.getPlayerId());
 
     for (const playerName of data.playerNames) {
         PlayerList.addPlayer(playerName);

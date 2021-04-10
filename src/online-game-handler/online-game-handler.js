@@ -7,9 +7,11 @@ import handleJoinRequestSuccessful from "./handle-join-request-successful";
 import handleMessageReceived from "./handle-message-received";
 import handlePlayerJoined from "./handle-player-joined";
 import handlePlayerLeft from "./handle-player-left";
+import handleGeneralError from "./handleGeneralError";
 
-const eventHandlers = {handleGameCreationSuccessful, handlePlayerJoined, handlePlayerLeft,
-    handleMessageReceived, handleJoinRequestSuccessful, handleExecutePutt};
+const eventHandlers = {handleGameCreationSuccessful, handlePlayerJoined, 
+    handlePlayerLeft, handleMessageReceived, handleJoinRequestSuccessful, 
+    handleExecutePutt, handleGeneralError};
 
 const  OnlineGameHandler = (() => {
     let onlineGame;

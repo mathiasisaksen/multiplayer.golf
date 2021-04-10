@@ -101,6 +101,18 @@ const GolfBall = function(
 
     function moveToInitialPosition() {
         position = mUtils.Vector(courseData.initialGolfBallPosition);
+        console.log(position.getCoordinates());
+        setPosition(position);
+    }
+
+    function reset() {
+        moveToInitialPosition();
+        setSpeed(0);
+        setDirection(0);
+    }
+
+    function getInitialPosition() {
+        return(mUtils.Vector(courseData.initialGolfBallPosition));
     }
 
     return({ initialize, draw, 
@@ -111,7 +123,8 @@ const GolfBall = function(
         destroy, step, update,
         addEventListener, removeEventListener,
         setUserClickable, setNotUserClickable,
-        checkUserClickable, moveToInitialPosition });
+        checkUserClickable, moveToInitialPosition, reset,
+        getInitialPosition });
 
 }
 

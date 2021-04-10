@@ -6,6 +6,7 @@ import OnlineGameHandler from "./online-game-handler";
 
 function handleJoinRequestSuccessful(data) {
     console.log(data);
+    OnlineGameHandler.createGame();
     OnlineGameHandler.setPlayerId(data.playerId);
     OnlineGameHandler.setGameId(data.gameId);
     const onlineGame = OnlineGameHandler.createGame();

@@ -32,6 +32,11 @@ OnlineGame.prototype._handleGolfBallMouseUp = function() {
 
 OnlineGame.prototype.setCurrentPlayer = function(currentPlayer) {
     this.currentPlayer = currentPlayer;
+    if (this.currentPlayer === OnlineGameHandler.getPlayerName()) {
+        this.golfBall.setUserClickable();
+    } else {
+        this.golfBall.setNotUserClickable();
+    }
 };
 
 OnlineGame.prototype.getGolfBallVelocity = function() {
@@ -44,13 +49,48 @@ OnlineGame.prototype.setFinalPosition = function(finalPosition) {
     this.finalPosition = mUtils.Vector(finalPosition);
 }
 
-OnlineGame.prototype.playerFinished = function() {
-    this.golfBall.setPosition(this.finalPosition);
+OnlineGame.prototype.storeNextPlayer = function(nextPlayerName) {
+    this.hasNextPlayer = true;
+    this.nextPlayer = nextPlayerName;
+}
+
+OnlineGame.prototype.storeNewCourseData = function(newCourseData) {
+    this.hasNewCourse = true;
+    this.newCourseData = newCourseData;
 }
 
 OnlineGame.prototype.golfBallStoppedMoving = function() {
-    this.golfBall.setUserClickable();
     this.golfBall.setPosition(this.finalPosition);
+
+    if (this.hasNewCourse) {
+        this.switchToNewCourse();
+        this.switchToNextPlayer();
+    } else if (this.hasNextPlayer) {
+        this.switchToNextPlayer();
+        this.golfBall.moveToInitialPosition();
+    }
+    console.log(this.currentPlayer, OnlineGameHandler.getPlayerName());
+    if (this.currentPlayer === OnlineGameHandler.getPlayerName()) {
+        this.golfBall.setUserClickable();
+    }
+}
+
+OnlineGame.prototype.switchToNextPlayer = function() {
+    this.setCurrentPlayer(this.nextPlayer);
+    this.hasNextPlayer = false;
+    this.nextPlayer = null;
+}
+
+OnlineGame.prototype.switchToNewCourse = function() {
+    this.setGameContent(this.newCourseData);
+    this.hasNewCourse = false;
+    this.newCourseData = null;
+}
+
+OnlineGame.prototype.resetGolfBall = function() {
+    this.golfBall.reset();
+    // TODO: Temporary fix, so that gameMechanics moves golfball to start
+    this.finalPosition = this.golfBall.getInitialPosition();
 }
 
 export default OnlineGame;
