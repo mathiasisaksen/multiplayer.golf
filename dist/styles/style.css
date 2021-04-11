@@ -307,6 +307,34 @@ main {
     color: white;
 }
 
+.input-box-field-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-box-field-element {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0 3rem 0;
+    align-items: center;
+    font-size: var(--dialog-font-size);
+    text-transform: uppercase;
+}
+
+.input-box-parameter-name {
+    font-weight: bold;
+}
+
+.input-box-field-input {
+    outline: none;
+    font-size: var(--dialog-font-size);
+    margin: 0 0 0 2rem;
+    flex: 1;
+    padding: 1rem 2rem 1rem 2rem;
+    border-radius: 1.5rem;
+    background-color: #ffffffaa;
+}
+
 @media (min-width: 600px) {
     .menu-element-container {
         max-width: 540px;

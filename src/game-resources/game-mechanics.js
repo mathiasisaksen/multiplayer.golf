@@ -134,10 +134,6 @@ const GameMechanics = function(game) {
         window.requestAnimationFrame(stepLoop);
     }
 
-    function enableRunning() {
-        golfBallIsMoving = true;
-    }
-
     function checkIfRunning() {
         return(golfBallIsMoving);
     }
@@ -162,7 +158,7 @@ const GameMechanics = function(game) {
     }
 
     return({ step, multipleSteps, stepLoop, 
-        executePutt, enableRunning, checkIfRunning });
+        executePutt, checkIfRunning });
 }
 
 export default GameMechanics;

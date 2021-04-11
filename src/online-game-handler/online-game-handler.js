@@ -40,6 +40,13 @@ const OnlineGameHandler = (() => {
         return(webSocket);
     }
 
+    function closeWSClient() {
+        if (webSocket) {
+            webSocket.close();
+            webSocket = null;
+        }
+    }
+
     function setGameId(_gameId) {
         gameId = _gameId;
     }
@@ -119,7 +126,7 @@ const OnlineGameHandler = (() => {
         playerName = null;
     }
 
-    return({createGame, getGame, createWSClient, sendMessage,
+    return({createGame, getGame, createWSClient, closeWSClient, sendMessage,
         setGameId, getGameId, setPlayerId, getPlayerId,
         setPlayerName, getPlayerName, sendPuttMessage,
         exit, showGame, hideGame})
