@@ -96,9 +96,9 @@ const OnlineGameHandler = (() => {
     }
 
     function showGame() {
+        MenuController.hide();    
         onlineGame.show();
         Sidebar.show();
-        MenuController.hide();    
     }
 
     function hideGame() {

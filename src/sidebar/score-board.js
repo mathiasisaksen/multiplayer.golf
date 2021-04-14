@@ -113,7 +113,7 @@ const ScoreBoard = (() => {
         }
         const {courseName, scores} = scoreArray[selectedCourseNumber];
         scores.sort((a, b) => a.score - b.score);
-        setCourseHeader('Course ' + courseName);
+        setCourseHeader('Hole ' + courseName);
 
         emptyTable();
         for (const playerScore of scores) {

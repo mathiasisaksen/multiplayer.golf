@@ -6,11 +6,10 @@ const gameConfig = {
     maxDirectionLineLength: 20,
     framesPerSecond: 60,
     gravity: Infinity,
-
     directionLineStartColor: 'hsl(120, 100%, 50%)',
     directionLineEndColor: 'hsl(0, 100%, 50%)',
-
     interpolationsPerStep: 5,
+    announcementDuration: 1
 };
 
 const svgConfig = {
@@ -53,7 +52,6 @@ const playerConfig = {
 const sidebarConfig = {
     userNameSaturation: 50,
     userNameBrightness: 60,
-    announcementColor: "blue"
 }
 
 export { gameConfig, svgConfig, webSocketConfig, menuConfig, sidebarConfig, playerConfig };

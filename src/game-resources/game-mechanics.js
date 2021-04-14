@@ -108,6 +108,7 @@ const GameMechanics = function(game) {
     }
 
     function stepLoop(timeStamp) {
+        if (!golfBallIsMoving) return;
         if (!previousTimeStamp) {
             previousTimeStamp = timeStamp;
         }
@@ -116,7 +117,6 @@ const GameMechanics = function(game) {
             previousTimeStamp = timeStamp;
             const numberOfSteps = Math.round(timeStep * gameConfig.framesPerSecond);
             multipleSteps(timeStep, numberOfSteps * gameConfig.interpolationsPerStep);
-            golfBall.update();
         }
 
         if (golfBallIsMoving) {

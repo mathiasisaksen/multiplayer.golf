@@ -1,6 +1,6 @@
 import { addBlur, removeBlur } from "./blur";
 
-function inputBox(prompt, inputNames, buttonCallbackArray) {
+function inputBox(prompt, inputFields, buttonCallbackArray) {
     addBlur();
 
     const htmlString = 
@@ -23,13 +23,13 @@ function inputBox(prompt, inputNames, buttonCallbackArray) {
     const buttonContainer = inputBoxContainer.querySelector('.input-box-button-container');
     const nameInputElementMap = {};
 
-    for (const inputName of inputNames) {
+    for (const {fieldName, text} of inputFields) {
         const fieldElement = document.createElement('div');
         fieldElement.classList.add('input-box-field-element');
 
         const nameElement = document.createElement('div');
         nameElement.classList.add('input-box-parameter-name');
-        nameElement.textContent = inputName;
+        nameElement.textContent = text;
         fieldElement.appendChild(nameElement);
 
         const inputElement = document.createElement('input');
@@ -37,7 +37,7 @@ function inputBox(prompt, inputNames, buttonCallbackArray) {
         fieldElement.appendChild(inputElement);
 
         inputFieldContainer.appendChild(fieldElement);
-        nameInputElementMap[inputName] = inputElement;
+        nameInputElementMap[fieldName] = inputElement;
     }
 
     for (const button of buttonCallbackArray) {
@@ -59,8 +59,8 @@ function inputBox(prompt, inputNames, buttonCallbackArray) {
 
     function getInputFieldValues() {
         const values = {};
-        for (const inputName of inputNames) {
-            values[inputName] = nameInputElementMap[inputName].value;
+        for (const { fieldName } of inputFields) {
+            values[fieldName] = nameInputElementMap[fieldName].value;
         }
         return(values);
     }

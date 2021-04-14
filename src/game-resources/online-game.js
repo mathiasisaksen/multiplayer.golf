@@ -2,6 +2,7 @@ import Game from './game';
 import OnlineGameHandler from '../online-game-handler/online-game-handler';
 import * as mUtils from '../utilities/math-utilities';
 import Sidebar from '../sidebar/sidebar';
+import showAnnouncement from '../sidebar/show-announcement';
 
 function OnlineGame(rootSVGElement) {
     Game.call(this, rootSVGElement);
@@ -71,16 +72,26 @@ OnlineGame.prototype.storeNewCourseData = function(newCourseData, newCourseName)
 
 OnlineGame.prototype.golfBallStoppedMoving = function() {
     this.golfBall.setPosition(this.finalPosition);
-
+    
     if (this.hasNewCourse) {
-        this.switchToNewCourse();
-        this.switchToNextPlayer();
-        Sidebar.incrementCurrentCourse();
+        showAnnouncement(`NEW HOLE, NEXT PLAYER: ${this.nextPlayer}!`, () => {
+            this.switchToNewCourse();
+            this.switchToNextPlayer();
+            Sidebar.incrementCurrentCourse();
+            this.checkGolfBallClickable();
+        });
     } else if (this.hasNextPlayer) {
-        this.switchToNextPlayer();
-        this.golfBall.moveToInitialPosition();
-    }
-    console.log(this.currentPlayer, OnlineGameHandler.getPlayerName());
+        showAnnouncement(`NEXT PLAYER: ${this.nextPlayer}!`, () => {
+            this.switchToNextPlayer();
+            this.golfBall.moveToInitialPosition();
+            this.checkGolfBallClickable();
+        });
+    } else {
+        this.checkGolfBallClickable();
+    }   
+}
+
+OnlineGame.prototype.checkGolfBallClickable = function() {
     if (this.currentPlayer === OnlineGameHandler.getPlayerName()) {
         this.golfBall.setUserClickable();
     }
