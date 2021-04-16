@@ -26,10 +26,10 @@ function createGeneralElement(type, attributes, classArray) {
 }
 
 function drawLine(parentSVGElement, startPoint, endPoint, attributes, classArray) {
-    attributes.x1 = startPoint.x || startPoint.getX();
-    attributes.y1 = startPoint.y || startPoint.getY();
-    attributes.x2 = endPoint.x || endPoint.getX();
-    attributes.y2 = endPoint.y || endPoint.getY();
+    attributes.x1 = startPoint.x ?? startPoint.getX();
+    attributes.y1 = startPoint.y ?? startPoint.getY();
+    attributes.x2 = endPoint.x ?? endPoint.getX();
+    attributes.y2 = endPoint.y ?? endPoint.getY();
 
     const lineElement = createGeneralElement('line', attributes, classArray);
 
@@ -41,7 +41,7 @@ function drawLine(parentSVGElement, startPoint, endPoint, attributes, classArray
 function drawPolygon(parentSVGElement, vertices, attributes, classArray) {
     // Format expected by SVG polygon: x1,y1 x2,y2,...
     const vertexString = vertices
-        .map(vertex => `${vertex.x || vertex.getX() },${vertex.y || vertex.getY()}`)
+        .map(vertex => `${vertex.x ?? vertex.getX() },${vertex.y ?? vertex.getY()}`)
         .join(" ");
     attributes.points = vertexString;
 
@@ -52,8 +52,8 @@ function drawPolygon(parentSVGElement, vertices, attributes, classArray) {
 }
 
 function drawCircle(parentSVGElement, center, attributes, classArray) {
-    attributes.cx = center.x || center.getX();
-    attributes.cy = center.y || center.getY();
+    attributes.cx = center.x ?? center.getX();
+    attributes.cy = center.y ?? center.getY();
 
     const circleElement = createGeneralElement('circle', attributes, classArray);
 
@@ -71,8 +71,8 @@ function setCirclePosition(circleElement, position) {
 }
 
 function setLineEnd(lineElement, endPosition) {
-    setAttributes(lineElement, {'x2': endPosition.x || endPosition.getX(), 
-        'y2': endPosition.y || endPosition.getY()});
+    setAttributes(lineElement, {'x2': endPosition.x ?? endPosition.getX(), 
+        'y2': endPosition.y ?? endPosition.getY()});
 }
 
 function setSVGExtent(rootSVGElement, extent, padding) {
