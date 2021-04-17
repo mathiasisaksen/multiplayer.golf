@@ -38,7 +38,6 @@ function Menu(id) {
     }
 
     function setActive() {
-        console.log("active");
         isActive = true;
     }
        

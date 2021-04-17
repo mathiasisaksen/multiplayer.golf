@@ -16,6 +16,37 @@ const Course = function(courseData, rootSVGElement) {
 
     let edges = [];
 
+    // Vertices on boundary and obstacles should be in counter-clockwise
+    // and clockwise order, respectively
+    function _fixVertexOrientation() {
+        if (_computePolygonOrientation(_boundaryVertices) < 0) {
+            _boundaryVertices.reverse();
+        }
+
+        _obstacles?.forEach(obstacle => {
+            if (_computePolygonOrientation(obstacle) > 0) {
+                obstacle.reverse();
+            }
+        });
+    }
+
+    // Uses approach from https://en.wikipedia.org/wiki/Curve_orientation
+    function _computePolygonOrientation(polygon) {
+        const minXIndex = polygon.reduce((minIndex, curElem, curIndex, arr) => 
+            minIndex = curElem.x < arr[minIndex].x ? curIndex : minIndex, 
+            0);
+        const prevIndex = minXIndex === 0 ? polygon.length - 1 : minXIndex - 1;
+        const nextIndex = minXIndex === polygon.length - 1 ? 0 : minXIndex + 1;
+
+        const vertexA = polygon[prevIndex];
+        const vertexB = polygon[minXIndex];
+        const vertexC = polygon[nextIndex];
+
+        const determinant = (vertexB.x - vertexA.x)*(vertexC.y - vertexA.y) -
+                            (vertexC.x - vertexA.x)*(vertexB.y - vertexA.y)
+        return(Math.sign(determinant));
+    }
+
     function _computeEdgesAndAABB() {
         const boundaryVerticesLooped = [..._boundaryVertices];
         boundaryVerticesLooped.push(boundaryVerticesLooped[0]);
@@ -41,7 +72,6 @@ const Course = function(courseData, rootSVGElement) {
             edges.push(mUtils.Edge(mUtils.Vector({x: a.x, y: a.y}), mUtils.Vector({x: b.x, y: b.y})));
             }
         })
-    
     }
 
     function draw() {
@@ -68,6 +98,7 @@ const Course = function(courseData, rootSVGElement) {
     function initialize() {
         _courseElement = svgUtilities.createGroupElement(['course-container']);
         rootSVGElement.append(_courseElement);
+        _fixVertexOrientation();
         _computeEdgesAndAABB();
         draw();
     }

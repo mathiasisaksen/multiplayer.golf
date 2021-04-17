@@ -10,7 +10,6 @@ const GameMechanics = function(game) {
     const hole = course.getHole();
     const upperPuttVelocity = Math.sqrt(gameConfig.gravity / (2*golfBall.getRadius())) *
         (2*hole.radius - golfBall.getRadius());
-    console.log(upperPuttVelocity);
 
     let collisionData;
     let golfBallIsMoving = false;
@@ -30,20 +29,18 @@ const GameMechanics = function(game) {
         // on unit vector, not actual time), location of collision, center of
         // golf ball at collision, and direction of golf ball after collision
         let earliestCollisionData = {time: Infinity};
+
         for (const edge of edges) {
-            const interSectionA = mUtils.computePathEdgeIntersection(outerPaths.pathA, edge);
-            const interSectionB = mUtils.computePathEdgeIntersection(outerPaths.pathB, edge);
-            if (interSectionA && interSectionB) {
-                const canCollide = 
-                    (mUtils.isInRange(interSectionA.edgeParameter, 0, 1) && 
-                    mUtils.isInRange(interSectionA.pathParameter, 0, Infinity)) ||
-                    (mUtils.isInRange(interSectionB.edgeParameter, 0, 1) && 
-                    mUtils.isInRange(interSectionB.pathParameter, 0, Infinity))
+            const intersectionA = mUtils.computePathEdgeIntersection(outerPaths.pathA, edge);
+            const intersectionB = mUtils.computePathEdgeIntersection(outerPaths.pathB, edge);
+            if (intersectionA && intersectionB) {
+                const canCollide = checkIfCollisionCanHappen(intersectionA, intersectionB);
                 if (canCollide) {
                     // Compute collision
                     const collisionData = mUtils.computeMovingCircleEdgeIntersection(
                         golfBallPath, golfBall.getRadius(), edge);
-                    if (collisionData.time < earliestCollisionData.time) {
+                    if (collisionData.time > 0 && 
+                            collisionData.time < earliestCollisionData.time) {
                         earliestCollisionData = collisionData;
                     }
                 }
@@ -60,6 +57,17 @@ const GameMechanics = function(game) {
 
     }
     
+    function checkIfCollisionCanHappen(intersectionA, intersectionB) {
+        if ((mUtils.isInRange(intersectionA.edgeParameter, 1, Infinity) && 
+            mUtils.isInRange(intersectionB.edgeParameter, 1, Infinity)) ||
+            (mUtils.isInRange(intersectionA.edgeParameter, -Infinity, 0) && 
+            mUtils.isInRange(intersectionB.edgeParameter, -Infinity, 0))) {
+                return(false);
+            }
+        return(mUtils.isInRange(intersectionA.pathParameter, 0, Infinity) ||
+               mUtils.isInRange(intersectionB.pathParameter, 0, Infinity))
+    }
+
     function step(timeStep) {
         if (!collisionData) {
             collisionData = computeNextCollision();

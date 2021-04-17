@@ -2,6 +2,8 @@ import MenuController from './menu-system/menu-controller';
 import mainMenu from './menu-system/main-menu';name
 import OnlineGameHandler from './online-game-handler/online-game-handler';
 import inputBox from './menu-system/input-box';
+import Game from './game-resources/game';
+import rootSVGElement from './svg-setup';
 
 const queryParameters = new URLSearchParams(window.location.search);
 const gameIdParameter = queryParameters.get('game-id');
