@@ -383,6 +383,10 @@ main {
         transition: bottom 1s;
     }
 
+    #sidebar.singleplayer {
+        bottom: initial;
+    }
+
     #sidebar-body {
         display: flex;
         flex-direction: column;
@@ -559,6 +563,10 @@ main {
         width: 100%;
         margin-top: 2rem;
         flex-grow: 1;
+    }
+
+    #chat-player-container.hidden {
+        display: none;
     }
 
     #chat-player-header {
