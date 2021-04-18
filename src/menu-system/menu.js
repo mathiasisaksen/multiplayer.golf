@@ -44,8 +44,14 @@ function Menu(id) {
     function setNotActive() {
         isActive = false;
     }
+
+    function clearInput() {
+        menuElement.querySelectorAll('textarea')
+            .forEach(elem => elem.value = '');
+    }
+
     return({ addButton, setTitle, createMenuElement, getMenuElement, setActive,
-         setNotActive, addCustomElement, addRestrictedEventListener })
+         setNotActive, addCustomElement, addRestrictedEventListener, clearInput })
 }
 
 export default Menu;

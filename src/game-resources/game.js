@@ -6,11 +6,15 @@ import * as mUtils from '../utilities/math-utilities';
 import { svgConfig, gameConfig } from '../config';
 import * as colorUtils from '../utilities/color-utilities';
 import { generateCourse } from './generate-course';
+import showAnnouncement from '../sidebar/show-announcement';
+
+const gameContainer = document.querySelector('#game-container');
 
 function Game(rootSVGElement) {
     this.rootSVGElement = rootSVGElement;
     this._computeSVGPosition = svgUtilities.createSVGPositionComputer(rootSVGElement);
     this.isPlayerFinished = false;
+    this.currentCourseNumber = 0;
 
     // Event handlers need to be bound to Game object
     this._handleGolfBallMouseDown = this._handleGolfBallMouseDown.bind(this);
@@ -50,6 +54,10 @@ Game.prototype.getCourse = function() {
     return(this.course);
 }
 
+Game.prototype.getCourseNumber = function() {
+    return(this.currentCourseNumber);
+}
+
 Game.prototype.setGameContent = function(newCourseData) {
     this._cleanUpGame();
     this.courseData = newCourseData;
@@ -65,6 +73,7 @@ Game.prototype.resizeViewBoxToCourse = function() {
 }
 
 Game.prototype.generateNewCourse = function() {
+    this.currentCourseNumber++;
     const newCourseData = generateCourse();
     this.setGameContent(newCourseData);
 }
@@ -216,11 +225,11 @@ Game.prototype.setGolfBallPosition = function(newPosition) {
 }
 
 Game.prototype.show = function() {
-    this.rootSVGElement.classList.remove('hidden');
+    gameContainer.classList.remove('hidden');
 }
 
 Game.prototype.hide = function() {
-    this.rootSVGElement.classList.add('hidden');
+    gameContainer.classList.add('hidden');
 }
 
 Game.prototype.update = function() {

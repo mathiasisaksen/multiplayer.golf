@@ -1,4 +1,5 @@
 import MenuController from "../menu-system/menu-controller";
+import newOnlineGameMenu from "../menu-system/new-online-game-menu";
 import PlayerList from "../sidebar/player-list";
 import Sidebar from "../sidebar/sidebar";
 import OnlineGameHandler from "./online-game-handler";
@@ -19,6 +20,11 @@ function handleGameCreationSuccessful(data) {
     OnlineGameHandler.showGame();
     Sidebar.setNumberOfCourses(data.numberOfCourses);
     Sidebar.setCurrentCourse(1);
+    Sidebar.setExitCallback(() => {            
+        OnlineGameHandler.hideGame();
+        OnlineGameHandler.exit();
+    });
+    newOnlineGameMenu.clearInput();
 }
 
 export default handleGameCreationSuccessful;

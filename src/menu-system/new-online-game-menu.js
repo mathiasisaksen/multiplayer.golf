@@ -47,6 +47,13 @@ newOnlineGameMenu.setTitle('New online game', ['title-small']);
 
 newOnlineGameMenu.createMenuElement();
 
+const menuElement = newOnlineGameMenu.getMenuElement();
+menuElement.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    handleCreateGame();
+});
+
 function handleCreateGame() {
     const playerName = nameInput.value;
     const gameId = gameIdInput.value;

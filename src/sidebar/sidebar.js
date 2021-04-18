@@ -39,9 +39,6 @@ const Sidebar = (() => {
         currentCourseElement.textContent = currentCourseNumber;
     }
 
-    const exitButton = document.querySelector("#sidebar-exit-button");
-    exitButton.addEventListener('click', handleExit);
-
     function handleToggleSidebar() {
         if (isCollapsed) {            
             sidebarBody.classList.remove('hidden');
@@ -54,15 +51,23 @@ const Sidebar = (() => {
         console.log(isCollapsed);
     }
 
+
+    const exitButton = document.querySelector("#sidebar-exit-button");
+    exitButton.addEventListener('click', handleExit);
+    let exitCallback = () => {};
+
     function handleExit() {
         const buttonCallbacks = [];
         // TODO: Clean up properly before leaving
         buttonCallbacks.push({text: 'Leave game', callback: () => {
-            OnlineGameHandler.hideGame();
-            OnlineGameHandler.exit();
+            exitCallback();
         }});
         buttonCallbacks.push({text: 'Cancel'});
         dialogBox('Are you sure you want to leave the game?', buttonCallbacks);
+    }
+
+    function setExitCallback(callback) {
+        exitCallback = callback;
     }
 
     // Setup players/chat section
@@ -73,6 +78,8 @@ const Sidebar = (() => {
     const chatButton = sidebarBody.querySelector('#show-chat');
     chatButton.addEventListener('click', handleChatClick);
     const chatPlayerTitle = sidebarBody.querySelector('#chat-player-title');
+
+    const chatPlayerContainer = document.querySelector('#chat-player-container');
 
     function handlePlayerClick() {
         if (currentChatOrPlayers === chatPlayersEnum.PLAYERS) return;
@@ -99,14 +106,29 @@ const Sidebar = (() => {
     }
 
     function show() {
-        gameContainer.classList.remove('hidden');
+        sideBarElement.classList.remove('hidden');
     }
 
     function hide() {
-        gameContainer.classList.add('hidden');
+        sideBarElement.classList.add('hidden');
     }
+
+    function singleplayerSetup() {
+        chatPlayerContainer.classList.add('hidden');
+        sideBarElement.classList.add('singleplayer');
+    }
+
+    function reset() {
+        sideBarElement.classList.remove('singleplayer');
+        sideBarElement.classList.remove('multiplayer');
+        ScoreBoard.resetScoreboard();
+        PlayerList.clear();
+        ChatBox.clear();
+
+    }
+
     return({show, hide, setNumberOfCourses, getNumberOfCourses,
-        incrementCurrentCourse, setCurrentCourse})
+        incrementCurrentCourse, setCurrentCourse, singleplayerSetup, setExitCallback, reset})
 })();
 
 export default Sidebar;

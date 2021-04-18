@@ -37,6 +37,13 @@ joinOnlineGameMenu.setTitle('Join online game', ['title-small']);
 
 joinOnlineGameMenu.createMenuElement();
 
+const menuElement = joinOnlineGameMenu.getMenuElement();
+menuElement.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    handleJoinGame();
+});
+
 function handleJoinGame() {
     const playerName = nameInput.value;
     const gameId = gameIdInput.value;

@@ -1,3 +1,4 @@
+import joinOnlineGameMenu from "../menu-system/join-online-game-menu";
 import MenuController from "../menu-system/menu-controller";
 import PlayerList from "../sidebar/player-list";
 import ScoreBoard from "../sidebar/score-board";
@@ -26,6 +27,11 @@ function handleJoinRequestSuccessful(data) {
     ScoreBoard.setScoreArray(data.scoreArray);
     Sidebar.setNumberOfCourses(data.numberOfCourses);
     Sidebar.setCurrentCourse(data.courseNumber);
+    Sidebar.setExitCallback(() => {            
+        OnlineGameHandler.hideGame();
+        OnlineGameHandler.exit();
+    });
+    joinOnlineGameMenu.clearInput();
 }
 
 export default handleJoinRequestSuccessful;

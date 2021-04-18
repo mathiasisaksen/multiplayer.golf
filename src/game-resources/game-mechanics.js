@@ -156,6 +156,7 @@ const GameMechanics = function(game) {
                                                             speed < upperPuttVelocity) {
             golfBallIsMoving = false;
             isFinished = true;
+            golfBall.setPosition(hole.position);
         }
     }
 
