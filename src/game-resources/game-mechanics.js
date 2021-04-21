@@ -1,5 +1,7 @@
 import * as mUtils from '../utilities/math-utilities';
 import { gameConfig } from '../config';
+import { drawCircle } from '../utilities/svg-utilities';
+import rootSVGElement from '../svg-setup';
 
 const GameMechanics = function(game) {
     const golfBall = game.getGolfBall();
@@ -46,6 +48,7 @@ const GameMechanics = function(game) {
                 }
             } 
         }
+        drawCircle(rootSVGElement, earliestCollisionData.collisionPoint, {fill: 'red', r: 0.5});
         const collisionPointCenterVector = mUtils.subtractVectors(earliestCollisionData.collisionPoint, 
             earliestCollisionData.collisionCenter);
         let newDirectionVector = mUtils.vectorReflection(directionVector,
@@ -83,28 +86,56 @@ const GameMechanics = function(game) {
         if (nextStepLength > distanceToCollision) {
             // Partial step
             const partialTimeStep = distanceToCollision / golfBall.getSpeed();
-            golfBall.step(partialTimeStep);
-            const oldSpeed = golfBall.getSpeed();
-            const newSpeed = (1 - gameConfig.frictionPerTime*partialTimeStep)*oldSpeed;
-            golfBall.setSpeed(newSpeed);
+            performGolfStep(partialTimeStep);
 
             // Change direction due to collision, and perform rest of step
+            //console.log(`Before: ${golfBall.getDirection()}`);
             golfBall.setDirection(collisionData.directionAfterCollision);
+            //console.log(`After: ${golfBall.getDirection()}`);
             const remainingTimeStep = timeStep - partialTimeStep;
             collisionData = null;
             checkIfWon();
 
             step(remainingTimeStep);
         } else {
-            golfBall.step(timeStep);
-            const oldSpeed = golfBall.getSpeed();
-            const newSpeed = (1 - gameConfig.frictionPerTime*timeStep)*oldSpeed;
-            golfBall.setSpeed(newSpeed);
-            if (golfBall.getSpeed() < gameConfig.speedThreshold) {
+            performGolfStep(timeStep);
+            //console.log(`After collision: ${golfBall.getDirection()}`);
+            if (golfBall.getSpeed() < gameConfig.relativeSpeedThreshold*golfBall.getRadius()) {
                 golfBall.setSpeed(0);
                 golfBallIsMoving = false;
             }
             checkIfWon();
+        }
+    }
+
+    function performGolfStep(timeStep) {
+        
+        golfBall.step(timeStep);
+        const allCovers = course.getCoversAtPosition(golfBall.getPosition().getCoordinates());
+        if (allCovers.length > 0) {
+            handleGolfBallOnCover(allCovers[0], timeStep);
+            return;
+        }
+
+        const oldSpeed = golfBall.getSpeed();
+        const frictionCoeff = - Math.log(1 - gameConfig.frictionPerTime);
+        const newSpeed = (1 - frictionCoeff*timeStep)*oldSpeed;
+        golfBall.setSpeed(newSpeed);
+
+    }
+
+    function handleGolfBallOnCover(cover, timeStep) {
+        if (cover.type === 'sand') {
+            const oldSpeed = golfBall.getSpeed();
+            const frictionCoeff = - Math.log(1 - gameConfig.frictionPerTime);
+            const newSpeed = 
+                (1 - cover.frictionMultiplier*frictionCoeff*timeStep)*oldSpeed;
+            golfBall.setSpeed(newSpeed);
+        } else if (cover.type === 'water') {
+            /*console.log('water');*/
+        } else if (cover.type === 'wind') {
+            const speedChange = timeStep*cover.windStrength;
+            golfBall.increaseVelocity(speedChange, cover.direction);
         }
     }
 

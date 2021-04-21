@@ -143,8 +143,18 @@ const Course = function(courseData, rootSVGElement) {
         return(_courseAABB);
     }
 
+    function getCoversAtPosition(position) {
+        const result = [];
+        for (const cover of _covers) {
+            if (mUtils.isPointInPolygon(position, cover.vertices)) {
+                result.push(cover);
+            }
+        }
+        return(result);
+    }
+
     return({ draw, initialize, getBoundaryVertices, getObstacles, getEdges,
-        getHole, destroy, getCourseAABB });
+        getHole, destroy, getCourseAABB, getCoversAtPosition });
 };
 
 export default Course;

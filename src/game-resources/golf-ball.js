@@ -45,7 +45,7 @@ const GolfBall = function(
 
     function setDirection(newDirection) {
         direction = newDirection;
-        _unitDirectionVector = mUtils.createUnitVector(direction)
+        _unitDirectionVector = mUtils.createUnitVector(direction);
     }
 
     function getRadius() {
@@ -115,6 +115,22 @@ const GolfBall = function(
         return(mUtils.Vector(courseData.initialGolfBallPosition));
     }
 
+    function increaseVelocity(amount, increaseDirection) {
+        if (increaseDirection === undefined) {
+            setSpeed(speed + amount);
+        } else {
+            const newSpeed = Math.sqrt(speed**2 + 
+                2*amount*speed*Math.cos(direction - increaseDirection) + 
+                amount**2);
+            const newDirection = Math.atan2(
+                speed*Math.sin(direction) + amount*Math.sin(increaseDirection),
+                speed*Math.cos(direction) + amount*Math.cos(increaseDirection)
+                );
+            //setSpeed(newSpeed);
+            setDirection(newDirection);
+        }
+    }
+
     return({ initialize, draw, 
         getPosition, setPosition, 
         getSpeed, setSpeed,
@@ -124,7 +140,7 @@ const GolfBall = function(
         addEventListener, removeEventListener,
         setUserClickable, setNotUserClickable,
         checkUserClickable, moveToInitialPosition, reset,
-        getInitialPosition });
+        getInitialPosition, increaseVelocity });
 
 }
 

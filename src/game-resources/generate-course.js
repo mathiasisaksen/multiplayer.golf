@@ -28,7 +28,7 @@ function generateCourse() {
             covers: [
                 {
                     type: 'sand', 
-                    frictionMultiplier: 3, 
+                    frictionMultiplier: 5, 
                     vertices: [{x: 65, y: 52},
                                {x: 65, y: 55},
                                {x: 30, y: 55},
@@ -45,7 +45,6 @@ function generateCourse() {
             
                 {
                     type: 'wind',
-                    direction: Math.PI/4,
                     windStrength: 2,
                     vertices: [{x: 65, y: 45},
                                {x: 65, y: 48},
