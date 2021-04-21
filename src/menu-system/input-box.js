@@ -64,6 +64,17 @@ function inputBox(prompt, inputFields, buttonCallbackArray) {
         }
         return(values);
     }
+
+    inputBoxContainer.addEventListener('keydown', event => {
+        if (event.key !== "Enter") return;
+        const callback = buttonCallbackArray[0].callback;
+        if (typeof callback === 'function') {
+            callback(event, getInputFieldValues());
+        }
+        removeBlur();
+        inputBoxContainer.remove();
+    })
+
 }
 
 export default inputBox;

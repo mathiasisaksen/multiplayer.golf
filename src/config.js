@@ -14,14 +14,18 @@ const gameConfig = {
 
 const svgConfig = {
     golfBallAttributes: {'r': gameConfig.golfBallRadius, 'fill': 'white', 'stroke-width': 5, 'stroke': 'black', 'stroke-opacity': '0'},
+    
+    directionLineAttributes: {'stroke': gameConfig.directionLineStartColor, 'stroke-width': 0.5, 'fill': 'none', 'stroke-linecap': 'round'},
     // The boundary is divided into two components.
     // This is done to ensure that the drawn course is 
     // equal to the internal representation
-    directionLineAttributes: {'stroke': gameConfig.directionLineStartColor, 'stroke-width': 0.5, 'fill': 'none', 'stroke-linecap': 'round'},
     boundaryAttributesOuter: {'stroke': 'black', 'stroke-width': 2, 'fill': 'none'},
-    boundaryAttributesInner: {'stroke': 'white', 'fill': '#3ab93a'},
+    boundaryAttributesInner: {'stroke-width': 0, 'fill': '#3ab93a'},
     obstacleAttributes: {'stroke': 'white', 'fill': 'black'},
-    holeAttributes: {'r': 1.25*gameConfig.golfBallRadius, 'fill': 'black'},
+    sandAttributes: {'stroke-width': 0, 'fill': '#c2b280'},
+    waterAttributes: {'stroke-width': 0, 'fill': '#1da2d8'},
+    windAttributes: {'stroke-width': 0, 'fill': '#ffffffaa'},
+    holeAttributes: {'r': 2.6*gameConfig.golfBallRadius, 'fill': 'black'},
     // The amount of padding added to the viewbox, based on the AABB of the course
     extentPadding: 0.1,
     // When zooming with the scroll, by how much should each scroll zoom?

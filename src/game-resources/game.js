@@ -6,7 +6,6 @@ import * as mUtils from '../utilities/math-utilities';
 import { svgConfig, gameConfig } from '../config';
 import * as colorUtils from '../utilities/color-utilities';
 import { generateCourse } from './generate-course';
-import showAnnouncement from '../sidebar/show-announcement';
 
 const gameContainer = document.querySelector('#game-container');
 
@@ -24,6 +23,10 @@ function Game(rootSVGElement) {
     this._handleGolfBallTouchMove = this._handleGolfBallTouchMove.bind(this);
     this._handleGolfBallTouchEnd = this._handleGolfBallTouchEnd.bind(this);
     this._handleEscapePutt = this._handleEscapePutt.bind(this);
+    this.resizeViewBoxToCourse = this.resizeViewBoxToCourse.bind(this);
+
+    const resetButton = document.querySelector('#reset-view-button');
+    resetButton.addEventListener('click', this.resizeViewBoxToCourse);
 }
 
 Game.prototype.setNumberOfCourses = function(numCourses) {

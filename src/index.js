@@ -4,6 +4,8 @@ import OnlineGameHandler from './online-game-handler/online-game-handler';
 import inputBox from './menu-system/input-box';
 import Game from './game-resources/game';
 import rootSVGElement from './svg-setup';
+import SingleplayerGame from './game-resources/singleplayer-game';
+import Sidebar from './sidebar/sidebar';
 
 const queryParameters = new URLSearchParams(window.location.search);
 const gameIdParameter = queryParameters.get('game-id');
@@ -30,4 +32,18 @@ if (gameIdParameter) {
     }
 }
 
+const copyLinkButton = document.querySelector('#copy-link-button');
+copyLinkButton.addEventListener('click', handleCopyLink);
+function handleCopyLink() {
+    navigator.clipboard.writeText(
+        `${window.location.href.split('?')[0]}?game-id=${OnlineGameHandler.getGameId()}`
+    );
+}
+
 MenuController.setMenu(mainMenu, true, true);
+MenuController.hide();
+
+const game = new SingleplayerGame(rootSVGElement);
+game.generateNewCourse();
+game.show();
+Sidebar.show();

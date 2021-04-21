@@ -8,6 +8,7 @@ import * as mUtils from '../utilities/math-utilities'
 const Course = function(courseData, rootSVGElement) {
     const _boundaryVertices = courseData.boundary;
     const _obstacles = courseData.obstacles;
+    const _covers = courseData.covers;
     const _holePosition = mUtils.Vector(courseData.hole.position);
     const _holeRadius = courseData.hole.radius;
     let _courseElement;
@@ -55,23 +56,37 @@ const Course = function(courseData, rootSVGElement) {
         for (let i = 1; i < boundaryVerticesLooped.length; i++) {
             const a = boundaryVerticesLooped[i-1];
             const b = boundaryVerticesLooped[i];
-            edges.push(mUtils.Edge(mUtils.Vector({x: a.x, y: a.y}), mUtils.Vector({x: b.x, y: b.y})));
+            edges.push(mUtils.Edge(
+                mUtils.Vector(a), 
+                mUtils.Vector(b)));
 
             _courseAABB.xMin = Math.min(_courseAABB.xMin, a.x);
             _courseAABB.xMax = Math.max(_courseAABB.xMax, a.x);
             _courseAABB.yMin = Math.min(_courseAABB.yMin, a.y);
             _courseAABB.yMax = Math.max(_courseAABB.yMax, a.y);
-
         }
+
         _obstacles?.forEach(obstacleVertices => {
             const obstacleVerticesLooped = [...obstacleVertices];
             obstacleVerticesLooped.push(obstacleVerticesLooped[0]);
             for (let i = 1; i < obstacleVerticesLooped.length; i++) {
                 const a = obstacleVerticesLooped[i-1];
                 const b = obstacleVerticesLooped[i];
-            edges.push(mUtils.Edge(mUtils.Vector({x: a.x, y: a.y}), mUtils.Vector({x: b.x, y: b.y})));
+                edges.push(mUtils.Edge(
+                    mUtils.Vector(a), 
+                    mUtils.Vector(b)));
             }
-        })
+        });
+
+        _covers?.forEach(cover => {
+            cover.AABB = cover.vertices.reduce((coverAABB, curVertex) => {
+                coverAABB.xMin = Math.min(curVertex.x, coverAABB.xMin);
+                coverAABB.xMax = Math.max(curVertex.x, coverAABB.xMax);
+                coverAABB.yMin = Math.min(curVertex.y, coverAABB.yMin);
+                coverAABB.yMax = Math.max(curVertex.y, coverAABB.yMax);
+                return(coverAABB);
+            }, {xMin: Infinity, xMax: -Infinity, yMin: Infinity, yMax: -Infinity});
+        });
     }
 
     function draw() {
@@ -79,11 +94,16 @@ const Course = function(courseData, rootSVGElement) {
             svgConfig.boundaryAttributesOuter, ['course-boundary', 'course-boundary-outer']);
         svgUtilities.drawPolygon(_courseElement, _boundaryVertices, 
             svgConfig.boundaryAttributesInner, ['course-boundary', 'course-boundary-inner']);
-        //boundaryVertices.forEach(vertex => svgUtilities.drawCircle(courseElement, vertex, {'r': 0.5, fill: 'red', 'stroke-width': 0 }));
+    
         _obstacles?.forEach(obstacleVertices => {
             svgUtilities.drawPolygon(_courseElement, obstacleVertices, 
                 svgConfig.obstacleAttributes, ['course-obstacle']);
-            //obstacleVertices.forEach(vertex => svgUtilities.drawCircle(courseElement, vertex, {'r': 0.5, fill: 'blue', 'stroke-width': 0 }));
+            }
+        );
+
+        _covers?.forEach(cover => {
+            svgUtilities.drawPolygon(_courseElement, cover.vertices, 
+                svgConfig[`${cover.type}Attributes`], ['course-obstacle']);
             }
         )
         const holeAttributes = svgConfig.holeAttributes;
