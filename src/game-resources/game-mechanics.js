@@ -1,7 +1,5 @@
 import * as mUtils from '../utilities/math-utilities';
 import { gameConfig } from '../config';
-import { drawCircle } from '../utilities/svg-utilities';
-import rootSVGElement from '../svg-setup';
 
 const GameMechanics = function(game) {
     const golfBall = game.getGolfBall();
@@ -48,7 +46,6 @@ const GameMechanics = function(game) {
                 }
             } 
         }
-        drawCircle(rootSVGElement, earliestCollisionData.collisionPoint, {fill: 'red', r: 0.5});
         const collisionPointCenterVector = mUtils.subtractVectors(earliestCollisionData.collisionPoint, 
             earliestCollisionData.collisionCenter);
         let newDirectionVector = mUtils.vectorReflection(directionVector,
@@ -89,9 +86,7 @@ const GameMechanics = function(game) {
             performGolfStep(partialTimeStep);
 
             // Change direction due to collision, and perform rest of step
-            //console.log(`Before: ${golfBall.getDirection()}`);
             golfBall.setDirection(collisionData.directionAfterCollision);
-            //console.log(`After: ${golfBall.getDirection()}`);
             const remainingTimeStep = timeStep - partialTimeStep;
             collisionData = null;
             checkIfWon();
@@ -99,7 +94,6 @@ const GameMechanics = function(game) {
             step(remainingTimeStep);
         } else {
             performGolfStep(timeStep);
-            //console.log(`After collision: ${golfBall.getDirection()}`);
             if (golfBall.getSpeed() < gameConfig.relativeSpeedThreshold*golfBall.getRadius()) {
                 golfBall.setSpeed(0);
                 golfBallIsMoving = false;
@@ -125,17 +119,19 @@ const GameMechanics = function(game) {
     }
 
     function handleGolfBallOnCover(cover, timeStep) {
+        const oldSpeed = golfBall.getSpeed();
         if (cover.type === 'sand') {
-            const oldSpeed = golfBall.getSpeed();
             const frictionCoeff = - Math.log(1 - gameConfig.frictionPerTime);
             const newSpeed = 
                 (1 - cover.frictionMultiplier*frictionCoeff*timeStep)*oldSpeed;
             golfBall.setSpeed(newSpeed);
         } else if (cover.type === 'water') {
-            /*console.log('water');*/
+            golfBall.setSpeed(0);
+            golfBallIsMoving = false;
+            golfBall.moveToInitialPosition();
         } else if (cover.type === 'wind') {
             const speedChange = timeStep*cover.windStrength;
-            golfBall.increaseVelocity(speedChange, cover.direction);
+            golfBall.setSpeed(oldSpeed + speedChange);
         }
     }
 

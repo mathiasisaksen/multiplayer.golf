@@ -45,7 +45,7 @@ function generateCourse() {
             
                 {
                     type: 'wind',
-                    windStrength: 2,
+                    windStrength: 10,
                     vertices: [{x: 65, y: 45},
                                {x: 65, y: 48},
                                {x: 30, y: 48},

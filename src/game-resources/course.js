@@ -145,11 +145,11 @@ const Course = function(courseData, rootSVGElement) {
 
     function getCoversAtPosition(position) {
         const result = [];
-        for (const cover of _covers) {
+        _covers?.forEach(cover => {
             if (mUtils.isPointInPolygon(position, cover.vertices)) {
                 result.push(cover);
             }
-        }
+        });
         return(result);
     }
 
