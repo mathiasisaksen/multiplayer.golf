@@ -12,7 +12,7 @@ const GameMechanics = function(game) {
         (2*hole.radius - golfBall.getRadius());
 
     let collisionData;
-    let golfBallIsMoving = false;
+    let isRunning = false;
     let isFinished = false;
     let previousTimeStamp;
 
@@ -83,7 +83,7 @@ const GameMechanics = function(game) {
         if (nextStepLength > distanceToCollision) {
             // Partial step
             const partialTimeStep = distanceToCollision / golfBall.getSpeed();
-            performGolfStep(partialTimeStep);
+            performGolfBallStep(partialTimeStep);
 
             // Change direction due to collision, and perform rest of step
             golfBall.setDirection(collisionData.directionAfterCollision);
@@ -93,16 +93,16 @@ const GameMechanics = function(game) {
 
             step(remainingTimeStep);
         } else {
-            performGolfStep(timeStep);
+            performGolfBallStep(timeStep);
             if (golfBall.getSpeed() < gameConfig.relativeSpeedThreshold*golfBall.getRadius()) {
                 golfBall.setSpeed(0);
-                golfBallIsMoving = false;
+                isRunning = false;
             }
             checkIfWon();
         }
     }
 
-    function performGolfStep(timeStep) {
+    function performGolfBallStep(timeStep) {
         
         golfBall.step(timeStep);
         const allCovers = course.getCoversAtPosition(golfBall.getPosition().getCoordinates());
@@ -127,7 +127,7 @@ const GameMechanics = function(game) {
             golfBall.setSpeed(newSpeed);
         } else if (cover.type === 'water') {
             golfBall.setSpeed(0);
-            golfBallIsMoving = false;
+            isRunning = false;
             golfBall.moveToInitialPosition();
         } else if (cover.type === 'wind') {
             const speedChange = timeStep*cover.windStrength;
@@ -137,24 +137,24 @@ const GameMechanics = function(game) {
 
     function multipleSteps(timeStep, numberOfSteps) {
         for (let i = 0; i < numberOfSteps; i++) {
-            if (!golfBallIsMoving) return;
+            if (!isRunning) return;
             step(timeStep / numberOfSteps);
         }
     }
 
     function stepLoop(timeStamp) {
-        if (!golfBallIsMoving) return;
+        if (!isRunning) return;
         if (!previousTimeStamp) {
             previousTimeStamp = timeStamp;
         }
         let timeStep = (timeStamp - previousTimeStamp) / 1000;
-        if (timeStep > (1 / gameConfig.framesPerSecond) && golfBallIsMoving) {
+        if (timeStep > (1 / gameConfig.framesPerSecond) && isRunning) {
             previousTimeStamp = timeStamp;
             const numberOfSteps = Math.round(timeStep * gameConfig.framesPerSecond);
             multipleSteps(timeStep, numberOfSteps * gameConfig.interpolationsPerStep);
         }
 
-        if (golfBallIsMoving) {
+        if (isRunning) {
             window.requestAnimationFrame(stepLoop);
         } else {
             reset();
@@ -164,13 +164,13 @@ const GameMechanics = function(game) {
     }
 
     function executePutt() {
-        golfBallIsMoving = true;
+        isRunning = true;
         isFinished = false;
         window.requestAnimationFrame(stepLoop);
     }
 
     function checkIfRunning() {
-        return(golfBallIsMoving);
+        return(isRunning);
     }
 
     function checkIfWon() {
@@ -181,7 +181,7 @@ const GameMechanics = function(game) {
         const speed = golfBall.getSpeed();
         if (mUtils.subtractVectors(position, hole.position).getLength() <= hole.radius &&
                                                             speed < upperPuttVelocity) {
-            golfBallIsMoving = false;
+            isRunning = false;
             isFinished = true;
             golfBall.setPosition(hole.position);
         }
@@ -189,7 +189,7 @@ const GameMechanics = function(game) {
 
     function reset() {
         collisionData = null;
-        golfBallIsMoving = false;
+        isRunning = false;
         previousTimeStamp = null;
     }
 

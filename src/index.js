@@ -47,3 +47,7 @@ const game = new SingleplayerGame(rootSVGElement);
 game.generateNewCourse();
 game.show();
 Sidebar.show();
+
+//document.querySelector('.sand-cover').style.fill = 'url(#sand-gradient)';
+//document.querySelector('.water-cover').style.fill = 'url(#water-gradient)';
+//document.querySelector('.course-boundary-inner').style.fill = 'url(#sand-pattern)';

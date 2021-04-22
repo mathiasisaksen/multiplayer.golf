@@ -103,9 +103,10 @@ const Course = function(courseData, rootSVGElement) {
 
         _covers?.forEach(cover => {
             svgUtilities.drawPolygon(_courseElement, cover.vertices, 
-                svgConfig[`${cover.type}Attributes`], ['course-obstacle']);
+                svgConfig[`${cover.type}Attributes`], 
+                ['course-cover', `${cover.type}-cover`]);
             }
-        )
+        );
         const holeAttributes = svgConfig.holeAttributes;
         holeAttributes.r = _holeRadius;
         svgUtilities.drawCircle(_courseElement, _holePosition, holeAttributes, ['course-hole']);
