@@ -148,7 +148,12 @@ const Course = function(courseData, rootSVGElement) {
         const result = [];
         _covers?.forEach(cover => {
             if (mUtils.isPointInPolygon(position, cover.vertices)) {
-                result.push(cover);
+                // Ensure that the bridge cover always comes first
+                if (cover.type === 'bridge') {
+                    result.unshift(cover);
+                } else {
+                    result.push(cover);
+                }
             }
         });
         return(result);

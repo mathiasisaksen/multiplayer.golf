@@ -82,17 +82,93 @@
           viewBox="0 0 100 100"
         >
         <defs>
-          <pattern id="sand-gradient" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="0.5" height="0.5" viewBox="0 0 1 1" patternTransform="rotate(45)"> 
-            <rect x="0" y="0" width="1" height="1"></rect>
-            <rect x="0.2" y="0" width="1" height="1"></rect>
+          <pattern id="sand-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="0.5" height="0.5" viewBox="0 0 1 1" patternTransform="rotate(45)"> 
+            <rect x="0.00" y="0" width="1" height="1" fill="#DFD7BD"></rect>
+            <rect x="0.05" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
+            <rect x="0.10" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
+            <rect x="0.15" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
+            <rect x="0.20" y="0" width="0.05" height="1" fill="#DED6BB"></rect>
+            <rect x="0.25" y="0" width="0.05" height="1" fill="#DCD3B7"></rect>
+            <rect x="0.30" y="0" width="0.05" height="1" fill="#D8CEAE"></rect>
+            <rect x="0.35" y="0" width="0.05" height="1" fill="#D0C49E"></rect>
+            <rect x="0.40" y="0" width="0.05" height="1" fill="#C8BA8D"></rect>
+            <rect x="0.45" y="0" width="0.05" height="1" fill="#C2B381"></rect>
+            <rect x="0.50" y="0" width="0.05" height="1" fill="#C2B381"></rect>
+            <rect x="0.55" y="0" width="0.05" height="1" fill="#C8BA8D"></rect>
+            <rect x="0.60" y="0" width="0.05" height="1" fill="#D0C49E"></rect>
+            <rect x="0.65" y="0" width="0.05" height="1" fill="#D8CEAE"></rect>
+            <rect x="0.70" y="0" width="0.05" height="1" fill="#DCD3B7"></rect>
+            <rect x="0.75" y="0" width="0.05" height="1" fill="#DED6BB"></rect>
+            <rect x="0.80" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
+            <rect x="0.85" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
+            <rect x="0.90" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
+            <rect x="0.95" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
           </pattern>
-          <pattern id="water-gradient" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="1" height="1" viewBox="0 0 1 1" patternTransform="rotate(135)">
-            <rect x="0" y="0" width="1" height="1"></rect>
-            <rect x="-1" y="0" width="0.4" height="1"></rect>
-            <rect x="0" y="0" width="0.4" height="1"></rect>
+          <pattern id="water-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="1" height="1" viewBox="0 0 1 1" patternTransform="rotate(135)">
+            <g>
+              <rect x="0.00" y="0" width="1" height="1" fill="#147399"></rect>
+              <rect x="0.05" y="0" width="0.05" height="1" fill="#147399"></rect>
+              <rect x="0.10" y="0" width="0.05" height="1" fill="#147399"></rect>
+              <rect x="0.15" y="0" width="0.05" height="1" fill="#147399"></rect>
+              <rect x="0.20" y="0" width="0.05" height="1" fill="#14739A"></rect>
+              <rect x="0.25" y="0" width="0.05" height="1" fill="#14749A"></rect>
+              <rect x="0.30" y="0" width="0.05" height="1" fill="#14749B"></rect>
+              <rect x="0.35" y="0" width="0.05" height="1" fill="#14749B"></rect>
+              <rect x="0.40" y="0" width="0.05" height="1" fill="#14759C"></rect>
+              <rect x="0.45" y="0" width="0.05" height="1" fill="#14769D"></rect>
+              <rect x="0.50" y="0" width="0.05" height="1" fill="#14779E"></rect>
+              <rect x="0.55" y="0" width="0.05" height="1" fill="#1578A0"></rect>
+              <rect x="0.60" y="0" width="0.05" height="1" fill="#157AA2"></rect>
+              <rect x="0.65" y="0" width="0.05" height="1" fill="#157CA5"></rect>
+              <rect x="0.70" y="0" width="0.05" height="1" fill="#167FA9"></rect>
+              <rect x="0.75" y="0" width="0.05" height="1" fill="#1783AE"></rect>
+              <rect x="0.80" y="0" width="0.05" height="1" fill="#1888B5"></rect>
+              <rect x="0.85" y="0" width="0.05" height="1" fill="#198EBE"></rect>
+              <rect x="0.90" y="0" width="0.05" height="1" fill="#1A97C9"></rect>
+              <rect x="0.95" y="0" width="0.05" height="1" fill="#1DA2D8"></rect> 
+            </g>
+            
+            <animate attributeName="x" values="0; 1" dur="2s" begin="0s" repeatCount="indefinite" fill="freeze" keySplines="0.5 0 0.5 1 ; 0.5 0 0.5 1 ; 0.5 0 0.5 1 ; 0.5 0 0.5 1" />          
+          </pattern>
+          
+          <pattern id="wind-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="1" height="1" viewBox="0 0 1 1" patternTransform="rotate(225)">
+            <circle cx="0.25" cy="0.25" r="0.1" fill="#BFEFFF">
+              <animate attributeName="r" values="0.1; 0.2; 0.1" dur="2s" begin="0s" repeatCount="indefinite" fill="freeze"/>          
+            </circle>
+            <circle cx="0.75" cy="0.25" r="0.11" fill="#BFEFFF">
+              <animate attributeName="r" values="0.1; 0.2; 0.1" dur="2s" begin="0.5s" repeatCount="indefinite" fill="freeze"/>          
+            </circle>
+            <circle cx="0.75" cy="0.75" r="0.12" fill="#BFEFFF">
+              <animate attributeName="r" values="0.1; 0.2; 0.1" dur="2s" begin="1s" repeatCount="indefinite" fill="freeze"/>          
+            </circle>
+            <circle cx="0.25" cy="0.75" r="0.13" fill="#BFEFFF">
+              <animate attributeName="r" values="0.1; 0.2; 0.1" dur="2s" begin="1.5s" repeatCount="indefinite" fill="freeze"/>          
+            </circle>
+          </pattern>
+
+          <pattern id="bridge-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="2" height="2" viewBox="0 0 1 1"> 
+            <rect x="0.00" y="0" width="1" height="1" fill="#AC7336"></rect>
+<rect x="0.05" y="0" width="0.05" height="1" fill="#B27738"></rect>
+<rect x="0.10" y="0" width="0.05" height="1" fill="#AC7336"></rect>
+<rect x="0.15" y="0" width="0.05" height="1" fill="#AC7336"></rect>
+<rect x="0.20" y="0" width="0.05" height="1" fill="#B07537"></rect>
+<rect x="0.25" y="0" width="0.05" height="1" fill="#B27738"></rect>
+<rect x="0.30" y="0" width="0.05" height="1" fill="#B27738"></rect>
+<rect x="0.35" y="0" width="0.05" height="1" fill="#B27738"></rect>
+<rect x="0.40" y="0" width="0.05" height="1" fill="#A36D33"></rect>
+<rect x="0.45" y="0" width="0.05" height="1" fill="#20150A"></rect>
+<rect x="0.50" y="0" width="0.05" height="1" fill="#271A0C"></rect>
+<rect x="0.55" y="0" width="0.05" height="1" fill="#A66F34"></rect>
+<rect x="0.60" y="0" width="0.05" height="1" fill="#B27738"></rect>
+<rect x="0.65" y="0" width="0.05" height="1" fill="#B27738"></rect>
+<rect x="0.70" y="0" width="0.05" height="1" fill="#B27738"></rect>
+<rect x="0.75" y="0" width="0.05" height="1" fill="#B27738"></rect>
+<rect x="0.80" y="0" width="0.05" height="1" fill="#B07637"></rect>
+<rect x="0.85" y="0" width="0.05" height="1" fill="#B27738"></rect>
+<rect x="0.90" y="0" width="0.05" height="1" fill="#B07537"></rect>
+<rect x="0.95" y="0" width="0.05" height="1" fill="#B27738"></rect>
           </pattern>
         </defs>
-        <rect x="0" y="0" width="100%" height="100%" fill="url(#sand-pattern)"></rect>
       </svg>
         <div id="sidebar" class="not-selectable">
           <div id="sidebar-header">

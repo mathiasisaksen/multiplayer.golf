@@ -1,6 +1,6 @@
 const gameConfig = {
     golfBallRadius: 0.8,
-    maxSpeed: 40,
+    relativeMaxSpeed: 50,
     frictionPerTime: 0.4,
     relativeSpeedThreshold: 1.6,
     maxDirectionLineLength: 20,
@@ -22,9 +22,10 @@ const svgConfig = {
     boundaryAttributesOuter: {'stroke': 'black', 'stroke-width': 2, 'fill': 'none'},
     boundaryAttributesInner: {'stroke-width': 0, 'fill': '#3ab93a'},
     obstacleAttributes: {'stroke': 'white', 'fill': 'black'},
-    sandAttributes: {'stroke-width': 0, 'fill': '#c2b280'},
-    waterAttributes: {'stroke-width': 0, 'fill': '#1da2d8'},
-    windAttributes: {'stroke-width': 0, 'fill': '#ffffffaa'},
+    sandAttributes: {'stroke-width': 0},
+    waterAttributes: {'stroke-width': 0},
+    bridgeAttributes: {'stroke-width': 0},
+    windAttributes: {'stroke-width': 0},
     holeAttributes: {'r': 2.6*gameConfig.golfBallRadius, 'fill': 'black'},
     // The amount of padding added to the viewbox, based on the AABB of the course
     extentPadding: 0.1,

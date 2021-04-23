@@ -187,7 +187,7 @@ Game.prototype.computeGolfBallVelocity = function() {
     // The direction of the ball is in the opposite direction of
     // directionLineVector
     const initialDirection = this.directionLineVector.getDirection() + Math.PI;
-    const initialSpeed = gameConfig.maxSpeed * 
+    const initialSpeed = gameConfig.relativeMaxSpeed * this.golfBall.getRadius() * 
         this.directionLineVector.getLength() / gameConfig.maxDirectionLineLength;
     
     console.log(`speed: ${initialSpeed}, direction: ${initialDirection}`);

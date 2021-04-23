@@ -120,7 +120,11 @@ const GameMechanics = function(game) {
 
     function handleGolfBallOnCover(cover, timeStep) {
         const oldSpeed = golfBall.getSpeed();
-        if (cover.type === 'sand') {
+        if (cover.type === 'bridge') {
+            const frictionCoeff = - Math.log(1 - gameConfig.frictionPerTime);
+            const newSpeed = (1 - frictionCoeff*timeStep)*oldSpeed;
+            golfBall.setSpeed(newSpeed);
+        } else if (cover.type === 'sand') {
             const frictionCoeff = - Math.log(1 - gameConfig.frictionPerTime);
             const newSpeed = 
                 (1 - cover.frictionMultiplier*frictionCoeff*timeStep)*oldSpeed;
