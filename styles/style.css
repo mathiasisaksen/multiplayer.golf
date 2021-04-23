@@ -374,55 +374,19 @@ main {
 }
 
 .sand-cover {
-    fill: url(#sand-gradient);
-}
-
-#sand-gradient rect:first-child {
-    fill: #C2B280;
-}
-
-#sand-gradient rect:last-child {
-    fill: #E0D8BE;
+    fill: url(#sand-pattern);
 }
 
 .water-cover {
-    fill: url(#water-gradient);
-}
-
-#water-gradient rect:first-child {
-    fill: #1da2d8;
-}
-
-#water-gradient rect:nth-child(2) {
-    fill: #147399;
-    animation-name: water-animation-first;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    animation-fill-mode: both;
-}
-
-#water-gradient rect:last-child {
-    fill: #147399;
-    animation-name: water-animation-second;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    animation-fill-mode: both;
-}
-
-@keyframes water-animation-first {
-    0% {x: -1;}
-    100% {x: 0;}
-}
-
-@keyframes water-animation-second {
-    0% {x: 0;}
-    100% {x: 1;}
+    fill: url(#water-pattern);
 }
 
 .wind-cover {
-    fill: white;
+    fill: url(#wind-pattern);
+}
+
+.bridge-cover {
+    fill: url(#bridge-pattern);
 }
 
 @media (min-width: 600px) {
