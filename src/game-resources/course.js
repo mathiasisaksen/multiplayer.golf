@@ -1,5 +1,5 @@
 import * as svgUtilities from '../utilities/svg-utilities';
-import { svgConfig } from '../config';
+import { gameConfig, svgConfig } from '../config';
 import * as mUtils from '../utilities/math-utilities'
 
 // vertices is an object containing two arrays: boundary and obstacles
@@ -94,22 +94,22 @@ const Course = function(courseData, rootSVGElement) {
             svgConfig.boundaryAttributesOuter, ['course-boundary', 'course-boundary-outer']);
         svgUtilities.drawPolygon(_courseElement, _boundaryVertices, 
             svgConfig.boundaryAttributesInner, ['course-boundary', 'course-boundary-inner']);
-    
+
+        // Draw first cover last (slice creates shallow copy)
+        _covers?.slice().reverse().forEach(cover => {
+            svgUtilities.drawPolygon(_courseElement, cover.vertices, 
+                svgConfig[`${cover.type}Attributes`], 
+                ['course-cover', `${cover.type}-cover`]);
+            }
+        );
+
         _obstacles?.forEach(obstacleVertices => {
             svgUtilities.drawPolygon(_courseElement, obstacleVertices, 
                 svgConfig.obstacleAttributes, ['course-obstacle']);
             }
         );
 
-        _covers?.forEach(cover => {
-            svgUtilities.drawPolygon(_courseElement, cover.vertices, 
-                svgConfig[`${cover.type}Attributes`], 
-                ['course-cover', `${cover.type}-cover`]);
-            }
-        );
-        const holeAttributes = svgConfig.holeAttributes;
-        holeAttributes.r = _holeRadius;
-        svgUtilities.drawCircle(_courseElement, _holePosition, holeAttributes, ['course-hole']);
+        svgUtilities.drawCircle(_courseElement, _holePosition, _holeRadius, svgConfig.holeAttributes, ['course-hole']);
     }
 
     function destroy() {
@@ -120,6 +120,7 @@ const Course = function(courseData, rootSVGElement) {
         _courseElement = svgUtilities.createGroupElement(['course-container']);
         rootSVGElement.append(_courseElement);
         _fixVertexOrientation();
+        _orderCovers();
         _computeEdgesAndAABB();
         draw();
     }
@@ -142,6 +143,11 @@ const Course = function(courseData, rootSVGElement) {
 
     function getCourseAABB() {
         return(_courseAABB);
+    }
+
+    function _orderCovers() {
+        const priority = gameConfig.coverPriority;
+        _covers?.sort((a, b) => priority[a.type] - priority[b.type]);
     }
 
     function getCoversAtPosition(position) {

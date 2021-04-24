@@ -51,9 +51,10 @@ function drawPolygon(parentSVGElement, vertices, attributes, classArray) {
     return(polygonElement);
 }
 
-function drawCircle(parentSVGElement, center, attributes, classArray) {
+function drawCircle(parentSVGElement, center, radius, attributes, classArray) {
     attributes.cx = center.x ?? center.getX();
     attributes.cy = center.y ?? center.getY();
+    attributes.r = radius;
 
     const circleElement = createGeneralElement('circle', attributes, classArray);
 

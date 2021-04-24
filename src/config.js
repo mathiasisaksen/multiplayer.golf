@@ -9,11 +9,12 @@ const gameConfig = {
     directionLineStartColor: 'hsl(120, 100%, 50%)',
     directionLineEndColor: 'hsl(0, 100%, 50%)',
     interpolationsPerStep: 5,
-    announcementDuration: 1
+    announcementDuration: 1,
+    coverPriority: {bridge: 1, water: 2, sand: 3, wind: 4}
 };
 
 const svgConfig = {
-    golfBallAttributes: {'r': gameConfig.golfBallRadius, 'fill': 'white', 'stroke-width': 5, 'stroke': 'black', 'stroke-opacity': '0'},
+    golfBallAttributes: {'fill': 'white', 'stroke-width': 5, 'stroke': 'black', 'stroke-opacity': '0'},
     
     directionLineAttributes: {'stroke': gameConfig.directionLineStartColor, 'stroke-width': 0.5, 'fill': 'none', 'stroke-linecap': 'round'},
     // The boundary is divided into two components.

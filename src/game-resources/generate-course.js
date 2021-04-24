@@ -37,10 +37,10 @@ function generateCourse() {
             
                 {
                     type: 'water',
-                    vertices: [{x: 65, y: 48},
-                               {x: 65, y: 52},
-                               {x: 30, y: 52},
-                               {x: 30, y: 48}]
+                    vertices: [{x: 66, y: 40},
+                               {x: 66, y: 60},
+                               {x: 29, y: 60},
+                               {x: 29, y: 40}]
                 },
 
                 {
@@ -60,7 +60,7 @@ function generateCourse() {
                                {x: 30, y: 45}]
                 }
             ],
-            initialGolfBallPosition: {x: 80, y: 50}, golfBallRadius: 0.8,
+            golfBall: {initialPosition: {x: 80, y: 50}, radius: 0.8},
             hole: {position: {x: 12.5, y: 50}, radius: 2.1}
             };
     } else {
@@ -83,7 +83,7 @@ function generateCourse() {
                 {x: 64.4, y: 52.28},
                 {x: 71.5, y: 45.55},
                 {x: 75.56, y: 37.12}], 
-            initialGolfBallPosition: {x: 80, y: 40},
+            golfBall: {initialPosition: {x: 80, y: 40}, radius: 0.6},
             hole: {position: {x: 86, y: 33.4}, radius: 1.5}};
     }
     i++;

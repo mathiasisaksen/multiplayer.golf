@@ -8,18 +8,19 @@ const GolfBall = function(
         initialDirection, 
         rootSVGElement) {
     
-    let position = mUtils.Vector(courseData.initialGolfBallPosition);
+    let {initialPosition, radius} = courseData.golfBall;
+    let position = mUtils.Vector(initialPosition);
     let speed = initialSpeed;
     let direction = initialDirection;
-    let radius = courseData.golfBallRadius || gameConfig.golfBallRadius;
+    radius = radius ?? gameConfig.golfBallRadius;
     
     let _unitDirectionVector = mUtils.createUnitVector(direction);
     let _golfBallElement;
     let _isUserClickable = false;
 
     function draw() {
-        _golfBallElement = svgUtilities.drawCircle(rootSVGElement, position.getCoordinates(), 
-            svgConfig.golfBallAttributes, ['golf-ball']);
+        _golfBallElement = svgUtilities.drawCircle(rootSVGElement, position.getCoordinates(),
+        radius, svgConfig.golfBallAttributes, ['golf-ball']);
     }
 
     function getPosition() {
@@ -100,8 +101,7 @@ const GolfBall = function(
     }
 
     function moveToInitialPosition() {
-        position = mUtils.Vector(courseData.initialGolfBallPosition);
-        console.log(position.getCoordinates());
+        position = mUtils.Vector(initialPosition);
         setPosition(position);
     }
 
