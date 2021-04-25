@@ -6,6 +6,7 @@ import * as mUtils from '../utilities/math-utilities';
 import { svgConfig, gameConfig } from '../config';
 import * as colorUtils from '../utilities/color-utilities';
 import { generateCourse } from './generate-course';
+import { normalizeCourse } from './normalize-course';
 
 const gameContainer = document.querySelector('#game-container');
 
@@ -63,7 +64,7 @@ Game.prototype.getCourseNumber = function() {
 
 Game.prototype.setGameContent = function(newCourseData) {
     this._cleanUpGame();
-    this.courseData = newCourseData;
+    this.courseData = normalizeCourse(newCourseData);
     this._setNewCourse(this.courseData);
     this._setNewGolfBall(this.courseData);
     this.gameMechanics = GameMechanics(this);

@@ -134,7 +134,7 @@ const GameMechanics = function(game) {
             isRunning = false;
             golfBall.moveToInitialPosition();
         } else if (cover.type === 'wind') {
-            const speedChange = timeStep*cover.windStrength;
+            const speedChange = timeStep*cover.windStrength*golfBall.getRadius();
             golfBall.setSpeed(oldSpeed + speedChange);
         }
     }
