@@ -120,7 +120,9 @@ const OnlineGameHandler = (() => {
     function exit() {
         webSocket.close();
         webSocket = null;
+        onlineGame.destroy();
         onlineGame = null;
+        Sidebar.reset();
         gameId = null;
         playerId = null;
         playerName = null;

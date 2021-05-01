@@ -23,11 +23,11 @@ function dialogBox(prompt, buttonCallbackArray) {
         buttonElement.textContent = button.text;
 
         function buttonClickHandler(event) {
+            removeBlur();
+            dialogContainer.remove();
             if (typeof button.callback === 'function') {
                 button.callback(event);
             }
-            removeBlur();
-            dialogContainer.remove();
         }
         buttonElement.addEventListener('click', buttonClickHandler);
         buttonContainer.appendChild(buttonElement);

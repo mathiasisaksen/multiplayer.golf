@@ -43,6 +43,7 @@ function handleNewGame() {
     Sidebar.setExitCallback(() => {
         MenuController.show();
         game.hide();
+        game.destroy();
         Sidebar.reset();
         Sidebar.hide();
         game = null;

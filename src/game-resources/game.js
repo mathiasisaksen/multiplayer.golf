@@ -236,6 +236,11 @@ Game.prototype.hide = function() {
     gameContainer.classList.add('hidden');
 }
 
+Game.prototype.destroy = function() {
+    this.golfBall.destroy();
+    this.course.destroy();
+}
+
 Game.prototype.update = function() {
     this.golfBall.update();
 }

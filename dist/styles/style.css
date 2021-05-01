@@ -245,7 +245,7 @@ main {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #000000aa;
+    background-color: #000000ab;
 }
 
 .dialog-box-wrapper, .input-box-wrapper {
@@ -261,32 +261,38 @@ main {
 }
 
 .blur {
-    filter: blur(8px);
+    filter: blur(16px);
 }
 
 .dialog-box, .input-box {
     color: white;
     font-family: var(--main-font);
     position: relative;
-    padding: 2rem;
-    background-color: #00000077;
     background: linear-gradient(135.00deg, #87d7dcea 0%, #cb9b0069 24.84050638656275%, #d7245838 39.61244280006058%, #607bf25d 100%), linear-gradient(135.00deg, #9892cbad 0%, #c24c740e 13.420577127358701%, #7cd07392 18.672831489131905%, #fc890f95 26.74551378701311%, #8f1435da 43.54185806822602%, #50a467da 66.49749977061639%, #65ab9ea8 75.41733952536438%, #705ddfad 100%), linear-gradient(212.43deg, #69474aeb 0%, #c1781ada 14.94842270387883%, #08ede6bc 15.966145413764298%, #d482b981 42.25626308812375%, #79ad39dd 100%);
-    border-radius: 2rem;
+    border-radius: 2.1rem;
     margin: 2rem;
-    /*box-shadow: 0 0 20px 1px white;*/
 }
 
 .dialog-box-description, .input-box-description {
+    background-color: #000000;
+    padding: 3rem;
+    color: white;
+    mix-blend-mode: multiply;
+    border-radius: 2rem 2rem 0 0;
     font-size: var(--dialog-font-size);
     font-weight: bold;
     text-transform: uppercase;
-    margin-bottom: 3rem;
+    /*margin-bottom: 3rem;*/
     text-align: center;
 }
 
 .dialog-box-button-container, .input-box-button-container {
     display: flex;
     justify-content: space-evenly;
+    background-color: #000000;
+    mix-blend-mode: multiply;
+    padding: 0 3rem 3rem 3rem;
+    border-radius: 0 0 2rem 2rem;
 }
 
 .dialog-box-button, .input-box-button {
@@ -298,13 +304,13 @@ main {
     border-radius: 1rem;
     border: 2px solid white;
     text-align: center;
-    background-color: white;
-    color: black;
+    background-color: black;
+    color: white;
 }
 
 .dialog-box-button:hover, .input-box-button:hover {
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
 }
 
 .input-box-field-container {
@@ -507,7 +513,6 @@ main {
         justify-content: center;
         align-items: center;
         font-family: "Consolas";
-        color: white;
         font-size: 1.5rem;
         font-weight: bolder;
         width: 2.6rem;
@@ -518,6 +523,14 @@ main {
         box-sizing: border-box;
     }
 
+    .course-selection-button > svg {
+        height: 60%;
+    }
+
+    .course-selection-button > svg * {
+        fill: white;
+    }
+
     .course-selection-button:hover {
         background-color: white;
         color: var(--background-color);
@@ -525,12 +538,18 @@ main {
 
     #course-summary.course-summary-enabled {
         background-color: white;
-        color: var(--background-color);
+    }
+
+    #course-summary.course-summary-enabled > svg * {
+        fill: var(--background-color);
     }
 
     #course-summary.course-summary-enabled:hover {
         background-color: transparent;
-        color: white;
+    }
+
+    #course-summary.course-summary-enabled:hover > svg * {
+        fill: white;
     }
 
     .course-selection-button.course-summary-enabled:not(#course-summary) {

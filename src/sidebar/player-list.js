@@ -3,9 +3,9 @@ import { generateDistinctColor } from '../utilities/color-utilities';
 
 const PlayerList = (() => {
     const playerListContainer = document.querySelector('#player-list-container');
-    const playerArray = [];
-    const playerElementMap = {};
-    const playerColorMap = {};
+    let playerArray = [];
+    let playerElementMap = {};
+    let playerColorMap = {};
 
     function addPlayer(playerName) {
         playerArray.push(playerName);
