@@ -49,6 +49,11 @@ const ScoreBoard = (() => {
 
     function setScoreArray(_scoreArray) {
         scoreArray = _scoreArray;
+        courseNameIndexMap = scoreArray.reduce((acc, value, ind) => {
+            acc[value.courseName] = ind;
+            return(acc);
+        }, {});
+        selectedCourseNumber = scoreArray.length - 1;
         updateScoreTable();
     }
     
@@ -95,6 +100,16 @@ const ScoreBoard = (() => {
     function showSummaryContent() {
         setCourseHeader('Totals');
         if (scoreArray.length === 0) return;
+        
+        const totalScoreArray = computeTotals(); 
+
+        emptyTable();
+        for (const playerScore of totalScoreArray) {
+            insertTableElement(playerScore.name, playerScore.score);
+        }
+    }
+
+    function computeTotals() {
         const totalScores = {};
 
         for (const scoreEntry of scoreArray) {
@@ -108,11 +123,7 @@ const ScoreBoard = (() => {
         Object.keys(totalScores)
             .forEach(name => totalScoreArray.push({name, score: totalScores[name]}));
         totalScoreArray.sort((a, b) => a.score - b.score);
-
-        emptyTable();
-        for (const playerScore of totalScoreArray) {
-            insertTableElement(playerScore.name, playerScore.score);
-        }
+        return(totalScoreArray);
     }
 
     function setCourseHeader(name) {
@@ -145,7 +156,7 @@ const ScoreBoard = (() => {
     showCurrentCourseContent();
 
     return({ updateScoreTable, resetScoreboard,
-        incrementPlayerScore, setScoreArray });
+        incrementPlayerScore, setScoreArray, computeTotals });
 })();
 
 export default ScoreBoard;

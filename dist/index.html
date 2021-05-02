@@ -1,47 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MULTIPLAYER.GOLF</title>
-    <link rel="stylesheet" href="./styles/style.css" />
-  </head>
-  <body>
-    <main>
-      <div id="menu-wrapper" class="not-selectable">
-      </div>
-      <div id="game-container" class="hidden">
-        <div id="game-buttons">
-          <div class='game-button-container' id="copy-link-button" title="Copy link to game">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-            viewBox="-40 -20 313 313.7">
-              <style type="text/css">
-                .st0{fill:#000;stroke:#FFFFFF;stroke-width:10;stroke-miterlimit:10;}
-              </style>
-              <g class='st0 sidebar-svg-button-primary'>
-                <path d="M174.5,263.5h-142c-16.5,0-30-13.5-30-30v-201c0-16.5,13.5-30,30-30h142c16.5,0,30,13.5,30,30
-                  v201C204.5,250,191,263.5,174.5,263.5z"/>
-                <path d="M201.5,284.5h-142c-16.5,0-30-13.5-30-30v-201c0-16.5,13.5-30,30-30h142c16.5,0,30,13.5,30,30
-                  v201C231.5,271,218,284.5,201.5,284.5z"/>
-              </g>
-              <g class="sidebar-svg-button-secondary">
-                <path d="M84.8,192.2H70.3v-23.5h19.2l6.4-31.5H70.3v-23.6h30.5l8.4-41.7h24l-8.4,41.7h23.6l8.2-41.7
-                  h24.8l-8.6,41.7h14.8v23.6H168l-6.4,31.5h26v23.5h-30.8l-8.4,41.7h-23.8l8.2-41.7H109l-8.4,41.7H76.4L84.8,192.2z M120,137.1
-                  l-6.3,31.5h23.7l6.2-31.5H120z"/>
-              </g>
-            </svg>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MULTIPLAYER.GOLF</title>
+  <link rel="stylesheet" href="./styles/style.css" />
+</head>
+
+<body>
+  <main>
+    <div id="menu-wrapper" class="not-selectable">
+      <!--<div id="multiplayer-menu" class="menu">
+        <div id="menu-title" class="title-small">Multi-player game</div>
+        <div class="menu-element-container">
+          <div id="multiplayer-numcourse-container" class="menu-option-container">
+                <div id="multiplayer-numcourse-input-container" class="menu-inner-option-container menu-text-option">
+                    <div id="multiplayer-numcourse-label" class="option-label">Number of holes</div>
+                    <textarea id="multiplayer-numcourses-input" rows="1" placeholder="number > 0"></textarea>
+                </div>
           </div>
-          <div class='game-button-container' id="reset-view-button" title="Reset view">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 -30 500 500">
-<style type="text/css">
-	.st4{fill:#FFFFFF;}
-	.st5{fill:none;stroke:#FFFFFF;stroke-miterlimit:10;}
-</style>
-<g>
-	<g>
-		<path class="st4" d="M256.8,48c7.7,0,15.3,0.4,22.9,1.3c5.9,0.7-4.4-0.7-0.3,0c1.8,0.3,3.6,0.6,5.4,0.9
+          <div id="multiplayer-player-container" class="menu-option-container">
+            <div id="multiplayer-player-input-container" class="menu-inner-option-container menu-text-option">
+              <div id="multiplayer-addplayer-button" class="option-button">Add player</div>
+              <textarea id="multiplayer-numcourses-input" rows="1" placeholder="player name"></textarea>
+            </div>
+            <div id="multiplayer-player-list" class="disable-scrollbar">
+              <div class="player-list-element" style="background-color: rgb(204, 102, 102);">Mathias</div>
+            </div>
+          </div>
+          <div id="start-button" class="menu-button">Start game</div>
+          <div id="back-button" class="menu-button">Go back</div>
+        </div>
+      </div>-->
+    </div>
+    <div id="game-container" class="hidden">
+      <div id="game-buttons">
+        <div class='game-button-container' id="copy-link-button" title="Copy link to game">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="-40 -20 313 313.7">
+            <style type="text/css">
+              .st0 {
+                fill: #000;
+                stroke: #FFFFFF;
+                stroke-width: 10;
+                stroke-miterlimit: 10;
+              }
+            </style>
+            <g class='st0 sidebar-svg-button-primary'>
+              <path d="M174.5,263.5h-142c-16.5,0-30-13.5-30-30v-201c0-16.5,13.5-30,30-30h142c16.5,0,30,13.5,30,30
+                  v201C204.5,250,191,263.5,174.5,263.5z" />
+              <path d="M201.5,284.5h-142c-16.5,0-30-13.5-30-30v-201c0-16.5,13.5-30,30-30h142c16.5,0,30,13.5,30,30
+                  v201C231.5,271,218,284.5,201.5,284.5z" />
+            </g>
+            <g class="sidebar-svg-button-secondary">
+              <path d="M84.8,192.2H70.3v-23.5h19.2l6.4-31.5H70.3v-23.6h30.5l8.4-41.7h24l-8.4,41.7h23.6l8.2-41.7
+                  h24.8l-8.6,41.7h14.8v23.6H168l-6.4,31.5h26v23.5h-30.8l-8.4,41.7h-23.8l8.2-41.7H109l-8.4,41.7H76.4L84.8,192.2z M120,137.1
+                  l-6.3,31.5h23.7l6.2-31.5H120z" />
+            </g>
+          </svg>
+        </div>
+        <div class='game-button-container' id="reset-view-button" title="Reset view">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 -30 500 500">
+            <style type="text/css">
+              .st4 {
+                fill: #FFFFFF;
+              }
+
+              .st5 {
+                fill: none;
+                stroke: #FFFFFF;
+                stroke-miterlimit: 10;
+              }
+            </style>
+            <g>
+              <g>
+                <path class="st4" d="M256.8,48c7.7,0,15.3,0.4,22.9,1.3c5.9,0.7-4.4-0.7-0.3,0c1.8,0.3,3.6,0.6,5.4,0.9
 			c3.8,0.7,7.5,1.5,11.3,2.4c7.2,1.7,14.2,3.9,21.2,6.4c1.7,0.6,3.3,1.2,5,1.9c0.8,0.3,1.6,0.7,2.5,1c-0.3-0.1-5.6-2.5-2.1-0.9
 			c3.2,1.5,6.4,2.9,9.6,4.5c6.5,3.3,12.7,6.9,18.8,10.9c2.7,1.8,5.4,3.7,8.1,5.6c0.7,0.5,1.4,1,2.1,1.6c3.1,2.3-1.5-1.2-1.7-1.4
 			c1.4,1.3,3.1,2.5,4.6,3.7c5.5,4.6,10.8,9.5,15.8,14.7c2.3,2.4,4.5,4.8,6.6,7.2c1.1,1.3,2.3,2.6,3.4,4c0.6,0.7,1.1,1.4,1.6,2
@@ -62,27 +98,24 @@
 			c-0.3-1.8-0.6-3.6-0.9-5.4c-0.1-0.7-0.2-1.4-0.3-2c1.3,7.5,0.3,2.6,0.2,0.9c-0.8-7.4-1.2-14.8-1.3-22.2c0-12.6-11-24.6-24-24
 			c-13,0.6-24,10.5-24,24c0.1,34.7,8.4,68.7,24.1,99.6c15,29.6,37.1,54.6,63.3,74.7c53.2,40.8,125.5,53.8,189.9,35.6
 			c65.2-18.5,117.5-66.8,143.2-129.2c25.5-62,19.1-135.7-15.5-193c-17.2-28.4-40.8-52.6-68.5-70.8c-28.5-18.7-61.1-29.5-94.8-33.5
-			C272.5,0.5,264.7,0,256.8,0c-12.6,0-24.6,11.1-24,24C233.3,37,243.3,48,256.8,48L256.8,48z"/>
-	</g>
-</g>
-<g id="XMLID_2_">
-	<path id="XMLID_53_" class="st4" d="M4.8,219c-4.4,0-5.6-3-2.7-6.3l55.3-63.1c2.9-3.3,7.7-3.4,10.6-0.1l55.3,63.2
-		c2.9,3.3,1.7,6.2-2.7,6.2H4.8z"/>
-	<path id="XMLID_52_" class="st5" d="M4.8,218.5c-4.4,0-5.6-2.7-2.7-6l55.3-63c2.9-3.3,7.7-3.3,10.6,0l55.3,63c2.9,3.3,1.7,6-2.7,6
-		H4.8z"/>
-</g>
-</svg>
-          </div>
-
+			C272.5,0.5,264.7,0,256.8,0c-12.6,0-24.6,11.1-24,24C233.3,37,243.3,48,256.8,48L256.8,48z" />
+              </g>
+            </g>
+            <g id="XMLID_2_">
+              <path id="XMLID_53_" class="st4" d="M4.8,219c-4.4,0-5.6-3-2.7-6.3l55.3-63.1c2.9-3.3,7.7-3.4,10.6-0.1l55.3,63.2
+		c2.9,3.3,1.7,6.2-2.7,6.2H4.8z" />
+              <path id="XMLID_52_" class="st5" d="M4.8,218.5c-4.4,0-5.6-2.7-2.7-6l55.3-63c2.9-3.3,7.7-3.3,10.6,0l55.3,63c2.9,3.3,1.7,6-2.7,6
+		H4.8z" />
+            </g>
+          </svg>
         </div>
-        <div id="game-announcement" class="not-selectable"></div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          id="svg-container"
-          viewBox="0 0 100 100"
-        >
+
+      </div>
+      <div id="game-announcement" class="not-selectable"></div>
+      <svg xmlns="http://www.w3.org/2000/svg" id="svg-container" viewBox="0 0 100 100">
         <defs>
-          <pattern id="sand-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="0.5" height="0.5" viewBox="0 0 1 1" patternTransform="rotate(45)"> 
+          <pattern id="sand-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="0.5"
+            height="0.5" viewBox="0 0 1 1" patternTransform="rotate(45)">
             <rect x="0.00" y="0" width="1" height="1" fill="#DFD7BD"></rect>
             <rect x="0.05" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
             <rect x="0.10" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
@@ -104,7 +137,8 @@
             <rect x="0.90" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
             <rect x="0.95" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
           </pattern>
-          <pattern id="water-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="1" height="1" viewBox="0 0 1 1" patternTransform="rotate(135)">
+          <pattern id="water-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="1"
+            height="1" viewBox="0 0 1 1" patternTransform="rotate(135)">
             <g>
               <rect x="0.00" y="0" width="1" height="1" fill="#147399"></rect>
               <rect x="0.05" y="0" width="0.05" height="1" fill="#147399"></rect>
@@ -125,167 +159,156 @@
               <rect x="0.80" y="0" width="0.05" height="1" fill="#1888B5"></rect>
               <rect x="0.85" y="0" width="0.05" height="1" fill="#198EBE"></rect>
               <rect x="0.90" y="0" width="0.05" height="1" fill="#1A97C9"></rect>
-              <rect x="0.95" y="0" width="0.05" height="1" fill="#1DA2D8"></rect> 
+              <rect x="0.95" y="0" width="0.05" height="1" fill="#1DA2D8"></rect>
             </g>
-            
-            <animate attributeName="x" values="0; 1" dur="2s" begin="0s" repeatCount="indefinite" fill="freeze" keySplines="0.5 0 0.5 1 ; 0.5 0 0.5 1 ; 0.5 0 0.5 1 ; 0.5 0 0.5 1" />          
+
+            <animate attributeName="x" values="0; 1" dur="2s" begin="0s" repeatCount="indefinite" fill="freeze"
+              keySplines="0.5 0 0.5 1 ; 0.5 0 0.5 1 ; 0.5 0 0.5 1 ; 0.5 0 0.5 1" />
           </pattern>
-          
-          <pattern id="wind-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="1" height="1" viewBox="0 0 1 1" patternTransform="rotate(225)">
+
+          <pattern id="wind-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="1"
+            height="1" viewBox="0 0 1 1" patternTransform="rotate(225)">
             <circle cx="0.25" cy="0.25" r="0.1" fill="#BFEFFF">
-              <animate attributeName="r" values="0.1; 0.2; 0.1" dur="2s" begin="0s" repeatCount="indefinite" fill="freeze"/>          
+              <animate attributeName="r" values="0.1; 0.2; 0.1" dur="2s" begin="0s" repeatCount="indefinite"
+                fill="freeze" />
             </circle>
             <circle cx="0.75" cy="0.25" r="0.11" fill="#BFEFFF">
-              <animate attributeName="r" values="0.1; 0.2; 0.1" dur="2s" begin="0.5s" repeatCount="indefinite" fill="freeze"/>          
+              <animate attributeName="r" values="0.1; 0.2; 0.1" dur="2s" begin="0.5s" repeatCount="indefinite"
+                fill="freeze" />
             </circle>
             <circle cx="0.75" cy="0.75" r="0.12" fill="#BFEFFF">
-              <animate attributeName="r" values="0.1; 0.2; 0.1" dur="2s" begin="1s" repeatCount="indefinite" fill="freeze"/>          
+              <animate attributeName="r" values="0.1; 0.2; 0.1" dur="2s" begin="1s" repeatCount="indefinite"
+                fill="freeze" />
             </circle>
             <circle cx="0.25" cy="0.75" r="0.13" fill="#BFEFFF">
-              <animate attributeName="r" values="0.1; 0.2; 0.1" dur="2s" begin="1.5s" repeatCount="indefinite" fill="freeze"/>          
+              <animate attributeName="r" values="0.1; 0.2; 0.1" dur="2s" begin="1.5s" repeatCount="indefinite"
+                fill="freeze" />
             </circle>
           </pattern>
 
-          <pattern id="bridge-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="2" height="2" viewBox="0 0 1 1"> 
+          <pattern id="bridge-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="2"
+            height="2" viewBox="0 0 1 1">
             <rect x="0.00" y="0" width="1" height="1" fill="#AC7336"></rect>
-<rect x="0.05" y="0" width="0.05" height="1" fill="#B27738"></rect>
-<rect x="0.10" y="0" width="0.05" height="1" fill="#AC7336"></rect>
-<rect x="0.15" y="0" width="0.05" height="1" fill="#AC7336"></rect>
-<rect x="0.20" y="0" width="0.05" height="1" fill="#B07537"></rect>
-<rect x="0.25" y="0" width="0.05" height="1" fill="#B27738"></rect>
-<rect x="0.30" y="0" width="0.05" height="1" fill="#B27738"></rect>
-<rect x="0.35" y="0" width="0.05" height="1" fill="#B27738"></rect>
-<rect x="0.40" y="0" width="0.05" height="1" fill="#A36D33"></rect>
-<rect x="0.45" y="0" width="0.05" height="1" fill="#20150A"></rect>
-<rect x="0.50" y="0" width="0.05" height="1" fill="#271A0C"></rect>
-<rect x="0.55" y="0" width="0.05" height="1" fill="#A66F34"></rect>
-<rect x="0.60" y="0" width="0.05" height="1" fill="#B27738"></rect>
-<rect x="0.65" y="0" width="0.05" height="1" fill="#B27738"></rect>
-<rect x="0.70" y="0" width="0.05" height="1" fill="#B27738"></rect>
-<rect x="0.75" y="0" width="0.05" height="1" fill="#B27738"></rect>
-<rect x="0.80" y="0" width="0.05" height="1" fill="#B07637"></rect>
-<rect x="0.85" y="0" width="0.05" height="1" fill="#B27738"></rect>
-<rect x="0.90" y="0" width="0.05" height="1" fill="#B07537"></rect>
-<rect x="0.95" y="0" width="0.05" height="1" fill="#B27738"></rect>
+            <rect x="0.05" y="0" width="0.05" height="1" fill="#B27738"></rect>
+            <rect x="0.10" y="0" width="0.05" height="1" fill="#AC7336"></rect>
+            <rect x="0.15" y="0" width="0.05" height="1" fill="#AC7336"></rect>
+            <rect x="0.20" y="0" width="0.05" height="1" fill="#B07537"></rect>
+            <rect x="0.25" y="0" width="0.05" height="1" fill="#B27738"></rect>
+            <rect x="0.30" y="0" width="0.05" height="1" fill="#B27738"></rect>
+            <rect x="0.35" y="0" width="0.05" height="1" fill="#B27738"></rect>
+            <rect x="0.40" y="0" width="0.05" height="1" fill="#A36D33"></rect>
+            <rect x="0.45" y="0" width="0.05" height="1" fill="#20150A"></rect>
+            <rect x="0.50" y="0" width="0.05" height="1" fill="#271A0C"></rect>
+            <rect x="0.55" y="0" width="0.05" height="1" fill="#A66F34"></rect>
+            <rect x="0.60" y="0" width="0.05" height="1" fill="#B27738"></rect>
+            <rect x="0.65" y="0" width="0.05" height="1" fill="#B27738"></rect>
+            <rect x="0.70" y="0" width="0.05" height="1" fill="#B27738"></rect>
+            <rect x="0.75" y="0" width="0.05" height="1" fill="#B27738"></rect>
+            <rect x="0.80" y="0" width="0.05" height="1" fill="#B07637"></rect>
+            <rect x="0.85" y="0" width="0.05" height="1" fill="#B27738"></rect>
+            <rect x="0.90" y="0" width="0.05" height="1" fill="#B07537"></rect>
+            <rect x="0.95" y="0" width="0.05" height="1" fill="#B27738"></rect>
           </pattern>
         </defs>
       </svg>
-        <div id="sidebar" class="not-selectable">
-          <div id="sidebar-header">
-            <div id="sidebar-title">
-              Minig<svg
-                id="sidebar-title-hole"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                x="0px"
-                y="0px"
-                viewBox="0 0 260 260"
-                xml:space="preserve"
-              >
-                <path
-                  d="M0.5,0.5v259h259V0.5H0.5z M130.5,234.5C72.2,234.5,25,187.3,25,129S72.2,23.5,130.5,23.5
-                        S236,70.7,236,129S188.8,234.5,130.5,234.5z"
-                /></svg
-              >lf
-            </div>
-            <svg id="sidebar-exit-button" class="sidebar-svg-button" title="Leave game and exit to menu" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 333 333" style="enable-background:new 0 0 333 333;" xml:space="preserve">
-   <circle class="sidebar-svg-button-primary" cx="166.5" cy="166.5" r="166"/>
-<g>
-	<path class="sidebar-svg-button-secondary" d="M90.3,63.9l75.7,77.3l75.7-77.3l25.5,26.3l-75.3,76.9l75.3,76.9l-25.9,26.3L166,193.3
-		l-75.3,76.9l-25.9-26.3l75.3-76.9L64.8,90.2L90.3,63.9z"/>
-</g>
-</svg>
-
-            <svg
-              id="sidebar-toggle"
-              class="sidebar-svg-button"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              x="0px"
-              y="0px"
-              viewBox="0 0 357 357"
-            >
-              <defs>
-                <linearGradient id="sidebar-button-gradient">
-                  <stop offset="10%" stop-color="#fbc217" />
-                  <stop offset="30%" stop-color="#eb620b" />
-                  <stop offset="50%" stop-color="#b07830" />
-                  <stop offset="70%" stop-color="#586761" />
-                  <stop offset="90%" stop-color="#3c5778" />
-                </linearGradient>
-              </defs>
-              <circle class="sidebar-svg-button-primary" cx="178.5" cy="178.5" r="178" />
-              <g class="sidebar-svg-button-secondary">
-                <rect x="68" y="81" width="221" height="41" />
-                <rect x="68" y="158" width="221" height="41" />
-                <rect x="68" y="234" width="221" height="41" />
-              </g>
-            </svg>
+      <div id="sidebar" class="not-selectable">
+        <div id="sidebar-header">
+          <div id="sidebar-title">
+            Minig<svg id="sidebar-title-hole" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 260 260" xml:space="preserve">
+              <path d="M0.5,0.5v259h259V0.5H0.5z M130.5,234.5C72.2,234.5,25,187.3,25,129S72.2,23.5,130.5,23.5
+                        S236,70.7,236,129S188.8,234.5,130.5,234.5z" />
+            </svg>lf
           </div>
-          <div id="sidebar-body">
-            <div id="course-info-container">
-              <div id="course-title" class="sidebar-header-title">Hole <span id="current-course-number"></span> out of <span id="total-number-of-courses"></span></div>
-              <div id="course-selection">
-                <!--<div id="previous-course" class="course-selection-button">&lt</div>-->
-                <div id="previous-course" class="course-selection-button">
-                  <svg version="1.1" viewBox="0 0 6.2063 9.1519" xmlns="http://www.w3.org/2000/svg">
-                    <g transform="translate(-71.771 -90.219)">
-                      <g transform="matrix(-1 0 0 1 149.66 0)" stroke-width=".26458">
-                        <path class="course-selection-symbol" d="m74.702 91.355 2.6624 3.3906-2.713 3.487-2.3513 0.0011 3.0127-3.4881-3.0017-3.39z" stroke-width=".26458"/>
-                      </g>
+          <svg id="sidebar-exit-button" class="sidebar-svg-button" title="Leave game and exit to menu"
+            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 333 333" style="enable-background:new 0 0 333 333;" xml:space="preserve">
+            <circle class="sidebar-svg-button-primary" cx="166.5" cy="166.5" r="166" />
+            <g>
+              <path class="sidebar-svg-button-secondary" d="M90.3,63.9l75.7,77.3l75.7-77.3l25.5,26.3l-75.3,76.9l75.3,76.9l-25.9,26.3L166,193.3
+		l-75.3,76.9l-25.9-26.3l75.3-76.9L64.8,90.2L90.3,63.9z" />
+            </g>
+          </svg>
+
+          <svg id="sidebar-toggle" class="sidebar-svg-button" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 357 357">
+            <defs>
+              <linearGradient id="sidebar-button-gradient">
+                <stop offset="10%" stop-color="#fbc217" />
+                <stop offset="30%" stop-color="#eb620b" />
+                <stop offset="50%" stop-color="#b07830" />
+                <stop offset="70%" stop-color="#586761" />
+                <stop offset="90%" stop-color="#3c5778" />
+              </linearGradient>
+            </defs>
+            <circle class="sidebar-svg-button-primary" cx="178.5" cy="178.5" r="178" />
+            <g class="sidebar-svg-button-secondary">
+              <rect x="68" y="81" width="221" height="41" />
+              <rect x="68" y="158" width="221" height="41" />
+              <rect x="68" y="234" width="221" height="41" />
+            </g>
+          </svg>
+        </div>
+        <div id="sidebar-body">
+          <div id="course-info-container">
+            <div id="course-title" class="sidebar-header-title">Hole <span id="current-course-number"></span> out of
+              <span id="total-number-of-courses"></span></div>
+            <div id="course-selection">
+              <div id="previous-course" class="course-selection-button">
+                <svg version="1.1" viewBox="0 0 6.2063 9.1519" xmlns="http://www.w3.org/2000/svg">
+                  <g transform="translate(-71.771 -90.219)">
+                    <g transform="matrix(-1 0 0 1 149.66 0)" stroke-width=".26458">
+                      <path class="course-selection-symbol"
+                        d="m74.702 91.355 2.6624 3.3906-2.713 3.487-2.3513 0.0011 3.0127-3.4881-3.0017-3.39z"
+                        stroke-width=".26458" />
                     </g>
-                  </svg>
-                </div>
-                <div id="current-course"></div>
-                <div id="next-course" class="course-selection-button">
-                  <svg version="1.1" viewBox="0 0 6.2063 9.1519" xmlns="http://www.w3.org/2000/svg">
-                    <g transform="translate(-71.771 -90.219)">
-                      <g stroke-width=".26458">
-                        <path class="course-selection-symbol" d="m74.702 91.355 2.6624 3.3906-2.713 3.487-2.3513 0.0011 3.0127-3.4881-3.0017-3.39z" stroke-width=".26458"/>
-                      </g>
-                    </g>
-                  </svg>
-                </div>
-                <div id="course-summary" class="course-selection-button" title="Toggle summary of all courses">
-                  <svg version="1.1" viewBox="0 0 6.2063 9.1519" xmlns="http://www.w3.org/2000/svg">
-                    <g transform="translate(-71.771 -90.219)">
-                      <g stroke-width=".26458">
-                        <path class="course-selection-symbol" d="m77.983 90.219-0.0042 1.3953h-3.8054l2.6613 3.1316-2.713 3.2298h3.855v1.3953h-6.2063v-1.1369l3.0127-3.4881-3.0017-3.39v-1.1369z" stroke-width=".26458"/>
-                      </g>
-                    </g>
-                  </svg>
-                 </div>
+                  </g>
+                </svg>
               </div>
-              <div id="score-table">
-                <div id="table-header">
-                  <p>Player</p>
-                  <p>Score</p>
-                </div>
-                <div id="table-content" class="disable-scrollbar">
-                </div>
+              <div id="current-course"></div>
+              <div id="next-course" class="course-selection-button">
+                <svg version="1.1" viewBox="0 0 6.2063 9.1519" xmlns="http://www.w3.org/2000/svg">
+                  <g transform="translate(-71.771 -90.219)">
+                    <g stroke-width=".26458">
+                      <path class="course-selection-symbol"
+                        d="m74.702 91.355 2.6624 3.3906-2.713 3.487-2.3513 0.0011 3.0127-3.4881-3.0017-3.39z"
+                        stroke-width=".26458" />
+                    </g>
+                  </g>
+                </svg>
+              </div>
+              <div id="course-summary" class="course-selection-button" title="Toggle summary of all courses">
+                <svg version="1.1" viewBox="0 0 6.2063 9.1519" xmlns="http://www.w3.org/2000/svg">
+                  <g transform="translate(-71.771 -90.219)">
+                    <g stroke-width=".26458">
+                      <path class="course-selection-symbol"
+                        d="m77.983 90.219-0.0042 1.3953h-3.8054l2.6613 3.1316-2.713 3.2298h3.855v1.3953h-6.2063v-1.1369l3.0127-3.4881-3.0017-3.39v-1.1369z"
+                        stroke-width=".26458" />
+                    </g>
+                  </g>
+                </svg>
               </div>
             </div>
-            <div id="chat-player-container">
-              <div id="chat-player-header">
-                <div id="chat-player-title" class="sidebar-header-title">Players</div>
-                <div id="chat-player-buttons">
-                  <svg
-                  id="show-chat"
-                  class="sidebar-svg-button chat-player-selected"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  x="0px"
-                  y="0px"
-                  viewBox="0 0 327 327"
-                >
+            <div id="score-table">
+              <div id="table-header">
+                <p>Player</p>
+                <p>Score</p>
+              </div>
+              <div id="table-content" class="disable-scrollbar">
+              </div>
+            </div>
+          </div>
+          <div id="chat-player-container">
+            <div id="chat-player-header">
+              <div id="chat-player-title" class="sidebar-header-title">Players</div>
+              <div id="chat-player-buttons">
+                <svg id="show-chat" class="sidebar-svg-button chat-player-selected" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 327 327">
                   <circle class="sidebar-svg-button-primary" cx="163.5" cy="163.5" r="163" />
                   <g>
-                    <path 
-                      class="sidebar-svg-button-secondary"                      
+                    <path class="sidebar-svg-button-secondary"
                       d="M232.3,69.5H94.7c-25.2,0-46.5,19.6-46.5,44.8v61c0,25.2,21.3,46.2,46.5,46.2h25.5
-  c29,39,92.8,73.8,92.8,73.8c-21.8-20.7-46.8-73.8-46.8-73.8h66.2c25.2,0,44.8-21,44.8-46.2v-61C277.2,89.1,257.5,69.5,232.3,69.5z"
-                    />
+  c29,39,92.8,73.8,92.8,73.8c-21.8-20.7-46.8-73.8-46.8-73.8h66.2c25.2,0,44.8-21,44.8-46.2v-61C277.2,89.1,257.5,69.5,232.3,69.5z" />
                     <g>
                       <rect class="sidebar-svg-button-primary" x="82.2" y="86.5" width="162" height="25" />
                       <rect class="sidebar-svg-button-primary" x="82.2" y="133.5" width="162" height="24" />
@@ -293,42 +316,35 @@
                     </g>
                   </g>
                 </svg>
-                  <svg
-                    id="show-players"
-                    class="sidebar-svg-button"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    x="0px"
-                    y="0px"
-                    viewBox="0 0 327 327"
-                  >
-                    <circle class="sidebar-svg-button-primary" cx="163.5" cy="163.5" r="163" />
-                    <path class="sidebar-svg-button-secondary"
-                      d="M261.7,141.9c2.2-9,3.4-19.3,3.4-30.2c0-34.7-12.5-62.8-28-62.8c-15.5,0-28,28.1-28,62.8
+                <svg id="show-players" class="sidebar-svg-button" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 327 327">
+                  <circle class="sidebar-svg-button-primary" cx="163.5" cy="163.5" r="163" />
+                  <path class="sidebar-svg-button-secondary"
+                    d="M261.7,141.9c2.2-9,3.4-19.3,3.4-30.2c0-34.7-12.5-62.8-28-62.8c-15.5,0-28,28.1-28,62.8
 	c0,10.7,1.2,20.8,3.3,29.6c-3.9,4.4-7.4,9.8-10.3,15.9c-3.4-9.7-8-18.1-13.4-24.4c2.2-9,3.4-19.3,3.4-30.2c0-34.7-12.5-62.8-28-62.8
 	c-15.5,0-28,28.1-28,62.8c0,10.7,1.2,20.8,3.3,29.6c-5.5,6.1-10.1,14.2-13.5,23.8c-2.9-5.8-6.3-10.9-10-15.1
 	c2.7-9.7,4.3-21.1,4.3-33.3c0-34.7-12.5-62.8-28-62.8c-15.5,0-28,28.1-28,62.8c0,12,1.5,23.2,4.1,32.7
 	c-12.7,13.6-21.1,37.7-21.1,65.3c0,42.4,20,76.8,44.7,76.8c16,0,30-14.5,37.9-36.2c8.2,16.6,20.4,27.2,34.1,27.2
-	c14,0,26.5-11.1,34.7-28.4c7.8,22.4,22,37.4,38.3,37.4c24.7,0,44.7-34.4,44.7-76.8C281.5,179.1,273.7,155.7,261.7,141.9z"
-                    />
-                  </svg>         
-                </div>
+	c14,0,26.5-11.1,34.7-28.4c7.8,22.4,22,37.4,38.3,37.4c24.7,0,44.7-34.4,44.7-76.8C281.5,179.1,273.7,155.7,261.7,141.9z" />
+                </svg>
               </div>
-              <div id="chat-box-container">
-                <div id="chat-box" class="disable-scrollbar"></div>
-                <div id="chat-input-container">
-                  <input type="text" id="chat-input">
-                  <div id="chat-send-message-button">Send</div>
-                </div>
+            </div>
+            <div id="chat-box-container">
+              <div id="chat-box" class="disable-scrollbar"></div>
+              <div id="chat-input-container">
+                <input type="text" id="chat-input">
+                <div id="chat-send-message-button">Send</div>
               </div>
-              <div id="player-list-container" class="hidden disable-scrollbar">
-              </div>
+            </div>
+            <div id="player-list-container" class="hidden disable-scrollbar">
             </div>
           </div>
         </div>
       </div>
-    </main>
-    
-    <script src="./main.js"></script>
-  </body>
+    </div>
+  </main>
+
+  <script src="./main.js"></script>
+</body>
+
 </html>

@@ -13,23 +13,23 @@ const numberOfCoursesContainer = document.createElement('div');
 numberOfCoursesContainer.innerHTML = `
 <div id="singleplayer-numcourse-container" class="menu-option-container">
     <div id="singleplayer-numcourse-input-container" class="menu-inner-option-container menu-text-option">
-        <div id="singleplayer-numcourse-label" class="option-label">Number of courses</div>
+        <div id="singleplayer-numcourse-label" class="option-label">Number of holes</div>
         <textarea id="singleplayer-numcourses-input" rows="1" placeholder="number > 0"></textarea>
     </div>
 </div>
 `
 singleplayerMenu.addCustomElement(numberOfCoursesContainer);
 
-const numberOfCoursesElement = numberOfCoursesContainer.querySelector('#singleplayer-numcourses-input');
+const numberOfCoursesInput = numberOfCoursesContainer.querySelector('#singleplayer-numcourses-input');
 
 const startButton = singleplayerMenu.addButton('start-button', 'Start game');
 singleplayerMenu.addRestrictedEventListener(startButton,
-     'click', handleNewGame);
+     'click', handleStartGame);
 
-function handleNewGame() {
-    const numCourses = parseInt(numberOfCoursesElement.value);
+function handleStartGame() {
+    const numCourses = parseInt(numberOfCoursesInput.value);
     if (!numCourses) {
-        dialogBox('The number of courses must be a number greater than 0', [{text: 'Ok'}]);
+        dialogBox('The number of holes must be a number greater than 0', [{text: 'Ok'}]);
         return;
     }
     let game = new SingleplayerGame(rootSVGElement);
@@ -37,7 +37,7 @@ function handleNewGame() {
     MenuController.hide();
     game.show();
     Sidebar.show();
-    Sidebar.singleplayerSetup();
+    Sidebar.singleOrMultiplayerSetup();
     Sidebar.setCurrentCourse(1);
     Sidebar.setNumberOfCourses(numCourses);
     Sidebar.setExitCallback(() => {
@@ -62,7 +62,7 @@ const menuElement = singleplayerMenu.getMenuElement();
 menuElement.addEventListener('keydown', e => {
     if (e.key !== 'Enter') return;
     e.preventDefault();
-    handleNewGame();
+    handleStartGame();
     singleplayerMenu.clearInput();
 });
 

@@ -7,6 +7,8 @@ import { svgConfig, gameConfig } from '../config';
 import * as colorUtils from '../utilities/color-utilities';
 import { generateCourse } from './generate-course';
 import { normalizeCourse } from './normalize-course';
+import ScoreBoard from '../sidebar/score-board';
+import showAnnouncement from '../sidebar/show-announcement';
 
 const gameContainer = document.querySelector('#game-container');
 
@@ -243,6 +245,19 @@ Game.prototype.destroy = function() {
 
 Game.prototype.update = function() {
     this.golfBall.update();
+}
+
+Game.prototype.announceWinner = function() {
+    const scoreArray = ScoreBoard.computeTotals();
+    const winners = scoreArray.filter(player => player.score === scoreArray[0].score)
+        .map(player => player.name);
+    if (winners.length > 1) {
+        showAnnouncement(`Game finished, with a tie between ${winners.slice(0, -1).join(', ')} and ${winners.slice(-1)}!`,
+            () => {});
+    } else {
+        showAnnouncement(`Game finished, ${scoreArray[0].name} won!`,
+            () => {});
+    }
 }
 
 export default Game;

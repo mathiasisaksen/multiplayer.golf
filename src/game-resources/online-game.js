@@ -10,11 +10,6 @@ function OnlineGame(rootSVGElement) {
 
 OnlineGame.prototype = Object.create(Game.prototype);
 
-    // Method called by gameMechanics when the player finishes
-    /*game.playerFinished = function() {
-        console.log("finished");
-    }*/
-
 OnlineGame.prototype._handleGolfBallMouseUp = function() {
     window.removeEventListener('mousemove', this._handleGolfBallMouseMove);
     window.removeEventListener('mouseup', this._handleGolfBallMouseUp);

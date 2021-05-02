@@ -113,9 +113,14 @@ const Sidebar = (() => {
         sideBarElement.classList.add('hidden');
     }
 
-    function singleplayerSetup() {
+    function singleOrMultiplayerSetup() {
         chatPlayerContainer.classList.add('hidden');
-        sideBarElement.classList.add('singleplayer');
+        sideBarElement.classList.add('single-or-multiplayer');
+    }
+
+    function onlineSetup() {
+        chatPlayerContainer.classList.remove('hidden');
+        sideBarElement.classList.remove('single-or-multiplayer');
     }
 
     function reset() {
@@ -128,7 +133,7 @@ const Sidebar = (() => {
     }
 
     return({show, hide, setNumberOfCourses, getNumberOfCourses,
-        incrementCurrentCourse, setCurrentCourse, singleplayerSetup, setExitCallback, reset})
+        incrementCurrentCourse, setCurrentCourse, singleOrMultiplayerSetup, onlineSetup, setExitCallback, reset})
 })();
 
 export default Sidebar;

@@ -112,7 +112,7 @@ const GolfBall = function(
     }
 
     function getInitialPosition() {
-        return(mUtils.Vector(courseData.initialGolfBallPosition));
+        return(mUtils.Vector(initialPosition));
     }
 
     return({ initialize, draw, 

@@ -6,6 +6,7 @@ import Game from './game-resources/game';
 import rootSVGElement from './svg-setup';
 import SingleplayerGame from './game-resources/singleplayer-game';
 import Sidebar from './sidebar/sidebar';
+import multiplayerMenu from './menu-system/multiplayer-menu';
 
 const queryParameters = new URLSearchParams(window.location.search);
 const gameIdParameter = queryParameters.get('game-id');
@@ -40,8 +41,9 @@ function handleCopyLink() {
     );
 }
 
-MenuController.setMenu(mainMenu, true, true);
-/*MenuController.hide();
+MenuController.setMenu(multiplayerMenu, true, true);
+/*MenuController.setMenu(mainMenu, true, true);
+MenuController.hide();
 
 const game = new SingleplayerGame(rootSVGElement);
 game.generateNewCourse();
