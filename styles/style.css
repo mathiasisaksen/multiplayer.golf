@@ -168,6 +168,24 @@ main {
     margin: 0;
 }
 
+.menu-text-option > .option-button {
+    height: 100%;
+    color: var(--button-text-color);
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: #000000aa;
+    padding: 1rem;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.menu-text-option > .option-button:hover {
+    transform: scale(1.04);
+    background-color: black;
+}
+
 .menu-text-option {
     display: flex;
     flex-direction: row;
@@ -430,7 +448,7 @@ main {
         transition: bottom 1s;
     }
 
-    #sidebar.singleplayer {
+    #sidebar.single-or-multiplayer {
         bottom: initial;
     }
 
@@ -764,7 +782,7 @@ main {
     }
 
 
-    #player-list-container {
+    #player-list-container, .multiplayer-player-list {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
