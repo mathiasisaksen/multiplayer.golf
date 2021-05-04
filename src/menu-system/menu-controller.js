@@ -23,6 +23,7 @@ const MenuController = (() => {
         }
 
         // Set new menu to active, enabling button events
+        let oldMenuObject = menuObject;
         menuObject = newMenuObject;
         
         // Should the the new menu come in from the left, or the right?
@@ -69,6 +70,7 @@ const MenuController = (() => {
             });
             oldMenu.addEventListener('transitionend', e => {
                 if (e.target != oldMenu) return;
+                oldMenuObject.clearInput();
                 oldMenu.removeAttribute('style');
                 oldMenu.remove();
                 oldMenu = null;

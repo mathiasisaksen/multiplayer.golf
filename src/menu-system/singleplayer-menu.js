@@ -48,6 +48,8 @@ function handleStartGame() {
         Sidebar.hide();
         game = null;
     });
+
+    singleplayerMenu.clearInput();
 }
 
 const backButton = singleplayerMenu.addButton('back-button', 'Go back');
@@ -63,7 +65,6 @@ menuElement.addEventListener('keydown', e => {
     if (e.key !== 'Enter') return;
     e.preventDefault();
     handleStartGame();
-    singleplayerMenu.clearInput();
 });
 
 export default singleplayerMenu;

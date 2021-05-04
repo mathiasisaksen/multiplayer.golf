@@ -65,10 +65,17 @@ OnlineGame.prototype.storeNewCourseData = function(newCourseData, newCourseName)
     this.newCourseData = newCourseData;
 }
 
+OnlineGame.prototype.setGameFinished = function() {
+    this.isGameFinished = true;
+}
+
 OnlineGame.prototype.golfBallStoppedMoving = function() {
     this.golfBall.setPosition(this.finalPosition);
     
-    if (this.hasNewCourse) {
+    if (this.isGameFinished) {
+        this.golfBall.destroy();
+        this.announceWinner();
+    } else if (this.hasNewCourse) {
         showAnnouncement(`NEW HOLE, NEXT PLAYER: ${this.nextPlayer}!`, () => {
             this.switchToNewCourse();
             this.switchToNextPlayer();

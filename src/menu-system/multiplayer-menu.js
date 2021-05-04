@@ -112,4 +112,16 @@ multiplayerMenu.setTitle('Multi-player game', ['title-small']);
 
 multiplayerMenu.createMenuElement();
 
+const menuElement = multiplayerMenu.getMenuElement();
+menuElement.addEventListener('keydown', e => {
+    if (e.key !== "Enter") return;
+    e.preventDefault();
+    
+    if (e.target === playerInput) {
+        handleAddPlayer();
+    } else {
+        handleStartGame();
+    }
+})
+
 export default multiplayerMenu;

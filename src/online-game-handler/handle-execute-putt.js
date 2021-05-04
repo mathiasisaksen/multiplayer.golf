@@ -1,5 +1,4 @@
 import ScoreBoard from "../sidebar/score-board";
-import Sidebar from "../sidebar/sidebar";
 import OnlineGameHandler from "./online-game-handler";
 
 function handleExecutePutt(data) {
@@ -12,6 +11,10 @@ function handleExecutePutt(data) {
 
     if (data.isFinished) {
         onlineGame.storeNextPlayer(data.nextPlayer);
+    }
+
+    if (data.isGameFinished) {
+        onlineGame.setGameFinished();
     }
 
     if (data.isNewCourse) {

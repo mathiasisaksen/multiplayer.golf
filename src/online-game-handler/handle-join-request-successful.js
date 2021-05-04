@@ -15,6 +15,7 @@ function handleJoinRequestSuccessful(data) {
     
     onlineGame.setGameContent(data.courseData);
     onlineGame.setCurrentCourseName(data.courseName);
+    onlineGame.setNumberOfCourses(data.numberOfCourses);
 
     for (const playerName of data.playerNames) {
         PlayerList.addPlayer(playerName);

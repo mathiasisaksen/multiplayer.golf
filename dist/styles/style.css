@@ -78,8 +78,8 @@ main {
     width: 100%;
 }
 
-#title-hole {
-    height: var(--title-hole-size);
+#menu-title > svg {
+    height: var(--title-size);
     fill: var(--title-color);
 }
 

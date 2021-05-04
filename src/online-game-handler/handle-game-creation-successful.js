@@ -10,6 +10,7 @@ function handleGameCreationSuccessful(data) {
     onlineGame.setGameContent(data.courseData);
     onlineGame.setCurrentPlayer(data.currentPlayer);
     onlineGame.setCurrentCourseName(data.courseName);
+    onlineGame.setNumberOfCourses(data.numberOfCourses);
     
     OnlineGameHandler.setPlayerId(data.playerId);
     OnlineGameHandler.setGameId(data.gameId);

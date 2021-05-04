@@ -41,9 +41,9 @@ function handleCopyLink() {
     );
 }
 
-MenuController.setMenu(multiplayerMenu, true, true);
-/*MenuController.setMenu(mainMenu, true, true);
-MenuController.hide();
+/*MenuController.setMenu(multiplayerMenu, true, true);*/
+MenuController.setMenu(mainMenu, true, true);
+/*MenuController.hide();
 
 const game = new SingleplayerGame(rootSVGElement);
 game.generateNewCourse();
