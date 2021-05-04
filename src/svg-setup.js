@@ -65,34 +65,36 @@ function handleMouseMove(event) {
 }
 
 function handleSVGMouseDown(event) {
-    let initialPosition = {x: event.clientX , y: event.clientY};
-    const courseElement = rootSVGElement.querySelector('.course-container');
+    let initialPosition = rootSVGElement.createSVGPoint();
+    initialPosition.x = event.clientX;
+    initialPosition.y = event.clientY;
+
+    let svgCTM = rootSVGElement.getScreenCTM().inverse();
+    let initialSVGPosition = initialPosition.matrixTransform(svgCTM);
 
     function handleSVGMouseMove(event) {
-        const courseClientRect = courseElement.getBoundingClientRect();
-        const courseSVGRect = courseElement.getBBox();
-
+        
         const viewBox = rootSVGElement.getAttribute('viewBox')
             .split(' ')
             .map(elem => parseFloat(elem));
 
         // Current position of pointer
-        const currentPosition = {x: event.clientX , y: event.clientY};
+        let currentPosition = rootSVGElement.createSVGPoint();
+        currentPosition.x = event.clientX;
+        currentPosition.y = event.clientY;
+
+        let currentSVGPosition = currentPosition.matrixTransform(svgCTM);
 
         // How far has the pointer moved since the last move?
-        let amountX = currentPosition.x - initialPosition.x;
-        let amountY = currentPosition.y - initialPosition.y;
-
-        // Normalize to values between 0 and 1
-        amountX =  amountX * courseSVGRect.width / courseClientRect.width;
-        amountY =  amountY * courseSVGRect.height / courseClientRect.height;
+        let amountX = currentSVGPosition.x - initialSVGPosition.x;
+        let amountY = currentSVGPosition.y - initialSVGPosition.y;
 
         // Update lower left corner of viewbox
         viewBox[0] -= amountX;
         viewBox[1] -= amountY;
         
         rootSVGElement.setAttribute('viewBox', viewBox.join(' '));
-        initialPosition = currentPosition;
+        initialSVGPosition = currentSVGPosition;
     }
 
     function handleSVGMouseUp() {
