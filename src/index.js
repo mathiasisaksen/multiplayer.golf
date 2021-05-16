@@ -2,11 +2,9 @@ import MenuController from './menu-system/menu-controller';
 import mainMenu from './menu-system/main-menu';name
 import OnlineGameHandler from './online-game-handler/online-game-handler';
 import inputBox from './menu-system/input-box';
-import Game from './game-resources/game';
-import rootSVGElement from './svg-setup';
 import SingleplayerGame from './game-resources/singleplayer-game';
 import Sidebar from './sidebar/sidebar';
-import multiplayerMenu from './menu-system/multiplayer-menu';
+import rootSVGElement from './svg-setup';
 
 const queryParameters = new URLSearchParams(window.location.search);
 const gameIdParameter = queryParameters.get('game-id');
@@ -40,12 +38,4 @@ function handleCopyLink() {
     );
 }
 
-/*MenuController.setMenu(multiplayerMenu, true, true);*/
 MenuController.setMenu(mainMenu, true, true);
-/*MenuController.hide();
-
-const game = new SingleplayerGame(rootSVGElement);
-game.generateNewCourse();
-game.show();
-Sidebar.show();
-*/

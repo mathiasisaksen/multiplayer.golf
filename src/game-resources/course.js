@@ -90,7 +90,7 @@ const Course = function(courseData, rootSVGElement) {
     }
 
     function _sortCovers() {
-        _covers.sort((a, b) => 
+        _covers?.sort((a, b) => 
             gameConfig.coverPriority[a.type] - gameConfig.coverPriority[b.type]);
     }
     

@@ -1,6 +1,7 @@
 import * as svgUtils from './utilities/svg-utilities';
 import { svgConfig } from './config';
 
+const XMLNS = 'http://www.w3.org/2000/svg';
 const rootSVGElement = document.querySelector('#svg-container');
 let timeOfLastScroll = new Date().getTime();
 
@@ -103,5 +104,45 @@ rootSVGElement.addEventListener('wheel', handleSVGScrollZoom);
 window.addEventListener('keydown', handleSVGScrollKey.bind(rootSVGElement));
 
 rootSVGElement.addEventListener('mousedown', handleSVGMouseDown);
+
+// Setup grass pattern
+const grassPattern = document.querySelector("#grass-pattern");
+setupGrassPattern();
+
+function setupGrassPattern() {
+    const size = svgConfig.grassPatternSize;
+    const colors = ["#81B214", "#82B313", "#82B312", "#83B411", "#83B510", 
+        "#83B610", "#84B60F", "#84B70E", "#85B80D", "#86B80C", "#86B90C", 
+        "#86BA0B", "#87BB0A", "#88BB09", "#88BC08", "#89BD08", "#89BD07", 
+        "#8ABE06", "#8ABF05", "#8BC005"];
+
+    const background = document.createElementNS(XMLNS, 'rect');
+    background.setAttribute("x", 0);
+    background.setAttribute("y", 0);
+    background.setAttribute("width", 1);
+    background.setAttribute("height", 1);
+    background.setAttribute("fill", colors[0]);
+    grassPattern.appendChild(background);
+    const xArray = [...Array(size + 1).keys()];
+    xArray.sort((a, b) => Math.random() - 0.5);
+    const yArray = [...Array(size + 1).keys()];
+    yArray.sort((a, b) => Math.random() - 0.5);
+
+    for (let i = 0; i < size + 1; i++) {
+        const x = xArray[i] / size;
+        for (let j = 0; j < size + 1; j++) {
+            //console.log(i, j);
+            const y = yArray[j] / size;
+
+            const colorIndex = Math.floor(Math.random() * colors.length);
+            const circle = document.createElementNS(XMLNS, 'circle');
+            circle.setAttribute("cx", x);
+            circle.setAttribute("cy", y);
+            circle.setAttribute("r", 1 / size);
+            circle.setAttribute("fill", colors[colorIndex]);
+            grassPattern.appendChild(circle);
+        }
+    }
+}
 
 export default rootSVGElement;

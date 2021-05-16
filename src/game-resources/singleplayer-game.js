@@ -12,7 +12,7 @@ SingleplayerGame.prototype = Object.create(Game.prototype);
 SingleplayerGame.prototype.golfBallStoppedMoving = function() {
     this.golfBall.setUserClickable();
     if (this.isPlayerFinished) {
-        showAnnouncement('Next hole', () => this.generateNewCourse());
+        showAnnouncement('Next hole', () => this.loadNextCourse());
         Sidebar.incrementCurrentCourse();
     }
 }

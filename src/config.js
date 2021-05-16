@@ -21,7 +21,7 @@ const svgConfig = {
     // This is done to ensure that the drawn course is 
     // equal to the internal representation
     boundaryAttributesOuter: {'stroke': 'black', 'stroke-width': 2, 'fill': 'none'},
-    boundaryAttributesInner: {'stroke-width': 0, 'fill': '#3ab93a'},
+    boundaryAttributesInner: {'stroke-width': 0, 'fill': 'url(#grass-pattern)'},
     obstacleAttributes: {'stroke': 'white', 'fill': 'black'},
     sandAttributes: {'stroke-width': 0},
     waterAttributes: {'stroke-width': 0},
@@ -37,14 +37,15 @@ const svgConfig = {
     // the mouse position?
     centerMouseInterpolation: 0.1,
     scrollDelay: 0.02,
+    grassPatternSize: 20
 };
 svgConfig.boundaryAttributesInner['stroke-width'] = 0;
 svgConfig.obstacleAttributes['stroke-width'] = 0;
 //svgConfig.boundaryAttributesOuter['stroke-width'] = 0;
 
 const webSocketConfig = {
-    host: 'ws.multiplayer.golf',
-    //host: 'localhost',
+    //host: 'ws.multiplayer.golf',
+    host: 'localhost',
     port: 5600,
 };
 

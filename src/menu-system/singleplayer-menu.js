@@ -33,7 +33,8 @@ function handleStartGame() {
         return;
     }
     let game = new SingleplayerGame(rootSVGElement);
-    game.generateNewCourse();
+    game.loadRandomCourses(numCourses);
+    game.loadNextCourse();
     MenuController.hide();
     game.show();
     Sidebar.show();
