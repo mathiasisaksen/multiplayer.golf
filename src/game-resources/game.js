@@ -269,7 +269,7 @@ Game.prototype.announceWinner = function() {
 
 Game.prototype.loadRandomCourses = function(numberOfCourses) {
     const holes = holeArray.slice();
-    //holes.sort((a, b) => Math.random() - 0.5);
+    holes.sort((a, b) => Math.random() - 0.5);
     this.courseDataArray = holes.slice(0, numberOfCourses);
 }
 
