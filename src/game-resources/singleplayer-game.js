@@ -10,6 +10,10 @@ function SingleplayerGame(rootSVGElement) {
 SingleplayerGame.prototype = Object.create(Game.prototype);
 
 SingleplayerGame.prototype.golfBallStoppedMoving = function() {
+    if (this.currentCourseNumber === this.numberOfCourses && this.isPlayerFinished) {
+        showAnnouncement('Game finished!');
+        return;
+    }
     this.golfBall.setUserClickable();
     if (this.isPlayerFinished) {
         showAnnouncement('Next hole', () => this.loadNextCourse());

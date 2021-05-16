@@ -8,6 +8,7 @@ import MultiplayerGame from '../game-resources/multiplayer-game';
 import rootSVGElement from '../svg-setup';
 import Sidebar from '../sidebar/sidebar';
 import showAnnouncement from '../sidebar/show-announcement';
+import holeArray from '../data/holes';
 
 const multiplayerMenu = Menu('multiplayer-menu');
 
@@ -81,12 +82,17 @@ function handleStartGame() {
     } else if (players.length === 0) {
         dialogBox('At least one player must be added', [{text: 'Ok'}]);
         return;
+    } else if (numCourses > holeArray.length) {
+        dialogBox(`There are only ${holeArray.length} holes available`, [{text: 'Ok'}]);
+        return;
     }
 
     let game = new MultiplayerGame(rootSVGElement);
     game.setPlayerList(players);
-    game.generateNewCourse();
+    game.loadRandomCourses(numCourses);
+    game.loadNextCourse();
     game.setNumberOfCourses(numCourses);
+
     MenuController.hide();
     game.show();
 

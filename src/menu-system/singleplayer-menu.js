@@ -5,6 +5,7 @@ import Sidebar from '../sidebar/sidebar';
 import SingleplayerGame from '../game-resources/singleplayer-game';
 import rootSVGElement from '../svg-setup';
 import dialogBox from './dialog-box';
+import holeArray from '../data/holes';
 
 const singleplayerMenu = Menu('singeplayer-menu');
 
@@ -31,12 +32,18 @@ function handleStartGame() {
     if (!numCourses) {
         dialogBox('The number of holes must be a number greater than 0', [{text: 'Ok'}]);
         return;
+    } else if (numCourses > holeArray.length) {
+        dialogBox(`There are only ${holeArray.length} holes available`, [{text: 'Ok'}]);
+        return;
     }
     let game = new SingleplayerGame(rootSVGElement);
     game.loadRandomCourses(numCourses);
     game.loadNextCourse();
+    game.setNumberOfCourses(numCourses);
+
     MenuController.hide();
     game.show();
+
     Sidebar.show();
     Sidebar.singleOrMultiplayerSetup();
     Sidebar.setCurrentCourse(1);
