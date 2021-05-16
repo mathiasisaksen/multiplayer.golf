@@ -99,7 +99,6 @@ Game.prototype._handleGolfBallMouseDown = function(event) {
         golfBallPosition, golfBallPosition,
         svgConfig.directionLineAttributes, ['direction-line']);
     
-    //this._handleGolfBallMouseMove = this._handleGolfBallMouseMove.bind(this)
     window.addEventListener('mousemove', this._handleGolfBallMouseMove);
     window.addEventListener('mouseup', this._handleGolfBallMouseUp);
     window.addEventListener('keydown', this._handleEscapePutt);
@@ -108,7 +107,7 @@ Game.prototype._handleGolfBallMouseDown = function(event) {
 Game.prototype._handleGolfBallTouchStart = function() {
     if (!this.golfBall.checkUserClickable()) return;
     const golfBallPosition = this.golfBall.getPosition();
-    directionLineElement = svgUtilities.drawLine(this.rootSVGElement, 
+    this.directionLineElement = svgUtilities.drawLine(this.rootSVGElement, 
         golfBallPosition, golfBallPosition,
         svgConfig.directionLineAttributes, ['direction-line']);
     this.rootSVGElement.addEventListener('touchmove', this._handleGolfBallTouchMove);
