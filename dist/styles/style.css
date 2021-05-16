@@ -7,8 +7,7 @@
     --menu-header-size: 3rem;
     --menu-header-color: white;
     --menu-option-color: white;
-    --sidebar-title-size: 4rem;
-    --sidebar-hole-size: 2.9rem;
+    --sidebar-title-size: 3rem;
     --main-menu-gradient: linear-gradient(114.25deg, #7292237a 0%, #768eb018 28.544310498034875%, #f95b00e1 67.76231631775777%, #fdcd15fa 100%), linear-gradient(-60.65deg, #ff95f370 0%, #ffffff2b 37.16323872854659%, #00808047 100%), linear-gradient(208.95deg, #ba5860f5 0%, #88cf4c72 43.83907614489707%, #89b31857 84.33390357994351%, #0a0ab1da 100%), linear-gradient(206.79deg, #28e17984 0%, #fae978a5 13.374541439481057%, #fe174de1 49.4392607959516%, #0ca9ffc9 49.57755993587699%, #7a490fba 74.37050419428765%, #e67d1b70 77.19320217393313%, #f59d2b70 81.33138598824766%, #77b65142 87.29205538849311%, #0b9ba00b 100%);
     --main-font: arial;
     --dialog-font-size: 3rem;
@@ -286,7 +285,7 @@ main {
     color: white;
     font-family: var(--main-font);
     position: relative;
-    background: linear-gradient(135.00deg, #87d7dcea 0%, #cb9b0069 24.84050638656275%, #d7245838 39.61244280006058%, #607bf25d 100%), linear-gradient(135.00deg, #9892cbad 0%, #c24c740e 13.420577127358701%, #7cd07392 18.672831489131905%, #fc890f95 26.74551378701311%, #8f1435da 43.54185806822602%, #50a467da 66.49749977061639%, #65ab9ea8 75.41733952536438%, #705ddfad 100%), linear-gradient(212.43deg, #69474aeb 0%, #c1781ada 14.94842270387883%, #08ede6bc 15.966145413764298%, #d482b981 42.25626308812375%, #79ad39dd 100%);
+    background: linear-gradient(211.08deg, #bfb2add6 0%, #ddd33562 38.8325296964492%, #5fecf7ca 40.67977431110372%, #f2278987 84.10168059144517%, #e42cdddd 100%), linear-gradient(135.00deg, #ff813f4e 0%, #9df6f6b1 100%), linear-gradient(134.93deg, #1ac21942 0%, #6d27b7c8 35.40743912013316%, #c61780d6 38.93553053646599%, #a4946762 62.75611347748418%, #5707d47f 100%);
     border-radius: 2.1rem;
     margin: 2rem;
 }
@@ -307,7 +306,7 @@ main {
 .dialog-box-button-container, .input-box-button-container {
     display: flex;
     justify-content: space-evenly;
-    background-color: #000000;
+    background-color: black;
     mix-blend-mode: multiply;
     padding: 0 3rem 3rem 3rem;
     border-radius: 0 0 2rem 2rem;
@@ -332,8 +331,12 @@ main {
 }
 
 .input-box-field-container {
+    mix-blend-mode: multiply;
     display: flex;
     flex-direction: column;
+    background-color: black;
+    color: white;
+    padding: 0 3rem 0 3rem;
 }
 
 .input-box-field-element {
@@ -356,7 +359,8 @@ main {
     flex: 1;
     padding: 1rem 2rem 1rem 2rem;
     border-radius: 1.5rem;
-    background-color: #ffffffaa;
+    background-color: #242424;
+    color: white;
 }
 
 #game-announcement {
@@ -493,17 +497,9 @@ main {
     }
     
     #sidebar-title {
-        color: var(--title-color);
-        font-size: var(--sidebar-title-size);
-        text-transform: uppercase;
-        font-weight: bold;
-        text-align: center;
-        margin: 1rem 0 1rem 0rem;
-    }
-    
-    #sidebar-title-hole {
-        height: var(--sidebar-hole-size);
         fill: var(--title-color);
+        height: var(--sidebar-title-size);
+        margin: 1rem 0 1rem 0rem;
     }
 
     #course-selection {

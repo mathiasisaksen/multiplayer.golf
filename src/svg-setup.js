@@ -4,9 +4,6 @@ import { svgConfig } from './config';
 const rootSVGElement = document.querySelector('#svg-container');
 let timeOfLastScroll = new Date().getTime();
 
-let mouseX = rootSVGElement.clientWidth / 2;
-let mouseY = rootSVGElement.clientHeight / 2;
-
 function handleSVGScrollZoom(event) {
     const currentTime = new Date().getTime();
     if (currentTime - timeOfLastScroll < 1000*svgConfig.scrollDelay) return;
@@ -59,11 +56,6 @@ function handleSVGScrollKey(event) {
     this.setAttribute('viewBox', newViewBox.join(' '));
 }
 
-function handleMouseMove(event) {
-    mouseX = event.clientX;
-    mouseY = event.clientY;
-}
-
 function handleSVGMouseDown(event) {
     let initialPosition = rootSVGElement.createSVGPoint();
     initialPosition.x = event.clientX;
@@ -109,7 +101,6 @@ function handleSVGMouseDown(event) {
 
 rootSVGElement.addEventListener('wheel', handleSVGScrollZoom);
 window.addEventListener('keydown', handleSVGScrollKey.bind(rootSVGElement));
-rootSVGElement.addEventListener('mousemove', handleMouseMove);
 
 rootSVGElement.addEventListener('mousedown', handleSVGMouseDown);
 

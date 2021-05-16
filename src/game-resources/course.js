@@ -89,6 +89,11 @@ const Course = function(courseData, rootSVGElement) {
         });
     }
 
+    function _sortCovers() {
+        _covers.sort((a, b) => 
+            gameConfig.coverPriority[a.type] - gameConfig.coverPriority[b.type]);
+    }
+    
     function draw() {
         svgUtilities.drawPolygon(_courseElement, _boundaryVertices, 
             svgConfig.boundaryAttributesOuter, ['course-boundary', 'course-boundary-outer']);
@@ -120,7 +125,7 @@ const Course = function(courseData, rootSVGElement) {
         _courseElement = svgUtilities.createGroupElement(['course-container']);
         rootSVGElement.append(_courseElement);
         _fixVertexOrientation();
-        _orderCovers();
+        _sortCovers();
         _computeEdgesAndAABB();
         draw();
     }
@@ -145,21 +150,11 @@ const Course = function(courseData, rootSVGElement) {
         return(_courseAABB);
     }
 
-    function _orderCovers() {
-        const priority = gameConfig.coverPriority;
-        _covers?.sort((a, b) => priority[a.type] - priority[b.type]);
-    }
-
     function getCoversAtPosition(position) {
         const result = [];
         _covers?.forEach(cover => {
             if (mUtils.isPointInPolygon(position, cover.vertices)) {
-                // Ensure that the bridge cover always comes first
-                if (cover.type === 'bridge') {
-                    result.unshift(cover);
-                } else {
-                    result.push(cover);
-                }
+                result.push(cover);
             }
         });
         return(result);

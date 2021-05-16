@@ -10,7 +10,7 @@ const gameConfig = {
     directionLineEndColor: 'hsl(0, 100%, 50%)',
     interpolationsPerStep: 5,
     announcementDuration: 1,
-    coverPriority: {bridge: 1, water: 2, sand: 3, wind: 4}
+    coverPriority: {wind: 1, bridge: 2, water: 3, sand: 4}
 };
 
 const svgConfig = {
@@ -43,7 +43,7 @@ svgConfig.obstacleAttributes['stroke-width'] = 0;
 //svgConfig.boundaryAttributesOuter['stroke-width'] = 0;
 
 const webSocketConfig = {
-    host: '84.212.77.102',
+    host: 'ws.multiplayer.golf',
     //host: 'localhost',
     port: 5600,
 };

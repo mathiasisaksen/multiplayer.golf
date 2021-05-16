@@ -1,9 +1,7 @@
 import ScoreBoard from './score-board';
-import MenuController from '../menu-system/menu-controller';
 import ChatBox from './chat-box';
 import dialogBox from '../menu-system/dialog-box';
 import PlayerList from './player-list';
-import OnlineGameHandler from '../online-game-handler/online-game-handler';
 
 const Sidebar = (() => {
     const gameContainer = document.querySelector('#game-container');

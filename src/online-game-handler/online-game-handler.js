@@ -33,7 +33,7 @@ const OnlineGameHandler = (() => {
     }
 
     function createWSClient() {
-        const connectionString = `ws://${webSocketConfig.host}:${webSocketConfig.port}`;
+        const connectionString = `wss://${webSocketConfig.host}:${webSocketConfig.port}`;
         webSocket = new WebSocket(connectionString);
         webSocket.addEventListener('message', handleIncomingMessage);
         webSocket.addEventListener('error', handleConnectionError);

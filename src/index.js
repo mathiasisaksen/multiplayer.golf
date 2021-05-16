@@ -10,9 +10,8 @@ import multiplayerMenu from './menu-system/multiplayer-menu';
 
 const queryParameters = new URLSearchParams(window.location.search);
 const gameIdParameter = queryParameters.get('game-id');
-
 if (gameIdParameter) {
-    inputBox('Please enter a name',  [{fieldName: 'name', text: 'Name:'}], 
+    inputBox(`Joining game '${gameIdParameter}', please enter a name`,  [{fieldName: 'name', text: 'Name:'}], 
         [{text: 'Ok', callback: handleNameMenu}, {text: 'Cancel'}]);
 
     function handleNameMenu(event, fieldValues) {

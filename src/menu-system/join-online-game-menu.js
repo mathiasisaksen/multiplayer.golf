@@ -1,6 +1,7 @@
 import { playerConfig } from '../config';
 import OnlineGameHandler from '../online-game-handler/online-game-handler';
 import { checkValidId } from '../utilities/online-utilities';
+import dialogBox from './dialog-box';
 import Menu from './menu';
 import MenuController from './menu-controller';
 import onlineGameMenu from './online-game-menu';
