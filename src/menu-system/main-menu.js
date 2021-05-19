@@ -38,6 +38,152 @@ const holeSVG = `<svg version="1.1" viewBox="0 0 134.22 20.407" xmlns="http://ww
 
 mainMenu.setTitle(holeSVG);
 
+const aboutContainer = document.createElement('div');
+aboutContainer.setAttribute('id', 'about-container');
+aboutContainer.classList.add('disable-scrollbar', 'hidden');
+aboutContainer.innerHTML = `
+              <svg id="about-exit-button" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 333 333">
+                <circle id="about-exit-circle" cx="166.5" cy="166.5" r="166"></circle>
+                <g>
+                  <path id="about-exit-symbol" d="M90.3,63.9l75.7,77.3l75.7-77.3l25.5,26.3l-75.3,76.9l75.3,76.9l-25.9,26.3L166,193.3
+		l-75.3,76.9l-25.9-26.3l75.3-76.9L64.8,90.2L90.3,63.9z"></path>
+                </g>
+              </svg> 
+              <div id="about-content">
+                <h3>
+                  About
+                </h3>
+                <p>Made by Mathias Isaksen   •   <a href="https://www.instagram.com/st4yhome" target="_blank">Instagram</a>   •   GitHub: <a href="https://github.com/mathiasisaksen/minigolf" target="_blank">frontend</a>, <a href="https://github.com/mathiasisaksen/minigolf-backend" target="_blank">backend</a></p>
+                <p>If you like the game and want to help cover server costs, feel free to <a href="https://www.buymeacoffee.com/st4yhome" target="_blank">buy me a cup of coffee</a> :)</p>
+                <h3>
+                  Instructions
+                </h3>
+                <p>Zoom in and out by scrolling up and down (works for both mouse and touchpad)</p>
+                <p>Move around by clicking and dragging</p>
+                <p>Execute a putt by clicking and dragging the golf ball in the direction opposite to the intended direction and letting go. The color of the line that appears indicates the strength of the putt. A putt can be cancelled by pressing Esc</p>
+                <p>The four textures below affect the golf ball in different ways. Hover over each to read a description</p>
+                <div id="cover-type-container">
+                  <div class="tooltip" data-tooltip="Sand: Slows down the golf ball" data-location="top">
+                   <svg xmlns="http://www.w3.org/2000/svg" class="about-cover-svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 4 2">
+                    <defs>
+                      <pattern id="about-sand-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="0.5" height="0.5" viewBox="0 0 1 1" patternTransform="rotate(135)">
+                        <rect x="0.00" y="0" width="1" height="1" fill="#DFD7BD"></rect>
+                        <rect x="0.05" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
+                        <rect x="0.10" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
+                        <rect x="0.15" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
+                        <rect x="0.20" y="0" width="0.05" height="1" fill="#DED6BB"></rect>
+                        <rect x="0.25" y="0" width="0.05" height="1" fill="#DCD3B7"></rect>
+                        <rect x="0.30" y="0" width="0.05" height="1" fill="#D8CEAE"></rect>
+                        <rect x="0.35" y="0" width="0.05" height="1" fill="#D0C49E"></rect>
+                        <rect x="0.40" y="0" width="0.05" height="1" fill="#C8BA8D"></rect>
+                        <rect x="0.45" y="0" width="0.05" height="1" fill="#C2B381"></rect>
+                        <rect x="0.50" y="0" width="0.05" height="1" fill="#C2B381"></rect>
+                        <rect x="0.55" y="0" width="0.05" height="1" fill="#C8BA8D"></rect>
+                        <rect x="0.60" y="0" width="0.05" height="1" fill="#D0C49E"></rect>
+                        <rect x="0.65" y="0" width="0.05" height="1" fill="#D8CEAE"></rect>
+                        <rect x="0.70" y="0" width="0.05" height="1" fill="#DCD3B7"></rect>
+                        <rect x="0.75" y="0" width="0.05" height="1" fill="#DED6BB"></rect>
+                        <rect x="0.80" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
+                        <rect x="0.85" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
+                        <rect x="0.90" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
+                        <rect x="0.95" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
+                      </pattern>
+                    </defs>
+                    <rect fill="url(#about-sand-pattern)" width="4" height="2"></rect>
+                  </svg>
+                </div>
+                <div class="tooltip" data-tooltip="Water: Moves the golf ball back to the starting position" data-location="top">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="about-cover-svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 4 2">
+                    <defs>
+                      <pattern id="about-water-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="1" height="1" viewBox="0 0 1 1" patternTransform="rotate(135)">
+                      <g>
+                        <rect x="0.00" y="0" width="1" height="1" fill="#147399"></rect>
+                        <rect x="0.05" y="0" width="0.05" height="1" fill="#147399"></rect>
+                        <rect x="0.10" y="0" width="0.05" height="1" fill="#147399"></rect>
+                        <rect x="0.15" y="0" width="0.05" height="1" fill="#147399"></rect>
+                        <rect x="0.20" y="0" width="0.05" height="1" fill="#14739A"></rect>
+                        <rect x="0.25" y="0" width="0.05" height="1" fill="#14749A"></rect>
+                        <rect x="0.30" y="0" width="0.05" height="1" fill="#14749B"></rect>
+                        <rect x="0.35" y="0" width="0.05" height="1" fill="#14749B"></rect>
+                        <rect x="0.40" y="0" width="0.05" height="1" fill="#14759C"></rect>
+                        <rect x="0.45" y="0" width="0.05" height="1" fill="#14769D"></rect>
+                        <rect x="0.50" y="0" width="0.05" height="1" fill="#14779E"></rect>
+                        <rect x="0.55" y="0" width="0.05" height="1" fill="#1578A0"></rect>
+                        <rect x="0.60" y="0" width="0.05" height="1" fill="#157AA2"></rect>
+                        <rect x="0.65" y="0" width="0.05" height="1" fill="#157CA5"></rect>
+                        <rect x="0.70" y="0" width="0.05" height="1" fill="#167FA9"></rect>
+                        <rect x="0.75" y="0" width="0.05" height="1" fill="#1783AE"></rect>
+                        <rect x="0.80" y="0" width="0.05" height="1" fill="#1888B5"></rect>
+                        <rect x="0.85" y="0" width="0.05" height="1" fill="#198EBE"></rect>
+                        <rect x="0.90" y="0" width="0.05" height="1" fill="#1A97C9"></rect>
+                        <rect x="0.95" y="0" width="0.05" height="1" fill="#1DA2D8"></rect>
+                      </g>
+                      <animate attributeName="x" values="0; 1" dur="2s" begin="0s" repeatCount="indefinite" fill="freeze"></animate>
+                      </pattern>
+                    </defs>
+                    <rect fill="url(#about-water-pattern)" width="4" height="2"></rect>
+                  </svg>
+                </div>
+                <div class="tooltip" data-tooltip="Wind: Increases the speed of the golf ball" data-location="top">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="about-cover-svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 4 2">
+                    <defs>
+                      <pattern id="about-wind-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="1" height="1" viewBox="0 0 1 1" patternTransform="rotate(225)">
+                      <circle cx="0.25" cy="0.25" r="0.1" fill="#BFEFFF">
+                        <animate attributeName="r" values="0.1; 0.2; 0.1" dur="2s" begin="0s" repeatCount="indefinite" fill="freeze"></animate>
+                      </circle>
+                      <circle cx="0.75" cy="0.25" r="0.11" fill="#BFEFFF">
+                        <animate attributeName="r" values="0.1; 0.2; 0.1" dur="2s" begin="0.5s" repeatCount="indefinite" fill="freeze"></animate>
+                      </circle>
+                      <circle cx="0.75" cy="0.75" r="0.12" fill="#BFEFFF">
+                        <animate attributeName="r" values="0.1; 0.2; 0.1" dur="2s" begin="1s" repeatCount="indefinite" fill="freeze"></animate>
+                      </circle>
+                      <circle cx="0.25" cy="0.75" r="0.13" fill="#BFEFFF">
+                        <animate attributeName="r" values="0.1; 0.2; 0.1" dur="2s" begin="1.5s" repeatCount="indefinite" fill="freeze"></animate>
+                      </circle>
+                    </pattern>
+                    </defs>
+                    <rect fill="url(#about-wind-pattern)" width="4" height="2"></rect>
+                  </svg>
+                </div>
+                <div class="tooltip" data-tooltip="Bridge: Makes it possible to cross sand and water" data-location="top">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="about-cover-svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 4 2">
+                    <defs>
+                      <pattern id="about-bridge-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="2" height="2" viewBox="0 0 1 1">
+                      <rect x="0.00" y="0" width="1" height="1" fill="#AC7336"></rect>
+                      <rect x="0.05" y="0" width="0.05" height="1" fill="#B27738"></rect>
+                      <rect x="0.10" y="0" width="0.05" height="1" fill="#AC7336"></rect>
+                      <rect x="0.15" y="0" width="0.05" height="1" fill="#AC7336"></rect>
+                      <rect x="0.20" y="0" width="0.05" height="1" fill="#B07537"></rect>
+                      <rect x="0.25" y="0" width="0.05" height="1" fill="#B27738"></rect>
+                      <rect x="0.30" y="0" width="0.05" height="1" fill="#B27738"></rect>
+                      <rect x="0.35" y="0" width="0.05" height="1" fill="#B27738"></rect>
+                      <rect x="0.40" y="0" width="0.05" height="1" fill="#A36D33"></rect>
+                      <rect x="0.45" y="0" width="0.05" height="1" fill="#20150A"></rect>
+                      <rect x="0.50" y="0" width="0.05" height="1" fill="#271A0C"></rect>
+                      <rect x="0.55" y="0" width="0.05" height="1" fill="#A66F34"></rect>
+                      <rect x="0.60" y="0" width="0.05" height="1" fill="#B27738"></rect>
+                      <rect x="0.65" y="0" width="0.05" height="1" fill="#B27738"></rect>
+                      <rect x="0.70" y="0" width="0.05" height="1" fill="#B27738"></rect>
+                      <rect x="0.75" y="0" width="0.05" height="1" fill="#B27738"></rect>
+                      <rect x="0.80" y="0" width="0.05" height="1" fill="#B07637"></rect>
+                      <rect x="0.85" y="0" width="0.05" height="1" fill="#B27738"></rect>
+                      <rect x="0.90" y="0" width="0.05" height="1" fill="#B07537"></rect>
+                      <rect x="0.95" y="0" width="0.05" height="1" fill="#B27738"></rect>
+                    </pattern>
+                    </defs>
+                    <rect fill="url(#about-bridge-pattern)" width="4" height="2"></rect>
+                  </svg>
+                </div>
+                </div>
+              </div>
+`;
+
+mainMenu.addCustomElement(aboutContainer);
+
+const aboutExitButton = aboutContainer.querySelector('#about-exit-button');
+mainMenu.addRestrictedEventListener(aboutExitButton, 'click',
+    () => aboutContainer.classList.add('hidden'));
+
 const aboutButton = document.createElement('div');
 aboutButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" id="menu-about-button" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 viewBox="0 0 254 254">
@@ -49,8 +195,8 @@ c-6.2,5.2-10.4,13.2-12.7,23.9L60.7,91c0.9-15.3,7.5-28.3,19.6-39c12.1-10.7,28-16,
 C189.6,63,195.7,75.6,195.7,90C195.7,97.9,193.5,105.5,189,112.6z"/>
 </svg>`
 
-mainMenu.addRestrictedEventListener(aboutButton, 
-    'click', () => alert('about'));
+mainMenu.addRestrictedEventListener(aboutButton, 'click', 
+    () => aboutContainer.classList.remove('hidden'));
 
 mainMenu.addCustomElement(aboutButton);
 

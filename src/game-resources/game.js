@@ -79,6 +79,12 @@ Game.prototype.resizeViewBoxToCourse = function() {
         this.course.getCourseAABB(), svgConfig.extentPadding);
 }
 
+Game.prototype.loadRandomCourses = function(numberOfCourses) {
+    const holes = holeArray.slice();
+    holes.sort((a, b) => Math.random() - 0.5);
+    this.courseDataArray = holes.slice(0, numberOfCourses);
+}
+
 Game.prototype.generateNewCourse = function() {
     this.currentCourseNumber++;
     const newCourseData = generateCourse();
@@ -184,6 +190,7 @@ Game.prototype._handleGolfBallTouchEnd = function() {
     this.rootSVGElement.removeEventListener('touchend', this._handleGolfBallTouchEnd);
     this.directionLineElement.remove();
     this.directionLineElement = null;
+
     if (!this.directionLineVector) return;
 
     this.computeGolfBallVelocity();
@@ -264,12 +271,6 @@ Game.prototype.announceWinner = function() {
         showAnnouncement(`Game finished, ${scoreArray[0].name} won!`,
             () => {});
     }
-}
-
-Game.prototype.loadRandomCourses = function(numberOfCourses) {
-    const holes = holeArray.slice();
-    holes.sort((a, b) => Math.random() - 0.5);
-    this.courseDataArray = holes.slice(0, numberOfCourses);
 }
 
 export default Game;

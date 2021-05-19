@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MULTIPLAYER.GOLF</title>
   <link rel="stylesheet" href="./styles/style.css" />
+  <link rel="shortcut icon" type="image/png" href="image/favicon.png">
 </head>
 
 <body>
@@ -15,7 +16,7 @@
     </div>
     <div id="game-container" class="hidden">
       <div id="game-buttons">
-        <div class='game-button-container' id="copy-link-button" title="Copy link to game">
+        <div class='game-button-container tooltip hidden' id="copy-link-button" data-tooltip="Copy link to game" data-location="right">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="-40 -20 313 313.7">
             <style type="text/css">
@@ -39,7 +40,7 @@
             </g>
           </svg>
         </div>
-        <div class='game-button-container' id="reset-view-button" title="Reset view">
+        <div class='game-button-container tooltip' id="reset-view-button" data-tooltip="Reset view" data-location="right">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 -30 500 500">
             <style type="text/css">
@@ -92,11 +93,11 @@
       <div id="game-announcement" class="not-selectable"></div>
       <svg xmlns="http://www.w3.org/2000/svg" id="svg-container" viewBox="0 0 100 100">
         <defs>
-          <pattern id="grass-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="20"
-            height="20" viewBox="0 0 1 1" patternTransform="rotate(45)">
+          <pattern id="grass-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="3"
+            height="3" viewBox="0 0 1 1" patternTransform="rotate(45)">
           </pattern>
           <pattern id="sand-pattern" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" width="0.5"
-            height="0.5" viewBox="0 0 1 1" patternTransform="rotate(45)">
+            height="0.5" viewBox="0 0 1 1" patternTransform="rotate(135)">
             <rect x="0.00" y="0" width="1" height="1" fill="#DFD7BD"></rect>
             <rect x="0.05" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
             <rect x="0.10" y="0" width="0.05" height="1" fill="#DFD7BD"></rect>
@@ -210,7 +211,8 @@
                </g>
               </g>
               </svg>
-          <svg id="sidebar-exit-button" class="sidebar-svg-button" title="Leave game and exit to menu"
+              <div class="sidebar-svg-button tooltip" data-tooltip="Leave game and exit to menu"  data-location="bottom">
+                <svg id="sidebar-exit-button" title="Leave game and exit to menu"
             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 333 333">
             <circle class="sidebar-svg-button-primary" cx="166.5" cy="166.5" r="166" />
@@ -219,8 +221,10 @@
 		l-75.3,76.9l-25.9-26.3l75.3-76.9L64.8,90.2L90.3,63.9z" />
             </g>
           </svg>
-
-          <svg id="sidebar-toggle" class="sidebar-svg-button" xmlns="http://www.w3.org/2000/svg"
+              </div>
+          
+          <div class="sidebar-svg-button tooltip" data-tooltip="Toggle sidebar"  data-location="bottom">
+            <svg id="sidebar-toggle" class="sidebar-svg-button" xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 357 357">
             <defs>
               <linearGradient id="sidebar-button-gradient">
@@ -238,13 +242,14 @@
               <rect x="68" y="234" width="221" height="41" />
             </g>
           </svg>
+          </div>
         </div>
         <div id="sidebar-body">
           <div id="course-info-container">
             <div id="course-title" class="sidebar-header-title">Hole <span id="current-course-number"></span> out of
               <span id="total-number-of-courses"></span></div>
             <div id="course-selection">
-              <div id="previous-course" class="course-selection-button">
+              <div id="previous-course" class="course-selection-button tooltip" data-tooltip="Go to previous hole" data-location="bottom">
                 <svg version="1.1" viewBox="0 0 6.2063 9.1519" xmlns="http://www.w3.org/2000/svg">
                   <g transform="translate(-71.771 -90.219)">
                     <g transform="matrix(-1 0 0 1 149.66 0)" stroke-width=".26458">
@@ -256,7 +261,7 @@
                 </svg>
               </div>
               <div id="current-course"></div>
-              <div id="next-course" class="course-selection-button">
+              <div id="next-course" class="course-selection-button tooltip" data-tooltip="Go to next hole" data-location="bottom">
                 <svg version="1.1" viewBox="0 0 6.2063 9.1519" xmlns="http://www.w3.org/2000/svg">
                   <g transform="translate(-71.771 -90.219)">
                     <g stroke-width=".26458">
@@ -267,7 +272,7 @@
                   </g>
                 </svg>
               </div>
-              <div id="course-summary" class="course-selection-button" title="Toggle summary of all courses">
+              <div id="course-summary" class="course-selection-button tooltip" data-tooltip="Toggle summary of all courses" data-location="bottom">
                 <svg version="1.1" viewBox="0 0 6.2063 9.1519" xmlns="http://www.w3.org/2000/svg">
                   <g transform="translate(-71.771 -90.219)">
                     <g stroke-width=".26458">

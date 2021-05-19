@@ -37,15 +37,15 @@ const svgConfig = {
     // the mouse position?
     centerMouseInterpolation: 0.1,
     scrollDelay: 0.02,
-    grassPatternSize: 20
+    circlePatternSize: 20
 };
 svgConfig.boundaryAttributesInner['stroke-width'] = 0;
 svgConfig.obstacleAttributes['stroke-width'] = 0;
 //svgConfig.boundaryAttributesOuter['stroke-width'] = 0;
 
 const webSocketConfig = {
-    //host: 'ws.multiplayer.golf',
-    host: 'localhost',
+    host: 'ws.multiplayer.golf',
+    //host: 'localhost',
     port: 5600,
 };
 

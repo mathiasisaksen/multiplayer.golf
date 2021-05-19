@@ -30,8 +30,10 @@ MultiplayerGame.prototype.goToNextPlayer = function() {
             this.announceWinner();
         } else {
             showAnnouncement(`New hole, next player: ${this.getCurrentPlayer()}`, 
-                () => this.generateNewCourse());
-        Sidebar.incrementCurrentCourse();
+                () => {
+                    this.loadNextCourse();
+                    Sidebar.incrementCurrentCourse();
+            });
         }
     } else {
         showAnnouncement(`Next player: ${this.getCurrentPlayer()}`,

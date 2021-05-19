@@ -99,12 +99,16 @@ const OnlineGameHandler = (() => {
         MenuController.hide();    
         onlineGame.show();
         Sidebar.show();
+        const linkButton = document.querySelector('#copy-link-button');
+        linkButton.classList.remove('hidden');
     }
 
     function hideGame() {
         onlineGame.hide();
         Sidebar.hide();
         MenuController.show();    
+        const linkButton = document.querySelector('#copy-link-button');
+        linkButton.classList.add('hidden');
     }
 
     function sendPuttMessage() {

@@ -27,6 +27,21 @@ OnlineGame.prototype._handleGolfBallMouseUp = function() {
     OnlineGameHandler.sendPuttMessage();
 };
 
+OnlineGame.prototype._handleGolfBallTouchEnd = function() {
+    this.rootSVGElement.removeEventListener('touchmove', this._handleGolfBallTouchMove);
+    this.rootSVGElement.removeEventListener('touchend', this._handleGolfBallTouchEnd);
+    this.directionLineElement.remove();
+    this.directionLineElement = null;
+    
+    if (!this.directionLineVector) return;
+
+    this.computeGolfBallVelocity();
+    this.golfBall.setNotUserClickable();
+    this.directionLineVector = null;
+    
+    OnlineGameHandler.sendPuttMessage();
+}
+
 OnlineGame.prototype.setCurrentPlayer = function(currentPlayer) {
     this.currentPlayer = currentPlayer;
     if (this.currentPlayer === OnlineGameHandler.getPlayerName()) {

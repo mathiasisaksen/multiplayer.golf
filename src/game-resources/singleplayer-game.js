@@ -16,8 +16,10 @@ SingleplayerGame.prototype.golfBallStoppedMoving = function() {
     }
     this.golfBall.setUserClickable();
     if (this.isPlayerFinished) {
-        showAnnouncement('Next hole', () => this.loadNextCourse());
-        Sidebar.incrementCurrentCourse();
+        showAnnouncement('Next hole', () => {
+            this.loadNextCourse();
+            Sidebar.incrementCurrentCourse();
+        });
     }
 }
 
