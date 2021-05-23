@@ -35,12 +35,11 @@ function handleCopyLink() {
 }
 
 MenuController.setMenu(mainMenu, true, true);
-import SingleplayerGame from './game-resources/singleplayer-game';
+/*import SingleplayerGame from './game-resources/singleplayer-game';
 import rootSVGElement from './svg-setup';
 MenuController.hide();
 let game = new SingleplayerGame(rootSVGElement);
 game.loadRandomCourses(14);
 game.loadNextCourse();
 game.setNumberOfCourses(14);
-game.show();
-
+game.show();*/

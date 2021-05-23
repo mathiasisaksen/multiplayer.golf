@@ -129,6 +129,7 @@ a {
 #menu-title > svg {
     height: var(--title-size);
     fill: var(--title-color);
+    width: 80%;
 }
 
 .title-small {
@@ -367,17 +368,357 @@ a {
 }
 
 #sidebar {
-    display: flex;
+    display: none;
     flex-direction: column;
     position: absolute;
-    right: 2rem;
-    top: 2rem;
-    bottom: 2rem;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     padding: 1rem 3rem 1rem 3rem;
-    width: 30rem;
-    border-radius: 2rem;
     background-color: #000000aa;
     transition: bottom 1s;
+}
+
+#sidebar-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+#sidebar-header {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: var(--main-font);
+
+    align-items: baseline;
+}
+
+.sidebar-svg-button {
+    width: 3rem;
+    cursor: pointer;
+    transition-duration: 0.1s;
+    border-radius: 50%;
+}
+
+.sidebar-svg-button-primary {
+    fill: transparent;
+}
+
+.sidebar-svg-button-secondary {
+    fill: url(#sidebar-button-gradient);
+}
+
+#sidebar-toggle:hover {
+    transform: scale(1.1) rotate(90deg);
+}
+
+#sidebar-title {
+    fill: var(--title-color);
+    height: var(--sidebar-title-size);
+    margin: 1rem 0 1rem 0rem;
+}
+
+#course-selection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+#course-selection * {
+    margin: 0 0.5rem 0 0.5rem;
+}
+
+#course-selection :first-child {
+    margin-left: 0;
+}
+
+#course-selection :last-child {
+    margin-right: 0;
+}
+
+.course-selection-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border: 3px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.course-selection-button > svg {
+    height: 60%;
+}
+
+.course-selection-button > svg * {
+    fill: white;
+}
+
+.course-selection-button:hover {
+    background-color: white;
+    color: var(--background-color);
+}
+
+#course-summary.course-summary-enabled {
+    background-color: white;
+}
+
+#course-summary.course-summary-enabled > svg * {
+    fill: var(--background-color);
+}
+
+#course-summary.course-summary-enabled:hover {
+    background-color: transparent;
+}
+
+#course-summary.course-summary-enabled:hover > svg * {
+    fill: white;
+}
+
+.course-selection-button.course-summary-enabled:not(#course-summary) {
+    cursor: default;
+}
+
+.course-selection-button.course-summary-enabled:hover {
+    background-color: transparent;
+    color: white;
+}
+
+#current-course {
+    color: white;
+    font-family: var(--main-font);
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 2rem;
+    padding: 0.3rem;
+    flex: 1;
+    text-align: center;
+    background: var(--main-menu-gradient);
+    transition: filter 0.5s ease-in-out;
+}
+
+#current-course.course-summary-enabled {
+    filter: grayscale(100%);
+}
+
+#score-table {
+    color: white;
+    font-family: var(--main-font);
+    font-size: 1.7rem;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+#table-header {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+#table-header * {
+    text-align: center;
+    width: 50%;
+    font-weight: bold;
+}
+
+#table-content {
+    min-height: 5rem;
+    max-height: 13.4rem;
+    overflow-y: scroll;
+}
+
+#table-content > div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+#table-content > div * {
+    text-align: center;
+    width: 50%;
+}
+
+#chat-player-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 2rem;
+    flex-grow: 1;
+}
+
+#chat-player-container.hidden {
+    display: none;
+}
+
+#chat-player-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 0 0 1rem 0;
+    flex: none;
+}
+
+#chat-player-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.2rem;
+    border-radius: 3rem;
+    background-color: #6e6e6e11;
+    box-shadow: 0 0 3px 1px #fff;
+}
+
+.chat-player-selected {
+    background-color: #ffffff;
+    border-radius: 50%;
+    cursor: default;
+}
+
+#chat-player-buttons :first-child {
+    margin-right: 0.5rem;
+    padding: 0.5rem;
+    transition: background-color ease 0.1s;
+    
+}
+
+#chat-player-buttons :last-child {
+    margin-left: 0.5rem;
+    padding: 0.5rem;
+    transition: background-color ease 0.1s;
+}
+
+#chat-player-buttons :not(.chat-player-selected):hover {
+    background-color: #e0e0e0;
+}
+
+#chat-player-title {
+    margin-bottom: 0;
+}
+
+.sidebar-header-title {
+    width: 100%;
+    color: #fafafa;
+    font-family: var(--main-font);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 2.3rem;
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+#chat-box-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+#chat-box-container.hidden {
+    display: none;
+}
+
+#chat-box {
+    display: flex;
+    flex-direction: column-reverse;
+    flex-grow: 1;
+
+    /* To make div scrollable: */
+    min-height: 0;
+    height: 0;
+    
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 1rem;
+
+    padding: 1rem;
+    overflow: auto;
+    white-space: pre-wrap; /* Preserve whitespace */
+}
+
+#chat-box :last-child {
+    margin-top: auto;
+}
+
+.chat-element {
+    font-family: var(--main-font);
+    color: white;
+    font-size: 1.5rem;
+    margin: 1rem 0 1rem 0;
+}
+
+.chat-playername {
+    color: #fab816;
+}
+
+.chat-announcement {
+    font-style: italic;
+    font-weight: bold;
+}
+
+#chat-input-container {
+    margin: 1rem 0 1rem 0;
+    display: flex;
+    flex-direction: row;
+    flex: none;
+}
+
+#chat-input {
+    border-radius: 1rem;
+    flex: 1;
+    padding: 1rem;
+    outline: none;
+    background-color: #ffffffaa;
+}
+
+#chat-send-message-button {
+    cursor: pointer;
+    background-color: #ffffff;
+    font-size: 1.5rem;
+    font-family: var(--main-font);
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin: 0 0 0 1rem;
+}
+
+
+#player-list-container, .multiplayer-player-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    align-content: flex-start;
+
+    /* To make div scrollable: */
+    min-height: 0;
+    height: 0;
+
+    overflow: auto;
+}
+
+#player-list-container.hidden {
+    display: none;
+}
+
+.player-list-element {
+    display:inline-block;
+    font-size: 1.5rem;
+    color: white;
+    padding: 0.8rem;
+    height: fit-content;
+    font-family: var(--main-font);
+    border-radius: 2rem;
+    margin: 0 1rem 1rem 0;
 }
 
 .not-selectable {
@@ -570,6 +911,10 @@ a {
     .menu-element-container {
         max-width: 540px;
     }
+    
+    #menu-title > svg {
+        width: 100%;
+    }
 
     .menu-button {
         font-family: var(--main-font);
@@ -583,355 +928,24 @@ a {
     }
     
     #sidebar {
-        
+        display: flex;
+        left: initial;
+        right: 2rem;
+        top: 2rem;
+        bottom: 2rem;
+        border-radius: 2rem;
+        width: 30rem;
     }
 
     #sidebar.single-or-multiplayer {
         bottom: initial;
     }
 
-    #sidebar-body {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
-    }
-
     #sidebar-body.hidden {
         display: none;
     }
 
-    #sidebar-header {
-        display: flex;
-        width: 100%;
-        flex-direction: row;
-        justify-content: space-between;
-        font-family: var(--main-font);
+ 
 
-        align-items: baseline;
-    }
-
-    .sidebar-svg-button {
-        width: 3rem;
-        cursor: pointer;
-        transition-duration: 0.1s;
-        border-radius: 50%;
-    }
-
-    .sidebar-svg-button-primary {
-        fill: transparent;
-    }
-
-    .sidebar-svg-button-secondary {
-        fill: url(#sidebar-button-gradient);
-    }
     
-    #sidebar-toggle:hover {
-        transform: scale(1.1) rotate(90deg);
-    }
-    
-    #sidebar-title {
-        fill: var(--title-color);
-        height: var(--sidebar-title-size);
-        margin: 1rem 0 1rem 0rem;
-    }
-
-    #course-selection {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        
-    }
-
-    #course-selection * {
-        margin: 0 0.5rem 0 0.5rem;
-    }
-
-    #course-selection :first-child {
-        margin-left: 0;
-    }
-
-    #course-selection :last-child {
-        margin-right: 0;
-    }
-    
-    .course-selection-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 2.6rem;
-        height: 2.6rem;
-        border: 3px solid white;
-        border-radius: 50%;
-        cursor: pointer;
-        box-sizing: border-box;
-    }
-
-    .course-selection-button > svg {
-        height: 60%;
-    }
-
-    .course-selection-button > svg * {
-        fill: white;
-    }
-
-    .course-selection-button:hover {
-        background-color: white;
-        color: var(--background-color);
-    }
-
-    #course-summary.course-summary-enabled {
-        background-color: white;
-    }
-
-    #course-summary.course-summary-enabled > svg * {
-        fill: var(--background-color);
-    }
-
-    #course-summary.course-summary-enabled:hover {
-        background-color: transparent;
-    }
-
-    #course-summary.course-summary-enabled:hover > svg * {
-        fill: white;
-    }
-
-    .course-selection-button.course-summary-enabled:not(#course-summary) {
-        cursor: default;
-    }
-
-    .course-selection-button.course-summary-enabled:hover {
-        background-color: transparent;
-        color: white;
-    }
-
-    #current-course {
-        color: white;
-        font-family: var(--main-font);
-        font-size: 2rem;
-        font-weight: bold;
-        border-radius: 2rem;
-        padding: 0.3rem;
-        flex: 1;
-        text-align: center;
-        background: var(--main-menu-gradient);
-        transition: filter 0.5s ease-in-out;
-    }
-
-    #current-course.course-summary-enabled {
-        filter: grayscale(100%);
-    }
-
-    #score-table {
-        color: white;
-        font-family: var(--main-font);
-        font-size: 1.7rem;
-        width: 100%;
-        margin-top: 1rem;
-    }
-
-    #table-header {
-        display: flex;
-        flex-direction: row;
-        margin-bottom: 1rem;
-    }
-
-    #table-header * {
-        text-align: center;
-        width: 50%;
-        font-weight: bold;
-    }
-
-    #table-content {
-        min-height: 5rem;
-        max-height: 13.4rem;
-        overflow-y: scroll;
-    }
-
-    #table-content > div {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-    }
-
-    #table-content > div * {
-        text-align: center;
-        width: 50%;
-    }
-
-    #chat-player-container {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        margin-top: 2rem;
-        flex-grow: 1;
-    }
-
-    #chat-player-container.hidden {
-        display: none;
-    }
-
-    #chat-player-header {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        margin: 0 0 1rem 0;
-        flex: none;
-    }
-
-    #chat-player-buttons {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: 0.2rem;
-        border-radius: 3rem;
-        background-color: #6e6e6e11;
-        box-shadow: 0 0 3px 1px #fff;
-    }
-
-    .chat-player-selected {
-        background-color: #ffffff;
-        border-radius: 50%;
-        cursor: default;
-    }
-
-    #chat-player-buttons :first-child {
-        margin-right: 0.5rem;
-        padding: 0.5rem;
-        transition: background-color ease 0.1s;
-        
-    }
-
-    #chat-player-buttons :last-child {
-        margin-left: 0.5rem;
-        padding: 0.5rem;
-        transition: background-color ease 0.1s;
-    }
-
-    #chat-player-buttons :not(.chat-player-selected):hover {
-        background-color: #e0e0e0;
-    }
-
-    #chat-player-title {
-        margin-bottom: 0;
-    }
-
-    .sidebar-header-title {
-        width: 100%;
-        color: #fafafa;
-        font-family: var(--main-font);
-        text-transform: uppercase;
-        font-weight: 700;
-        font-size: 2.3rem;
-        text-align: left;
-        margin-bottom: 1rem;
-    }
-
-    #chat-box-container {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-    }
-
-    #chat-box-container.hidden {
-        display: none;
-    }
-
-    #chat-box {
-        display: flex;
-        flex-direction: column-reverse;
-        flex-grow: 1;
-
-        /* To make div scrollable: */
-        min-height: 0;
-        height: 0;
-        
-        border: 1px solid rgb(255, 255, 255);
-        border-radius: 1rem;
-
-        padding: 1rem;
-        overflow: auto;
-        white-space: pre-wrap; /* Preserve whitespace */
-    }
-
-    #chat-box :last-child {
-        margin-top: auto;
-    }
-
-    .chat-element {
-        font-family: var(--main-font);
-        color: white;
-        font-size: 1.5rem;
-        margin: 1rem 0 1rem 0;
-    }
-
-    .chat-playername {
-        color: #fab816;
-    }
-
-    .chat-announcement {
-        font-style: italic;
-        font-weight: bold;
-    }
-
-    #chat-input-container {
-        margin: 1rem 0 1rem 0;
-        display: flex;
-        flex-direction: row;
-        flex: none;
-    }
-
-    #chat-input {
-        border-radius: 1rem;
-        flex: 1;
-        padding: 1rem;
-        outline: none;
-        background-color: #ffffffaa;
-    }
-
-    #chat-send-message-button {
-        cursor: pointer;
-        background-color: #ffffff;
-        font-size: 1.5rem;
-        font-family: var(--main-font);
-        font-weight: bold;
-        text-transform: uppercase;
-        padding: 1rem;
-        border-radius: 1rem;
-        margin: 0 0 0 1rem;
-    }
-
-
-    #player-list-container, .multiplayer-player-list {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        flex-grow: 1;
-        flex-wrap: wrap;
-        align-content: flex-start;
-
-        /* To make div scrollable: */
-        min-height: 0;
-        height: 0;
-
-        overflow: auto;
-    }
-
-    #player-list-container.hidden {
-        display: none;
-    }
-
-    .player-list-element {
-        display:inline-block;
-        font-size: 1.5rem;
-        color: white;
-        padding: 0.8rem;
-        height: fit-content;
-        font-family: var(--main-font);
-        border-radius: 2rem;
-        margin: 0 1rem 1rem 0;
-    }
 }
