@@ -206,7 +206,6 @@ Game.prototype.computeGolfBallVelocity = function() {
     const initialSpeed = gameConfig.relativeMaxSpeed * this.golfBall.getRadius() * 
         this.directionLineVector.getLength() / gameConfig.maxDirectionLineLength;
     
-    console.log(`speed: ${initialSpeed}, direction: ${initialDirection}`);
     this.golfBall.setDirection(initialDirection);
     this.golfBall.setSpeed(initialSpeed);
 }
@@ -238,7 +237,6 @@ Game.prototype.setGolfBallDirection = function(newDirection) {
 
 Game.prototype.setGolfBallPosition = function(newPosition) {
     const position = mUtils.Vector(newPosition);
-    console.log(position.getCoordinates());
     this.golfBall.setPosition(position);
     this.golfBall.update();
 }

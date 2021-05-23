@@ -20,7 +20,6 @@ function handleExecutePutt(data) {
     if (data.isNewCourse) {
         onlineGame.storeNewCourseData(data.newCourseData, data.newCourseName);
     }
-    console.log(onlineGame.getCurrentCourseName());
     ScoreBoard.incrementPlayerScore(onlineGame.getCurrentCourseName(), playerName);
     onlineGame.setGolfBallSpeed(speed);    
     onlineGame.setGolfBallDirection(direction);

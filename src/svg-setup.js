@@ -123,7 +123,6 @@ function setupCirclePattern(patternElement, colors) {
     for (let i = 0; i < size + 1; i++) {
         const x = xArray[i] / size;
         for (let j = 0; j < size + 1; j++) {
-            //console.log(i, j);
             const y = yArray[j] / size;
 
             const colorIndex = Math.floor(Math.random() * colors.length);

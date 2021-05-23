@@ -13,6 +13,7 @@ const GolfBall = function(
     let speed = initialSpeed;
     let direction = initialDirection;
     radius = radius ?? gameConfig.golfBallRadius;
+    let maxSpeed = radius * gameConfig.relativeMaxSpeed;
     
     let _unitDirectionVector = mUtils.createUnitVector(direction);
     let _golfBallElement;
@@ -37,7 +38,7 @@ const GolfBall = function(
     }
 
     function setSpeed(newSpeed) {
-        speed = newSpeed;
+        speed = Math.min(newSpeed, maxSpeed);
     }
 
     function getDirection() {
@@ -55,6 +56,7 @@ const GolfBall = function(
 
     function setRadius(newRadius) {
         radius = newRadius;
+        maxSpeed = radius * gameConfig.relativeMaxSpeed;
     }
 
     function step(timeStep) {

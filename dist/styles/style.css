@@ -143,6 +143,7 @@ a {
     width: 90%;
     box-sizing: border-box;
     padding: 2rem 4rem 2rem 4rem;
+    box-shadow: 0px 0px 10px 0px black;
 }
 
 .menu-button {
@@ -346,6 +347,8 @@ a {
     width: 6rem;
     height: 3rem;
     transition: transform 0.2s ease;
+    border: 1px solid white;
+    border-radius: 1rem;
 }
 
 .about-cover-svg:hover {
@@ -364,7 +367,17 @@ a {
 }
 
 #sidebar {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+    bottom: 2rem;
+    padding: 1rem 3rem 1rem 3rem;
+    width: 30rem;
+    border-radius: 2rem;
+    background-color: #000000aa;
+    transition: bottom 1s;
 }
 
 .not-selectable {
@@ -570,17 +583,7 @@ a {
     }
     
     #sidebar {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        right: 2rem;
-        top: 2rem;
-        bottom: 2rem;
-        padding: 1rem 3rem 1rem 3rem;
-        width: 30rem;
-        border-radius: 2rem;
-        background-color: #000000aa;
-        transition: bottom 1s;
+        
     }
 
     #sidebar.single-or-multiplayer {

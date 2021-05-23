@@ -46,7 +46,6 @@ const Sidebar = (() => {
             sideBarElement.style.bottom = 'initial';
         }
         isCollapsed = !isCollapsed;
-        console.log(isCollapsed);
     }
 
 

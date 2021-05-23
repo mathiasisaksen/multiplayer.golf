@@ -5,7 +5,6 @@ import Sidebar from "../sidebar/sidebar";
 import OnlineGameHandler from "./online-game-handler";
 
 function handleGameCreationSuccessful(data) {
-    console.log(data);
     const onlineGame = OnlineGameHandler.createGame();
     onlineGame.setGameContent(data.courseData);
     onlineGame.setCurrentPlayer(data.currentPlayer);

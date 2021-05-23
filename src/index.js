@@ -11,7 +11,6 @@ if (gameIdParameter) {
 
     function handleNameMenu(event, fieldValues) {
         let playerName = fieldValues['name'];
-        console.log(fieldValues);
         OnlineGameHandler.setPlayerName(playerName);
         const wsClient = OnlineGameHandler.createWSClient();
         wsClient.addEventListener('open', () => {
@@ -36,9 +35,12 @@ function handleCopyLink() {
 }
 
 MenuController.setMenu(mainMenu, true, true);
-/*MenuController.hide();
+import SingleplayerGame from './game-resources/singleplayer-game';
+import rootSVGElement from './svg-setup';
+MenuController.hide();
 let game = new SingleplayerGame(rootSVGElement);
 game.loadRandomCourses(14);
 game.loadNextCourse();
 game.setNumberOfCourses(14);
-game.show();*/
+game.show();
+

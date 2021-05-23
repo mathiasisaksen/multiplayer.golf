@@ -72,8 +72,6 @@ const OnlineGameHandler = (() => {
     }
 
     function handleIncomingMessage(event) {
-        console.log(JSON.parse(event.data));
-        //return;
         const outerData = JSON.parse(event.data);
         let eventName = outerData.eventName;
         let data = outerData.data;

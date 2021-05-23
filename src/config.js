@@ -1,6 +1,6 @@
 const gameConfig = {
-    golfBallRadius: 0.8,
-    relativeMaxSpeed: 50,
+    golfBallRadius: 1,
+    relativeMaxSpeed: 60,
     frictionPerTime: 0.4,
     relativeSpeedThreshold: 1.6,
     maxDirectionLineLength: 20,
@@ -27,7 +27,7 @@ const svgConfig = {
     waterAttributes: {'stroke-width': 0},
     bridgeAttributes: {'stroke-width': 0},
     windAttributes: {'stroke-width': 0},
-    holeAttributes: {'r': 2.6*gameConfig.golfBallRadius, 'fill': 'black'},
+    holeAttributes: {'r': 2.6*gameConfig.golfBallRadius, 'fill': 'black', 'stroke': 'white', 'stroke-width': 0.1*gameConfig.golfBallRadius},
     // The amount of padding added to the viewbox, based on the AABB of the course
     extentPadding: 0.1,
     // When zooming with the scroll, by how much should each scroll zoom?
