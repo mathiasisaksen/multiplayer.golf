@@ -5,7 +5,6 @@ import * as svgUtilities from '../utilities/svg-utilities';
 import * as mUtils from '../utilities/math-utilities';
 import { svgConfig, gameConfig } from '../config';
 import * as colorUtils from '../utilities/color-utilities';
-import { generateCourse } from './generate-course';
 import { normalizeCourse } from './normalize-course';
 import ScoreBoard from '../sidebar/score-board';
 import showAnnouncement from '../sidebar/show-announcement';
@@ -83,12 +82,6 @@ Game.prototype.loadRandomCourses = function(numberOfCourses) {
     const holes = holeArray.slice();
     holes.sort((a, b) => Math.random() - 0.5);
     this.courseDataArray = holes.slice(0, numberOfCourses);
-}
-
-Game.prototype.generateNewCourse = function() {
-    this.currentCourseNumber++;
-    const newCourseData = generateCourse();
-    this.setGameContent(newCourseData);
 }
 
 Game.prototype.loadNextCourse = function() {

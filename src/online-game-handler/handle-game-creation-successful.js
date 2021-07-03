@@ -1,3 +1,4 @@
+import dialogBox from "../menu-system/dialog-box";
 import MenuController from "../menu-system/menu-controller";
 import newOnlineGameMenu from "../menu-system/new-online-game-menu";
 import PlayerList from "../sidebar/player-list";
@@ -25,6 +26,7 @@ function handleGameCreationSuccessful(data) {
         OnlineGameHandler.exit();
     });
     newOnlineGameMenu.clearInput();
+    dialogBox('Do not start until every player has joined the game', [{'text': 'Ok'}]);
 }
 
 export default handleGameCreationSuccessful;

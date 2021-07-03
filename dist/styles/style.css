@@ -20,7 +20,7 @@
 
 html, body {
     height: 100%;
-    font-size: 62.5%;
+    font-size: 50%;
 }
 
 body {
@@ -133,7 +133,7 @@ a {
 }
 
 .title-small {
-    --title-size: 4rem;
+    --title-size: 5rem;
 }
 
 .menu-element-container {
@@ -908,6 +908,15 @@ a {
 }
 
 @media (min-width: 600px) {
+
+    html, body {
+        font-size: 62.5%;
+    }
+
+    .title-small {
+        --title-size: 4rem;
+    }
+
     .menu-element-container {
         max-width: 540px;
     }
